@@ -1,0 +1,138 @@
+
+
+# Paired-chain T cell receptor (TCR) reference dataset preparation
+
+```{r setup, include=FALSE}
+source("./util/library.R")
+source("./util/processing.R")
+source("./util/filtering.R")
+source("./util/formatting.R")
+source("./util/aligning.R")
+library(rstudioapi)
+filepath <- getSourceEditorContext()$path
+setwd(dirname(filepath))
+```
+
+## Introduction
+
+This document describes the preparation of a paired-chain T cell receptor (TCR) reference dataset. The dataset intends to provide a comprehensive collection of TCR sequences and their associated antigen specificities. The dataset includes the [VDJdb](https://vdjdb.cdr3.net/) database; the [McPAS-TCR](https://friedmanlab.weizmann.ac.il/McPAS-TCR/) database; and the [IEDB](https://www.iedb.org/) database, all of which contain publicly available T cell epitopes and their associated antigen specificities. Additionally, this dataset utilizes several private datasets provided by collaborators at the University of Massichusetts Amherst. The dataset is intended to be used as a consistent, comprehensive reference for TCR repertoire analysis and TCR specificity prediction.
+
+``` {r data-import}
+
+iedb.file <- "./reference-data/receptor_table_export.tsv"
+mcpas.file <- "./reference-data/McPAS-TCR.csv"
+vdjdb.file <- "./reference-data/SearchTable-2024-06-03 23_02_41.23.tsv"
+
+iedb <- import(iedb.file) %>% preprocess("IEDB")
+mcpas <- import(mcpas.file) %>% preprocess("McPAS")
+vdjdb <- import(vdjdb.file) %>% preprocess("VDJ")
+
+# Needs to be updated with the other Amherst datasets (GLC, GIL, etc.)
+amherst.crossreactive.file <- "./reference-data/all-amherst-crossreactive.csv"
+amherst <- import(amherst.crossreactive.file) %>%
+    mutate(CDR1a = "", CDR2a = "",
+           CDR1b = "", CDR2b = "",
+           Epitope.gene = case_when(grepl(",", Epitope) ~ "BMLF, M1",
+                                    grepl("YVL", Epitope) & !grepl(",", Epitope) ~ "BMLF",
+                                    grepl("GIL", Epitope) & !grepl(",", Epitope) ~ "M1"),
+           Epitope.species = case_when(grepl(",", Epitope) ~ "Epstein Barr virus (EBV), Influenza A",
+                                    grepl("YVL", Epitope) & !grepl(",", Epitope) ~ "Epstein Barr virus (EBV)",
+                                    grepl("GIL", Epitope) & !grepl(",", Epitope) ~ "Influenza A"),
+           Score = "", Source.ID = Donor,
+           MHC = "HLA-A2",
+           Reference = "PMID: 31765434") 
+amherst <- amherst %>%
+    group_by(Epitope) %>%
+    mutate(clone.id = paste0("amherst_", Epitope, "_", row_number())) %>% 
+    ungroup() %>% 
+    select(clone.id, 
+           AV, CDR1a, CDR2a, CDR3a, AJ,
+           BV, CDR1b, CDR2b, CDR3b, BJ, 
+           Epitope, Epitope.gene, Epitope.species,
+           MHC, Source.ID, Reference, Score) %>% 
+    distinct(AV, CDR3a, BV, CDR3b, Epitope, .keep_all = TRUE) 
+# Get rid of comma-sep in clone.id column
+amherst$clone.id <- gsub(",", "_", amherst$clone.id)
+
+```
+
+```{r data-preparation}
+
+# Combine all datasets
+all.reference <- rbind(amherst, iedb, mcpas, vdjdb)
+
+# Format the full dataset without filtering for unique receptors or NA values
+all.reference <- all.reference %>%
+    convertGenes() %>%
+    convertEpitopeSpecies() %>%
+    convertEpitopeGenes() %>%
+    getFullSeq() %>%
+    getCDRSeq() 
+
+# Write the full dataset to file
+write.csv(all.reference, "./paired-data/all-paired-sequences.csv", row.names = FALSE)
+
+
+cat("### All paired-chain receptor data")
+glimpse(all.reference)
+data.frame(Distinct_values = sapply(all.reference, function(x) length(unique(x))))
+
+
+cat("### Paired-chain receptor data: distinct, non-empty full sequence (alignment) + epitope binding pairs")
+all.reference.distinct <- all.reference %>%
+    filterFullSeq() 
+glimpse(all.reference.distinct)
+data.frame(Distinct_values = sapply(all.reference.distinct, function(x) length(unique(x))))
+
+cat("### Paired-chain receptor data: distinct, non-empty CDR sequence + epitope binding pairs")
+all.reference.distinct.cdrs <- all.reference.distinct %>%
+    filterCDRSeq()
+glimpse(all.reference.distinct.cdrs)
+data.frame(Distinct_values = sapply(all.reference.distinct.cdrs, function(x) length(unique(x))))
+
+write.csv(all.reference.distinct, "./paired-data/all-distinct-paired-sequences.csv", row.names = FALSE)
+write.csv(all.reference.distinct.cdrs, "./paired-data/all-distinct-cdr-paired-sequences.csv", row.names = FALSE)
+
+```
+
+## Common data subsets 
+
+### High-confidence receptor data: VDJdb scores > 0
+
+```{r high-confidence-data}
+
+high.confidence <- all.reference.distinct.cdrs %>%
+    filterConfidence(score = 1, "amherst", "iedb", "mcpas")
+glimpse(high.confidence)
+data.frame(Distinct_values = sapply(high.confidence, function(x) length(unique(x))))
+
+write.csv(high.confidence, "./paired-data/high-confidence-paired-sequences.csv", row.names = FALSE)
+
+```
+
+### Similarity-based receptor data
+
+Assessing the performance of binding prediction methods often requires prediction evaluation when given data with varying levels of similarity. To this end ...
+
+```{r similarity-data} 
+
+# My way: has to leverage epitopes and CDRs to work efficiently
+
+# Adapting CD-HIT
+
+library(CellaRepertorium)
+library(Biostrings)
+
+# NEED TO ADD AA-checking METHOD- TOO MANY Xs and #s and something else to run this strict method
+aa <- c("A", "R", "N", "D", "C", "E", "Q", "G", "H", "I", 
+                       "L", "K", "M", "F", "P", "S", "T", "W", "Y", "V")
+test.in <- high.confidence %>% 
+    mutate(Compare = paste0(CDR3a, CDR3b)) %>% 
+    filter(!str_detect(CDR3a, paste0("[^", paste(aa, collapse = ""), "]")), 
+        !str_detect(CDR3b, paste0("[^", paste(aa, collapse = ""), "]"))) %>%
+    pull(Compare)
+test.in <- AAStringSet(test.in)
+test.out <- cdhit(test.in, identity=0.9, min_length = 5)
+
+
+```
