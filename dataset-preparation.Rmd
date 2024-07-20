@@ -116,23 +116,18 @@ Assessing the performance of binding prediction methods often requires predictio
 
 ```{r similarity-data} 
 
-# My way: has to leverage epitopes and CDRs to work efficiently
+compare.cdrs <- all.reference.distinct.cdrs %>%
+    mutate(Compare = paste0(CDR3a, CDR3b))
 
-# Adapting CD-HIT
+cat("#### 90% CDR3 sequence similarity")
+similarity.90 <- filterSequenceSimilarity(compare.cdrs, "Compare", 0.9)
+data.frame(Distinct_values = sapply(similarity.90, function(x) length(unique(x))))
 
-library(CellaRepertorium)
-library(Biostrings)
+cat("#### 75% CDR3 sequence similarity")
+similarity.75 <- filterSequenceSimilarity(compare.cdrs, "Compare", 0.75)
+data.frame(Distinct_values = sapply(similarity.75, function(x) length(unique(x))))
 
-# NEED TO ADD AA-checking METHOD- TOO MANY Xs and #s and something else to run this strict method
-aa <- c("A", "R", "N", "D", "C", "E", "Q", "G", "H", "I", 
-                       "L", "K", "M", "F", "P", "S", "T", "W", "Y", "V")
-test.in <- high.confidence %>% 
-    mutate(Compare = paste0(CDR3a, CDR3b)) %>% 
-    filter(!str_detect(CDR3a, paste0("[^", paste(aa, collapse = ""), "]")), 
-        !str_detect(CDR3b, paste0("[^", paste(aa, collapse = ""), "]"))) %>%
-    pull(Compare)
-test.in <- AAStringSet(test.in)
-test.out <- cdhit(test.in, identity=0.9, min_length = 5)
-
+write.csv(similarity.90 %>% select(-Compare), "./paired-data/similarity-90-paired-sequences.csv", row.names = FALSE)
+write.csv(similarity.75 %>% select(-Compare), "./paired-data/similarity-75-paired-sequences.csv", row.names = FALSE)
 
 ```

@@ -103,31 +103,50 @@ computeSimilarity <- function(data, compare.x, compare.y, similarity = 0.9) {
 # This matrix is used to perform hierarchical clustering, and clusters are defined by cutting the dendrogram at a height that reflects
 # the similarity threshold. This process groups items into clusters based on their similarity, identifying representative items or groups.
 computeRepresentatives <- function(data, similarity = 0.9) {
-  sim <- data %>% 
-    filter(max.similarity.level >= similarity) 
-  if (nrow(sim) < 2) {
-    return(sim)
-  } else {
-    column <- sim %>%
-      select(-dist.matrix, -similarity.level, -max.similarity.level, -clone.id) %>% pull()
-    dist.matrix <- stringdistmatrix(column, column, method = "lv")
-    sim.matrix <- 1 - dist.matrix / max(dist.matrix)
-    sim.clust <- hclust(as.dist(1-sim.matrix))
-    sim.clusters <- cutree(sim.clust, h = 1-similarity)
-    sim <- sim %>%
-      mutate(cluster = sim.clusters) %>%
-      group_by(cluster) %>%
-      arrange(desc(max.similarity.level)) %>%
-      slice(1) %>%
-      ungroup()
+    clusters <- unique(data$cluster_idx)
 
-    return(sim %>% select(-cluster))
-  }
+    rep.data <- data.frame()
+
+    for (cluster in clusters) {
+        cluster.data <- data %>%
+            filter(cluster_idx == cluster) 
+        cluster.column <- cluster.data %>% 
+            select(-cluster_idx, -n_cluster) %>%
+            pull()
+        dist.matrix <- stringdistmatrix(cluster.column, cluster.column, method = "lv")
+        # Use mediod as representative
+        sum.distances <- apply(dist.matrix, 1, sum)
+        medoid <- cluster.data[which.min(sum.distances),]
+        rep.data <- rbind(rep.data, medoid)
+    }
+
+    return(rep.data)
+
+  #sim <- data %>% 
+  #  filter(max.similarity.level >= similarity) 
+  #if (nrow(sim) < 2) {
+  #  return(sim)
+  #} else {
+  #  column <- sim %>%
+  #    select(-dist.matrix, -similarity.level, -max.similarity.level, -clone.id) %>% pull()
+  #  dist.matrix <- stringdistmatrix(column, column, method = "lv")
+  #  sim.matrix <- 1 - dist.matrix / max(dist.matrix)
+  #  sim.clust <- hclust(as.dist(1-sim.matrix))
+  #  sim.clusters <- cutree(sim.clust, h = 1-similarity)
+  #  sim <- sim %>%
+  #    mutate(cluster = sim.clusters) %>%
+  #    group_by(cluster) %>%
+  #    arrange(desc(max.similarity.level)) %>%
+  #    slice(1) %>%
+  #    ungroup()
+
+  #  return(sim %>% select(-cluster))
+  #}
 }
 
-computeDistance <- function(data, compare.x, compare.y) {
+computeDistance <- function(data, compare.x, compare.y, method = "lv") {
     data <- data %>% 
-        mutate(dist = stringdistmatrix(compare.x, compare.y, method = "lv"))
+        mutate(dist = stringdistmatrix(compare.x, compare.y, method = method))
     return(data)
 }
 
@@ -138,24 +157,63 @@ computeDistance <- function(data, compare.x, compare.y) {
 # When keep and above are false, filter out all rows which have highly similar sequences
 # When above is true, filter out all rows which have sequences that are less than 90% similar to one another, 
 # essentially performing a motif search but with percent similarity rather than exact allowable distance
-filterSimilarity <- function(data, column, motif = NULL, similarity = 0.9, representative = TRUE, above = FALSE) {
-    filter.by <- cbind(data %>% select(clone.id), column)
-    if (is.null(motif)) {
-        sim <- computeSimilarity(filter.by, 
-            (filter.by %>% select(-clone.id) %>% pull()), 
-            (filter.by %>% select(-clone.id) %>% pull()), 
-            similarity)
-    } else {
-        sim <- computeSimilarity(filter.by, (filter.by %>% select(-clone.id) %>% pull()), motif, similarity)
-    }
-    if (representative) {
-        reps <- computeRepresentatives(sim, similarity)
-        sim <- rbind(reps, sim %>% filter(max.similarity.level < similarity))
-    }
+
+# Re-working based on CD-HIT and CellaRepetorium
+# With the idea that we can lose some sequences with single-AA missing values (X, #, etc.) for sake of finding similar sequences in large datasets
+# As such, there's two wrappers from the previous one: 
+# filterSequenceSimilarity and filterMotifSimilarity
+# The former is for filtering by full sequences, producing massively polynomial matrices, the latter is for filtering by motifs (CDR3a, CDR3b, Epitopes, etc.), producing fixed-size matrices
+
+filterSequenceSimilarity <- function(data, column, similarity = 0.9) {
+    filter.by <- data %>%
+        checkAASequence() %>% 
+        select(clone.id, column)
+    filter.values <- filter.by %>% 
+        select(-clone.id) %>%
+        pull() 
+    names(filter.values) <- filter.by$clone.id
+    sim.clusters <- filter.values %>%
+        AAStringSet() %>%
+        cdhit(identity = similarity)
+    
+    # Store dissimilar seqs below threshold
+    dissim.seqs <- sim.clusters %>%
+        filter(n_cluster == 1)
+    
+    # Compute representatives for clusters with > 1 sequence at similarity threshold
+    sim.seqs <- sim.clusters %>%
+        filter(n_cluster > 1) 
+    rep.seqs <- sim.seqs %>% 
+        computeRepresentatives(similarity)
+
+    # Combine dissimilar and representative sequences
+    seqs <- rbind(dissim.seqs, rep.seqs)
+
+    # Join back to original data where clone.id = query_name
+    data <- data %>%
+        inner_join(seqs, by = c("clone.id" = "query_name")) %>%
+        select(-cluster_idx, -n_cluster, -seq)
+    return(data)    
+}
+
+filterMotifSimilarity <- function(data, column, motif, similarity = 0.9, above = TRUE) {
+    filter.by <- data %>% select(clone.id, column)
+    #if (is.null(motif)) {
+    #    sim <- computeSimilarity(filter.by, 
+    #        (filter.by %>% select(-clone.id) %>% pull()), 
+    #        (filter.by %>% select(-clone.id) %>% pull()), 
+    #        similarity)
+    #} else {
+    sim <- computeSimilarity(filter.by, (filter.by %>% select(-clone.id) %>% pull()), motif, similarity)
+    #}
+    #if (representative) {
+    #    reps <- computeRepresentatives(sim, similarity)
+    #    sim <- rbind(reps, sim %>% filter(max.similarity.level < similarity))
+    #}
     if (above) {
-        sim <- sim %>% 
+      sim <- sim %>% 
         filter(max.similarity.level >= similarity)
-    } else if (!above && !representative) {
+    } else {
       sim <- sim %>% 
         filter(max.similarity.level < similarity)
     }
@@ -165,24 +223,24 @@ filterSimilarity <- function(data, column, motif = NULL, similarity = 0.9, repre
 }
 
 filterDistance <- function(data, column, motif = NULL, distance = 0, above = FALSE) {
-  filter.by <- cbind(data %>% select(clone.id), column)
-  if (is.null(motif)) {
-    sim <- computeDistance(filter.by, 
-      (filter.by %>% select(-clone.id) %>% pull()), 
-      (filter.by %>% select(-clone.id) %>% pull()))
-  } else {
-    sim <- computeDistance(filter.by, (filter.by %>% select(-clone.id) %>% pull()), motif)
-  } 
-  if (above) {
-    sim <- sim %>% 
-      filter(dist >= distance)
-  } else {
-    sim <- sim %>% 
-      filter(dist <= distance)
-  }
-  data <- data %>% inner_join(sim %>% select(-dist, clone.id), by = "clone.id")
+    filter.by <- data %>% select(clone.id, column)
+    if (is.null(motif)) {
+        sim <- computeDistance(filter.by, 
+        (filter.by %>% select(-clone.id) %>% pull()), 
+        (filter.by %>% select(-clone.id) %>% pull()))
+    } else {
+        sim <- computeDistance(filter.by, (filter.by %>% select(-clone.id) %>% pull()), motif)
+    } 
+    if (above) {
+        sim <- sim %>% 
+        filter(dist >= distance)
+    } else {
+        sim <- sim %>% 
+        filter(dist <= distance)
+    }
+    data <- data %>% inner_join(sim %>% select(-dist, clone.id), by = "clone.id")
 
-  return(data)
+    return(data)
 }
 
 # Filter to epitope-specific entries
@@ -198,7 +256,7 @@ filterEpitope <- function(data, epitope, distance = NULL, similarity = NULL, rep
       filterDistance(Epitope, motif = epitope, distance, above = above)
   } else if (!is.null(similarity)) {
     data <- data %>%
-      filterSimilarity(Epitope, motif = epitope, similarity, representative = representative, above = above)
+      filterMotifSimilarity(Epitope, motif = epitope, similarity, representative = representative, above = above)
   }
 }
 
@@ -215,7 +273,7 @@ filterCDRa <- function(data, motif, distance = NULL, similarity = NULL, represen
       filterDistance(CDR3a, motif = motif, distance, above = above)
   } else if (!is.null(similarity)) {
     data <- data %>%
-      filterSimilarity(CDR3a, motif = motif, similarity, representative = representative, above = above)
+      filterMotifSimilarity(CDR3a, motif = motif, similarity, representative = representative, above = above)
   }
 }
 filterCDR3b <- function(data, motif, distance = NULL, similarity = NULL, representative = FALSE, above = TRUE) {
@@ -227,8 +285,9 @@ filterCDR3b <- function(data, motif, distance = NULL, similarity = NULL, represe
       filterDistance(CDR3b, motif = motif, distance, above = above)
   } else if (!is.null(similarity)) {
     data <- data %>%
-      filterSimilarity(CDR3b, motif = motif, similarity, representative = representative, above = above)
+      filterMotifSimilarity(CDR3b, motif = motif, similarity, representative = representative, above = above)
   }
 }
+
 
 

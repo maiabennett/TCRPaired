@@ -168,6 +168,14 @@ fetchEpitopes <- function(data, column, threshold, reference = TRUE) {
   return(epitopes)
 }
 
+# Check if sequence is proper AA sequence (for CD-HIT alignment)
+checkAASequence <- function(data) {
+  aa <- c("A", "R", "N", "D", "C", "E", "Q", "G", "H", "I", 
+                       "L", "K", "M", "F", "P", "S", "T", "W", "Y", "V")
+  data <- data %>% 
+    filter(!str_detect(CDR3a, paste0("[^", paste(aa, collapse = ""), "]")), 
+        !str_detect(CDR3b, paste0("[^", paste(aa, collapse = ""), "]")))
+}
 
 # Format full, paired dataset (i.e., start new benchmark)
 formatFullPaired <- function(data) {
