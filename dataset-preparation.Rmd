@@ -15,7 +15,7 @@ setwd(dirname(filepath))
 
 ## Introduction
 
-This document describes the preparation of a paired-chain T cell receptor (TCR) reference dataset. The dataset intends to provide a comprehensive collection of TCR sequences and their associated antigen specificities. The dataset includes the [VDJdb](https://vdjdb.cdr3.net/) database; the [McPAS-TCR](https://friedmanlab.weizmann.ac.il/McPAS-TCR/) database; and the [IEDB](https://www.iedb.org/) database, all of which contain publicly available T cell epitopes and their associated antigen specificities. Additionally, this dataset utilizes several private datasets provided by collaborators at the University of Massichusetts Amherst. The dataset is intended to be used as a consistent, comprehensive reference for TCR repertoire analysis and TCR specificity prediction.
+This document describes the preparation of a paired-chain T cell receptor (TCR) reference dataset. The dataset intends to provide a comprehensive collection of TCR sequences and their associated antigen specificities. The dataset includes the [VDJdb](https://vdjdb.cdr3.net/) database; the [McPAS-TCR](https://friedmanlab.weizmann.ac.il/McPAS-TCR/) database; and the [IEDB](https://www.iedb.org/) database, all of which contain publicly available T cell epitopes and their associated antigen specificities. Additionally, this dataset utilizes several private datasets provided by collaborators at the University of Massachusetts Amherst. The dataset is intended to be used as a consistent, comprehensive reference for TCR repertoire analysis and TCR specificity prediction.
 
 ``` {r data-import}
 
@@ -131,3 +131,6 @@ write.csv(similarity.90 %>% select(-Compare), "./paired-data/similarity-90-paire
 write.csv(similarity.75 %>% select(-Compare), "./paired-data/similarity-75-paired-sequences.csv", row.names = FALSE)
 
 ```
+
+## Generating negative data 
+
