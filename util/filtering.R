@@ -91,7 +91,9 @@ computeSimilarity <- function(data, compare.x, compare.y, similarity = 0.9) {
   #column <- data %>% select(-clone.id) %>% pull()
     data <- data %>% 
         mutate(dist.matrix = stringdistmatrix(compare.x, compare.y, method = "lv"))
-    diag(data$dist.matrix) <- NA  
+    if(is.data.frame(compare.y)) {
+      diag(data$dist.matrix) <- NA
+    }
     data <- data %>%
         mutate(similarity.level = 1 - dist.matrix / nchar(compare.x),
             max.similarity.level = apply(similarity.level, 1, max, na.rm = TRUE))
@@ -204,7 +206,7 @@ filterMotifSimilarity <- function(data, column, motif, similarity = 0.9, above =
     #        (filter.by %>% select(-clone.id) %>% pull()), 
     #        similarity)
     #} else {
-    sim <- computeSimilarity(filter.by, (filter.by %>% select(-clone.id) %>% pull()), motif, similarity)
+    sim <- computeSimilarity(filter.by, (filter.by %>% select(-clone.id) %>% na.omit() %>% pull()), motif, similarity)
     #}
     #if (representative) {
     #    reps <- computeRepresentatives(sim, similarity)
@@ -264,7 +266,7 @@ filterEpitope <- function(data, epitope, distance = NULL, similarity = NULL, rep
 # Default is to filter by exact motif match
 # If distance is provided, filter by allowable sequence distance
 # If similarity is provided, filter by allowable sequence similarity
-filterCDRa <- function(data, motif, distance = NULL, similarity = NULL, representative = FALSE, above = TRUE) {
+filterCDR3a <- function(data, motif, distance = NULL, similarity = NULL, representative = FALSE, above = TRUE) {
   if (is.null(distance) && is.null(similarity)) {
     data <- data %>%
       filter(str_detect(CDR3a, motif))
@@ -275,6 +277,7 @@ filterCDRa <- function(data, motif, distance = NULL, similarity = NULL, represen
     data <- data %>%
       filterMotifSimilarity(CDR3a, motif = motif, similarity, representative = representative, above = above)
   }
+  return(data)
 }
 filterCDR3b <- function(data, motif, distance = NULL, similarity = NULL, representative = FALSE, above = TRUE) {
   if (is.null(distance) && is.null(similarity)) {
@@ -287,6 +290,7 @@ filterCDR3b <- function(data, motif, distance = NULL, similarity = NULL, represe
     data <- data %>%
       filterMotifSimilarity(CDR3b, motif = motif, similarity, representative = representative, above = above)
   }
+  return(data)
 }
 
 

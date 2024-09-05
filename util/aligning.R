@@ -12,15 +12,15 @@ source_python("./util/extractSequences.py")
 getFullSeq <- function(data) {
   data.in <- formatVJCDR3(data) %>%
     na.omit() %>%
-    filter_all(all_vars(. != ""))
+    dplyr::filter_all(all_vars(. != ""))
   tcrs.full <- manage_sequences(data.in) %>% 
-    rename(alpha.seq = Alpha, 
+    dplyr::rename(alpha.seq = Alpha, 
            beta.seq = Beta) %>% 
-    mutate(full.seq = paste0(alpha.seq, beta.seq))
+    dplyr::mutate(full.seq = paste0(alpha.seq, beta.seq))
   tcrs.full.constant <- manage_sequences(data.in, constant_regions = TRUE) %>% 
-    rename(alpha.seq.constant = Alpha, 
+    dplyr::rename(alpha.seq.constant = Alpha, 
            beta.seq.constant = Beta) %>%
-    mutate(full.seq.constant = paste0(alpha.seq.constant, beta.seq.constant))
+    dplyr::mutate(full.seq.constant = paste0(alpha.seq.constant, beta.seq.constant))
 
   data <- bindSeqs(data, tcrs.full, tcrs.full.constant)
 }
@@ -29,12 +29,12 @@ getFullSeq <- function(data) {
 # If alleles = TRUE, append alleles ONLY for the purpose of CDR2.5 assignment
 getCDRSeq <- function(data, alleles = FALSE) {
   data.in <- data %>%
-    select(clone.id, AV, BV) %>%
+    dplyr::select(clone.id, AV, BV) %>%
     na.omit() %>%
-    filter_all(all_vars(. != ""))
+    dplyr::filter_all(all_vars(. != ""))
   if (alleles) {
     data.in <- data.in %>%
-      mutate(AV = paste0(AV, "*01"), BV = paste0(BV, "*01"))
+      dplyr::mutate(AV = paste0(AV, "*01"), BV = paste0(BV, "*01"))
   }
   tcrs.cdrs <- convert_data_paired(data.in, "AV", "BV")
   
@@ -46,7 +46,7 @@ bindSeqs <- function(data, ...) {
   new.data <- list(...)
   for (new in new.data) {
     # Join the new data to the existing data
-    data <- left_join(data, new, by = "clone.id", suffix = c("", ".new"))
+    data <- dplyr::left_join(data, new, by = "clone.id", suffix = c("", ".new"))
     # Get the shared column names
     common_cols <- intersect(names(data), paste0(names(new), ".new"))
     common_cols <- sub("\\.new$", "", common_cols)
@@ -54,13 +54,13 @@ bindSeqs <- function(data, ...) {
     for (col in common_cols) {
       # Replace NA or empty values in data with the corresponding values from new
       data <- data %>%
-        mutate(!!col := case_when(
+        dplyr::mutate(!!col := case_when(
           is.na(!!rlang::sym(col)) | !!rlang::sym(col) == "" ~ !!rlang::sym(paste0(col, ".new")),
           TRUE ~ !!rlang::sym(col)
         ))
     }
     # Remove the columns from new
-    data <- data %>% select(-ends_with(".new"))
+    data <- data %>% dplyr::select(-ends_with(".new"))
   }
   return(data)
 } 

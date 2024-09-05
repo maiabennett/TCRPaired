@@ -1,4 +1,4 @@
-# Establishing a reference dataset of paired-chain T cell receptor (TCR) sequences
+# Establishing and visualizing a reference dataset of paired-chain T cell receptor (TCR) sequences with TCRPaired and TCRView
 
 There have been many recent advances in TCR repetoire analysis and binding prediction, an area of research which has experienced a rapid expansion with the advent of single-cell RNA sequencing technology. Many algorithms have been developed in an attempt to predict TCR:peptide-major histocompatibility complex (pMHC) binding occurrences and patterns, to varying levels of success. 
 

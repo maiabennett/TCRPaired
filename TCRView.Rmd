@@ -1,0 +1,90 @@
+---
+title: "TCRView: Visualizing relationships in a comprehensive reference dataset of paired-chain T cell receptor sequences and epitope specificities"
+author: "Maia Bennett-Boehm"
+date: "2024-08-30"
+output: html_document
+---
+
+# Paired-chain T cell receptor (TCR) reference dataset visualization
+
+```{r setup, include=FALSE}
+source("./util/library.R")
+source("./util/plotting.R")
+library(rstudioapi)
+library(plotly)
+```
+
+```{r data-import}
+
+
+
+```
+
+## Introduction: Components of the TCR:pMHC complex
+
+```{r vj-genes}
+
+
+
+```
+
+
+
+```{r epitopes}
+
+# Epitope distribution
+
+# Epitope counts table (highest to lowest abundance)
+
+# Epitopes per epitope species (plotly dropdown to filter)
+
+
+```
+
+
+```{r mhc}
+
+# MHC group distribution
+
+# MHC counts table
+
+# MHC alleles per group (plotly dropdown to filter)
+
+
+```
+
+
+## Complex relationships in TCR:pMHC complexes
+
+```{r vj-sankey}
+
+# V J gene profile sankey diagrams
+# Dropdown to filter by epitope, epitope species, MHC group
+
+```
+
+
+```{r cdr3-length}
+
+# CDR3 alpha and beta lengths
+# Dropdown to color by V gene family, J gene family, MHC
+
+
+```
+
+
+```{r cdr-clust}
+
+# UMAP coordinates 
+# Dropdown to overlay with V genes, J genes, epitope specificity, MHC group
+
+
+```
+
+
+```{r cdr3-motif}
+
+# CDR3 motifs 
+# Dropdown to filter by epitope, epitope species, MHC group
+
+```

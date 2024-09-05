@@ -27,7 +27,7 @@ import <- function(file) {
 preprocessIEDB <- function(data) {
   data <- data %>%
     # select columns 
-    select(Chain.1.4, Chain.1.3, 
+    dplyr::select(Chain.1.4, Chain.1.3, 
            Chain.1.8, Chain.1.7,
            Chain.1.19, Chain.1.18,
            Chain.1.24, Chain.1.23,
@@ -41,7 +41,7 @@ preprocessIEDB <- function(data) {
            Assay.2,
            Assay.1, Reference) %>%
     # rename columns
-    rename(AVcalc = Chain.1.4, AVcur = Chain.1.3, 
+    dplyr::rename(AVcalc = Chain.1.4, AVcur = Chain.1.3, 
            AJcalc = Chain.1.8, AJcur = Chain.1.7,
            CDR1acalc = Chain.1.19, CDR1acur = Chain.1.18,
            CDR2acalc = Chain.1.24, CDR2acur = Chain.1.23,
@@ -56,9 +56,9 @@ preprocessIEDB <- function(data) {
            MHC = Assay.2,
            Source.ID = Assay.1) %>%
     # remove first row
-    slice(-1) %>%
+    dplyr::slice(-1) %>%
     # assign CDR3 sequences from calculated and curated columns
-    mutate(CDR3a = case_when(CDR3acalc != "" ~ CDR3acalc,
+    dplyr::mutate(CDR3a = case_when(CDR3acalc != "" ~ CDR3acalc,
                              CDR3acur != "" ~ CDR3acur,
                              TRUE ~ ""),
            CDR3b = case_when(CDR3bcalc != "" ~ CDR3bcalc,
@@ -91,7 +91,7 @@ preprocessIEDB <- function(data) {
            # remove " + ..." from epitope
            Epitope = gsub(" \\+ .*", "", Epitope)) %>%
     # remove rows missing essential values
-    filter_at(vars("AV", "CDR3a", "BV", "CDR3b", "Epitope"),
+    dplyr::filter_at(vars("AV", "CDR3a", "BV", "CDR3b", "Epitope"),
               all_vars(. != ""))
   data <- data %>% 
     # make clone.id
@@ -121,17 +121,17 @@ preprocessVDJ <- function(data) {
     b <- data %>%
       filter(Gene == 'TRB')
     data <- merge(a, b, by = 'complex.id', suffixes = c('.a', '.b')) %>%
-      select('V.a', 'CDR3.a', 'J.a', 
+      dplyr::select('V.a', 'CDR3.a', 'J.a', 
              'V.b', 'CDR3.b', 'J.b', 
              'Epitope.a', 'Epitope.gene.a', 'Epitope.species.a', 
              'MHC.A.a', 'complex.id', 'Reference.a', 'Score.a') %>%
-      rename(AV = V.a, CDR3a = CDR3.a, AJ = J.a,
+      dplyr::rename(AV = V.a, CDR3a = CDR3.a, AJ = J.a,
              BV = V.b, CDR3b = CDR3.b, BJ = J.b,
              Epitope = Epitope.a, Epitope.gene = Epitope.gene.a, Epitope.species = Epitope.species.a,
              MHC = MHC.A.a, Source.ID = complex.id,
              Reference = Reference.a, Score = Score.a) %>%
       # remove rows missing essential values
-      filter_at(vars("AV", "CDR3a", "BV", "CDR3b", "Epitope"),
+      dplyr::filter_at(vars("AV", "CDR3a", "BV", "CDR3b", "Epitope"),
                 all_vars(. != ""))
     data <- data %>% 
       # make clone.id
@@ -152,18 +152,18 @@ preprocessVDJ <- function(data) {
 # Preprocess McPAS-TCR data
 preprocessMcPAS <- function(data) {
   data <- data %>% 
-    select('TRAV', 'CDR3.alpha.aa', 'TRAJ',
+    dplyr::select('TRAV', 'CDR3.alpha.aa', 'TRAJ',
            'TRBV', 'CDR3.beta.aa', 'TRBJ',
            'Epitope.peptide', 'Antigen.protein', 'Pathology',
            'MHC', 'PubMed.ID', 'Species') %>%
-    rename(AV = TRAV, CDR3a = `CDR3.alpha.aa`, AJ = TRAJ,
+    dplyr::rename(AV = TRAV, CDR3a = `CDR3.alpha.aa`, AJ = TRAJ,
            BV = TRBV, CDR3b = `CDR3.beta.aa`, BJ = TRBJ,
            Epitope = `Epitope.peptide`, Epitope.gene = Antigen.protein,
            Epitope.species = Pathology,
            Reference = PubMed.ID) %>%
     filter(Species == "Human") %>%
     # remove rows missing essential values
-    filter_at(vars("AV", "CDR3a", "BV", "CDR3b", "Epitope"),
+    dplyr::filter_at(vars("AV", "CDR3a", "BV", "CDR3b", "Epitope"),
               all_vars(. != ""))
   data <- data %>%
     # make clone.id
@@ -255,3 +255,136 @@ preprocess <- function(data, type, epitope = FALSE, name = NULL) {
   }
 }
 
+
+# Generate negative data
+# Randomly select n TCRs (AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, AV.gene, AJ.gene, BV.gene, BJ.gene, alpha.seq, beta.seq, full.seq, alpha.seq.constant, beta.seq.constant, full.seq.constant, CDR2.5a, CDR2.5b)
+# Randomly select n epitopes (Epitope, Epitope.species, Epitope.gene)
+# Randomly combine TCR and pMHC data, checking if the combination already exists in the positive dataset, to generate n negative samples
+# If given target epitope or no epitopes, n is the total number of samples in negative set
+# If given target epitopes list, n is the number of samples per epitope in the negative set
+generateNegatives <- function(positive.data, n = 10000, target.epitope = NULL, target.epitopes = NULL, exclude.source = NULL) {
+    # Initialize dataframe
+    negative.data <- data.frame()
+    
+    # Optionally exclude sources (e.g., cross-reactive data from Chan Med)
+    if (!is.null(exclude.source)) {
+        positive.data <- positive.data %>%
+            filter(!str_detect(clone.id, exclude.source))
+    }
+
+    # Generate negative samples
+    # If constrained to an epitope, select from TCRs that do not bind that epitope in positive data
+    if (!is.null(target.epitope)) {
+        # Select TCRs that do not bind the target epitope
+        tcrs <- positive.data %>%
+            filter(Epitope != target.epitope) %>%
+            select(clone.id, AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, AV.gene, AJ.gene, BV.gene, BJ.gene, alpha.seq, beta.seq, full.seq, alpha.seq.constant, beta.seq.constant, full.seq.constant, CDR2.5a, CDR2.5b) %>%
+            distinct(AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, .keep_all = TRUE) 
+        # Select specific epitope and relevant columns
+        epitope <- positive.data %>%
+            filter(Epitope == target.epitope) %>% 
+            slice_head(1) %>% 
+            select(Epitope, Epitope.gene, Epitope.species)
+        
+        negative.data.epitope <- data.frame()
+
+        # Combine TCR and epitope data, checking for pairs in positive data
+        while (nrow(negative.data.epitope) < n) {
+            # Randomly select TCR
+            sampled.tcr <- tcrs %>%
+                sample_n(1)
+            
+            # Remove TCR from pool
+            #tcrs <- tcrs %>%
+            #    filter(clone.id != sampled.tcr$clone.id)
+
+            # Combine TCR and epitope data
+            combined <- cbind(selected.tcr, epitope)
+            # Check if pair already exists in positive data- given some methods utilize only CDR3 sequences, check Epitope, CDR3a, and CDR3b tuples
+            if (!any(
+                positive.data$Epitope == combined$Epitope &
+                positive.data$CDR3a == combined$CDR3a &
+                positive.data$CDR3b == combined$CDR3b)) {
+                    negative.data.epitope <- rbind(negative.data, combined)
+                }
+        }
+
+        negative.data <- rbind(negative.data, negative.data.epitope)
+    } 
+    # If constrained to a list of epitopes, iteratively select from TCRs that don't bind to each epitope
+    else if (!is.null(target.epitopes)) {
+        for (epitope in target.epitopes) {
+            # Select TCRs that do not bind the current target epitope
+            tcrs <- positive.data %>%
+                filter(Epitope != epitope) %>%
+                select(clone.id, AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, AV.gene, AJ.gene, BV.gene, BJ.gene, alpha.seq, beta.seq, full.seq, alpha.seq.constant, beta.seq.constant, full.seq.constant, CDR2.5a, CDR2.5b) %>%
+                distinct(AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, .keep_all = TRUE)
+
+            # Select specific epitope and relevant columns
+            epitope <- positive.data %>%
+                filter(Epitope == epitope) %>% 
+                slice_head(1) %>% 
+                select(Epitope, Epitope.gene, Epitope.species)
+
+            while(nrow(negative.data) < n) {
+                # Randomly select TCR
+                sampled.tcr <- tcrs %>%
+                    sample_n(1, replace = FALSE)
+                
+                # Remove TCR from pool
+                #tcrs <- tcrs %>%
+                #    filter(clone.id != sampled.tcr$clone.id)
+
+                # Combine TCR and epitope data
+                combined <- cbind(sampled.tcr, epitope)
+                # Check if pair already exists in positive data or negative data (to avoid duplicates)
+                if (!any(
+                    positive.data$Epitope == combined$Epitope &
+                    positive.data$CDR3a == combined$CDR3a &
+                    positive.data$CDR3b == combined$CDR3b &
+                    negative.data$Epitope == combined$Epitope &
+                    negative.data$CDR3a == combined$CDR3a &
+                    negative.data$CDR3b == combined$CDR3b)) {
+                        negative.data <- rbind(negative.data, combined)
+                }
+            }
+        }
+    }
+    # If not constrained to an epitope, randomly generate TCR-epitope pairs
+    else {
+        tcrs <- positive.data %>%
+            select(clone.id, AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, AV.gene, AJ.gene, BV.gene, BJ.gene, alpha.seq, beta.seq, full.seq, alpha.seq.constant, beta.seq.constant, full.seq.constant, CDR2.5a, CDR2.5b) %>%
+            distinct(AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, .keep_all = TRUE)
+
+        epitopes <- positive.data %>%
+            select(Epitope, Epitope.gene, Epitope.species) %>%
+            distinct(Epitope, .keep_all = TRUE)
+
+        while (nrow(negative.data) < n) {
+            # Randomly select TCR and epitope
+            sampled.tcr <- tcrs %>%
+                sample_n(1, replace = FALSE)
+            # Remove TCR from pool
+            #tcrs <- tcrs %>%
+            #    filter(clone.id != sampled.tcr$clone.id)
+        
+            sampled.epitope <- epitopes %>%
+                sample_n(1)
+
+            # Combine TCR and epitope data
+            combined <- cbind(sampled.tcr, sampled.epitope)
+            # Check if pair already exists in positive data
+            if (!any(
+                positive.data$Epitope == combined$Epitope &
+                positive.data$CDR3a == combined$CDR3a &
+                positive.data$CDR3b == combined$CDR3b)) {
+                    negative.data <- rbind(negative.data, combined)
+            }
+        }
+    }
+
+    negative.data <- negative.data %>% 
+        select(-clone.id)
+    
+    return(negative.data)
+}

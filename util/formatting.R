@@ -10,7 +10,7 @@ convertGenes <- function(data) {
   gene.file <- "./util/ref/family_alignment.txt"
   gene.ref <- data.frame(ID = readChar(gene.file, file.info(gene.file)$size))
   gene.ref <- gene.ref %>% 
-    mutate(ID = strsplit(as.character(ID), ">")) %>%
+    dplyr::mutate(ID = strsplit(as.character(ID), ">")) %>%
     unnest(ID)
   gene.ref <- gene.ref[-1,]
   gene.ref <- gene.ref %>% 
@@ -28,23 +28,23 @@ convertGenes <- function(data) {
   #  pull(gene.name)
     
   genes.single <- gene.ref %>%
-    mutate(gene.name = str_extract(Name, "^[^\\*]*")) %>%
+    dplyr::mutate(gene.name = str_extract(Name, "^[^\\*]*")) %>%
     # Group by Sequence to ensure unique sequences
-    group_by(gene.name) %>%
-    mutate(unique_seq_count = n_distinct(Sequence)) %>%
+    dplyr::group_by(gene.name) %>%
+    dplyr::mutate(unique_seq_count = n_distinct(Sequence)) %>%
   # Filter to keep only those gene.names where there is exactly one unique sequence
     filter(unique_seq_count == 1) %>%
-    ungroup() %>%
+    dplyr::ungroup() %>%
     # Select distinct SimpleName-Sequence pairs
-    distinct(gene.name, Sequence, .keep_all = TRUE) %>%
+    dplyr::distinct(gene.name, Sequence, .keep_all = TRUE) %>%
     # Pull the SimpleName for the genes.single list
-    pull(gene.name)
+    dplyr::pull(gene.name)
 
   data <- data %>%
     # fix gene naming (e.g., TCRAV --> TRAV)
     # make gene columns without alleles (e.g., TRAV14-1*01 --> TRAV14)
     # add allele only to single-allele genes (e.g., TRAV18 --> TRAV18*01)
-    mutate(AV = gsub("TCRA", "TRA", AV),
+    dplyr::mutate(AV = gsub("TCRA", "TRA", AV),
            AJ = gsub("TCRA", "TRA", AJ),
            BV = gsub("TCRB", "TRB", BV),
            BJ = gsub("TCRB", "TRB", BJ),
@@ -63,14 +63,14 @@ convertGenes <- function(data) {
 convertEpitopeSpecies <- function(data) {
   swap_values <- c("NY-ESO-1", "ORF1ab", "PIK3CA", "p53")
   data <- data %>% 
-    mutate(
+    dplyr::mutate(
       temp = ifelse(Epitope.species %in% swap_values, Epitope.species, NA),
       Epitope.species = ifelse(Epitope.species %in% swap_values, Epitope.gene, Epitope.species),
       Epitope.gene = ifelse(!is.na(temp), temp, Epitope.gene)
     ) %>%
-    select(-temp) 
+    dplyr::select(-temp) 
     data <- data %>%
-    mutate(Epitope.species = case_when(str_detect(Epitope.species, "CMV|Human herpesvirus 5") ~ "Cytomegalovirus (CMV)",
+    dplyr::mutate(Epitope.species = case_when(str_detect(Epitope.species, "CMV|Human herpesvirus 5") ~ "Cytomegalovirus (CMV)",
       str_detect(Epitope.species, "EBV|Human herpesvirus 4") & !str_detect(Epitope.species, "Influenza") ~ "Epstein Barr virus (EBV)",
       str_detect(Epitope.species, "DENV|dengue") ~ "Dengue virus (DENV)",
       str_detect(Epitope.species, "H1N1") ~ "Influenza A (H1N1)",
@@ -104,16 +104,16 @@ convertEpitopeSpecies <- function(data) {
       str_detect(Epitope.species, "EBV") & str_detect(Epitope.species, "Influenza") ~ "Epstein Barr virus (EBV), Influenza A",
       TRUE ~ Epitope.species
       ))%>%
-    group_by(Epitope) %>%
-    mutate(Epitope.species = ifelse(Epitope.species == "" | is.na(Epitope.species), min(Epitope.species[nchar(Epitope.species) > 0], na.rm = TRUE), Epitope.species)) %>%
-    ungroup()
+    dplyr::group_by(Epitope) %>%
+    dplyr::mutate(Epitope.species = ifelse(Epitope.species == "" | is.na(Epitope.species), min(Epitope.species[nchar(Epitope.species) > 0], na.rm = TRUE), Epitope.species)) %>%
+    dplyr::ungroup()
 }
 
 # Convert epitope gene names to a standard format
 convertEpitopeGenes <- function(data) {
   data <- data %>%
-    mutate(Epitope.gene = str_remove_all(Epitope.gene, "\\[.*?\\]")) %>%
-    mutate(Epitope.gene = case_when(str_detect(Epitope.gene, "BMLF|BMLF1") & !str_detect(Epitope.gene, "M1") ~ "BMLF1",
+    dplyr::mutate(Epitope.gene = str_remove_all(Epitope.gene, "\\[.*?\\]")) %>%
+    dplyr::mutate(Epitope.gene = case_when(str_detect(Epitope.gene, "BMLF|BMLF1") & !str_detect(Epitope.gene, "M1") ~ "BMLF1",
       str_detect(Epitope.gene, "BRLF1|BRLF-1") ~ "BRLF1",
       str_detect(Epitope.gene, "BZLF1|BZLF-1") ~ "BZLF1",
       str_detect(Epitope.gene, "M1|Matrix protein 1|matrix protein 1") & (Epitope.species == "Influenza A") ~ "M1",
@@ -144,10 +144,10 @@ convertEpitopeGenes <- function(data) {
       str_detect(Epitope.gene, "ORF10|Replicase polyprotein 10")  ~ "ORF10",
       str_detect(Epitope.gene, "Membrane protein|Matrix|M protein")  ~ "Membrane protein",
       TRUE ~ Epitope.gene)) %>%
-    group_by(Epitope) %>%
-    mutate(Epitope.gene = ifelse(Epitope.gene == "" | is.na(Epitope.gene), min(Epitope.gene[nchar(Epitope.gene) > 0]), Epitope.gene)) %>%
-    mutate(Epitope.gene = min(Epitope.gene[nchar(Epitope.gene) > 0])) %>%
-    ungroup()
+    dplyr::group_by(Epitope) %>%
+    dplyr::mutate(Epitope.gene = ifelse(Epitope.gene == "" | is.na(Epitope.gene), min(Epitope.gene[nchar(Epitope.gene) > 0]), Epitope.gene)) %>%
+    dplyr::mutate(Epitope.gene = min(Epitope.gene[nchar(Epitope.gene) > 0])) %>%
+    dplyr::ungroup()
 }
 
 # Identify feature count

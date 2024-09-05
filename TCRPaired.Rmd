@@ -1,0 +1,195 @@
+---
+title: "TCRPaired: A comprehensive reference dataset of paired-chain T cell receptor sequences and epitope specificities"
+author: "Maia Bennett-Boehm"
+date: "2024-08-30"
+output: html_document
+---
+
+# Paired-chain T cell receptor (TCR) referen---
+title: "LC and ME/CFS T cell epitope prediction analysis: All pretrained reference set predictions"
+author: "Maia Bennett-Boehm"
+date: "2024-07-30"
+output: html_document
+---ce dataset preparation
+
+```{r setup, include=FALSE}
+source("./util/library.R")
+source("./util/processing.R")
+source("./util/filtering.R")
+source("./util/formatting.R")
+source("./util/aligning.R")
+library(rstudioapi)
+filepath <- getSourceEditorContext()$path
+setwd(dirname(filepath))
+```
+
+## Introduction
+
+This document describes the preparation of a paired-chain T cell receptor (TCR) reference dataset. The dataset intends to provide a comprehensive collection of TCR sequences and their associated antigen specificities. The dataset includes the [VDJdb](https://vdjdb.cdr3.net/) database; the [McPAS-TCR](https://friedmanlab.weizmann.ac.il/McPAS-TCR/) database; and the [IEDB](https://www.iedb.org/) database, all of which contain publicly available T cell epitopes and their associated antigen specificities. Additionally, this dataset utilizes several private datasets provided by collaborators at the University of Massachusetts Chan Medical College. The dataset is intended to be used as a consistent, comprehensive reference for TCR repertoire analysis and TCR specificity prediction.
+
+```{r data-import}
+
+# Import reference databases
+iedb.file <- "./reference-data/IEDB_receptor_table_export.tsv"
+mcpas.file <- "./reference-data/McPAS-TCR.csv"
+vdjdb.file <- "./reference-data/VDJdb_2024-06-03.tsv"
+
+iedb <- import(iedb.file) %>% 
+    preprocess("IEDB")
+mcpas <- import(mcpas.file) %>% 
+    preprocess("McPAS")
+vdjdb <- import(vdjdb.file) %>% 
+    preprocess("VDJ")
+
+# Import Chan Medical College data
+# Needs to be updated with the other Chan Medical College datasets (GLC, GIL, etc.)
+chan.crossreactive.file <- "./reference-data/chan_crossreactive.csv"
+chan <- import(chan.crossreactive.file) %>%
+    mutate(CDR1a = "", CDR2a = "",
+           CDR1b = "", CDR2b = "",
+           Epitope.gene = case_when(grepl(",", Epitope) ~ "BMLF, M1",
+                                    grepl("YVL", Epitope) & !grepl(",", Epitope) ~ "BMLF",
+                                    grepl("GIL", Epitope) & !grepl(",", Epitope) ~ "M1"),
+           Epitope.species = case_when(grepl(",", Epitope) ~ "Epstein Barr virus (EBV), Influenza A",
+                                    grepl("YVL", Epitope) & !grepl(",", Epitope) ~ "Epstein Barr virus (EBV)",
+                                    grepl("GIL", Epitope) & !grepl(",", Epitope) ~ "Influenza A"),
+           Score = "", Source.ID = Donor,
+           MHC = "HLA-A2",
+           Reference = "PMID: 31765434")
+
+chan <- chan %>%
+    group_by(Epitope) %>%
+    mutate(clone.id = paste0("chan_", Epitope, "_", row_number())) %>% 
+    ungroup() %>% 
+    select(clone.id, 
+           AV, CDR1a, CDR2a, CDR3a, AJ,
+           BV, CDR1b, CDR2b, CDR3b, BJ, 
+           Epitope, Epitope.gene, Epitope.species,
+           MHC, Source.ID, Reference, Score) %>% 
+    distinct(AV, CDR3a, BV, CDR3b, Epitope, .keep_all = TRUE) 
+# Get rid of comma-sep in clone.id column
+chan$clone.id <- gsub(",", "_", chan$clone.id)
+
+```
+
+After all relevant data have been imported, they are combined, formatted, and filtered to create a comprehensive reference dataset. This process includes converting epitope gene and species to common values and deterining full receptor and CDR region sequences based on V and J gene information. The dataset is then written to a CSV file. 
+
+```{r full-data-preparation, results='asis'}
+
+# Combine all datasets
+all.reference <- rbind(chan, iedb, mcpas, vdjdb)
+
+# Format the full dataset without filtering for unique receptors or NA values
+all.reference <- all.reference %>%
+    convertGenes() %>%
+    convertEpitopeSpecies() %>%
+    convertEpitopeGenes() %>%
+    getFullSeq() %>%
+    getCDRSeq()
+
+# Write the full, redundant dataset to file
+write.csv(all.reference, "./paired-data/all-paired-sequences.csv", row.names = FALSE)
+
+
+cat("### All paired-chain receptor data")
+glimpse(all.reference)
+data.frame(Distinct_values = sapply(all.reference, function(x) length(unique(x))))
+
+```
+
+## Non-redundant data subsets
+
+The full dataset is filtered to remove redundant receptor sequences and empty sequences. At this point, crystal structure or homolog structure information where relevant. The resulting non-redundant dataset containing receptors with unique full sequences is then written to a CSV file. 
+
+```{r nonredundant-data-preparation, results='asis'}
+
+cat("### Paired-chain receptor data: distinct, non-empty full sequence (alignment) + epitope binding pairs")
+all.reference.distinct <- all.reference %>%
+    filterFullSeq() 
+
+# Add crystal structure information-- work in progress
+structures <- read.csv("./reference-data/summary_PDB_structures.csv") %>%
+    filter(complex.species == "Human", mhc.class == "MHCI") %>%
+    select(pdb.id, peptide, cdr3a, cdr3b) #%>%
+structure.join <- left_join(structures, 
+    all.reference.distinct %>% 
+        select(Epitope, CDR3a, CDR3b, AV.gene, BV.gene), 
+    by = c("peptide" = "Epitope", "cdr3a" = "CDR3a", "cdr3b" = "CDR3b")) %>% 
+    distinct()
+
+
+glimpse(all.reference.distinct)
+data.frame(Distinct_values = sapply(all.reference.distinct, function(x) length(unique(x))))
+
+cat("### Paired-chain receptor data: distinct, non-empty CDR sequence + epitope binding pairs")
+all.reference.distinct.cdrs <- all.reference.distinct %>%
+    filterCDRSeq()
+glimpse(all.reference.distinct.cdrs)
+data.frame(Distinct_values = sapply(all.reference.distinct.cdrs, function(x) length(unique(x))))
+
+write.csv(all.reference.distinct, "./paired-data/all-distinct-paired-sequences.csv", row.names = FALSE)
+write.csv(all.reference.distinct.cdrs, "./paired-data/all-distinct-cdr-paired-sequences.csv", row.names = FALSE)
+
+```
+
+## Common data subsets 
+
+### High-confidence receptor data: VDJdb scores > 0
+
+High-confidence data is defined as data with a VDJdb score greater than 0. Additional score-based thresholds may be added for McPAS-TCR and IEDB if available. This high-confidence data is often used as a benchmark for TCR specificity prediction methods given the poor performance of structural modelling on complexes obtained with lower-confidence experimental methods.
+
+```{r high-confidence-data}
+
+high.confidence <- all.reference.distinct.cdrs %>%
+    filterConfidence(score = 1, "chan", "iedb", "mcpas")
+glimpse(high.confidence)
+data.frame(Distinct_values = sapply(high.confidence, function(x) length(unique(x))))
+
+write.csv(high.confidence, "./paired-data/high-confidence-paired-sequences.csv", row.names = FALSE)
+
+```
+
+### Similarity-based receptor data
+
+Assessing the performance of binding prediction methods often requires prediction evaluation when given data with varying levels of similarity. To this end ...
+
+```{r similarity-data} 
+
+compare.cdrs <- all.reference.distinct.cdrs %>%
+    mutate(Compare = paste0(CDR3a, CDR3b))
+
+cat("#### 90% CDR3 sequence similarity")
+similarity.90 <- filterSequenceSimilarity(compare.cdrs, "Compare", 0.9)
+data.frame(Distinct_values = sapply(similarity.90, function(x) length(unique(x))))
+
+cat("#### 75% CDR3 sequence similarity")
+similarity.75 <- filterSequenceSimilarity(compare.cdrs, "Compare", 0.75)
+data.frame(Distinct_values = sapply(similarity.75, function(x) length(unique(x))))
+
+write.csv(similarity.90 %>% select(-Compare), "./paired-data/similarity-90-paired-sequences.csv", row.names = FALSE)
+write.csv(similarity.75 %>% select(-Compare), "./paired-data/similarity-75-paired-sequences.csv", row.names = FALSE)
+
+```
+
+## Generating negative data 
+
+```{r negative-data}
+
+# Specify the number of negative samples to generate
+n.negative <- 30000
+
+# Sampling can be based on a particular target value (i.e., epitope) or values (i.e., epitope list) or for all data 
+target.epitope <- NULL
+target.epitopes <- NULL
+
+# You can exclude specific data sources from the negative data generation, e.g., crossreactive data from CMS
+exclude.source = "chan"
+
+# Generate negative data from distinct CDRs dataset (to prevent redundancy) without specified epitope or epitope list (generates evenly distributed data for epitopes)
+negative.data <- generateNegatives(all.reference.distinct.cdrs, n.negative, target.epitope, target.epitopes, exclude.source)
+
+
+
+
+```
+
