@@ -107,15 +107,47 @@ cat("### Paired-chain receptor data: distinct, non-empty full sequence (alignmen
 all.reference.distinct <- all.reference %>%
     filterFullSeq() 
 
-# Add crystal structure information-- work in progress
+# Add crystal structure information
+# Import all PDB structures (from TCRen publication)
 structures <- read.csv("./reference-data/summary_PDB_structures.csv") %>%
     filter(complex.species == "Human", mhc.class == "MHCI") %>%
-    select(pdb.id, peptide, cdr3a, cdr3b) #%>%
-structure.join <- left_join(structures, 
+    select(pdb.id, peptide, cdr3a, cdr3b)  %>%
+    mutate(pdb.id = toupper(pdb.id)) %>%
+    dplyr::rename(PDB = pdb.id)
+# Import available VJ gene information for PDB structures (from Szeto et al. 2021)
+structures.genes <- read.csv("./reference-data/VJ-gene_PDB_structures.csv") %>%
+    mutate(Peptide = gsub(" (\\(.*\\))", "", Peptide),
+        TRAV.gene = paste0("TRAV", str_extract(TRAV, "^[^\\*]*")),
+        TRBV.gene = paste0("TRBV", str_extract(TRBV, "^[^\\*]*"))) %>%
+    dplyr::rename(PDB.name = TCR, peptide = Peptide) %>%
+    select("PDB", "peptide", "PDB.name", "TRAV.gene", "TRBV.gene", "MHC")
+# Join structures and structures genes
+structures <- left_join(structures, structures.genes, by = c("PDB", "peptide"))
+# Join structures with distinct sequence reference data to add VJ gene information where not available
+structures.receptors <- left_join(structures,
     all.reference.distinct %>% 
         select(Epitope, CDR3a, CDR3b, AV.gene, BV.gene), 
     by = c("peptide" = "Epitope", "cdr3a" = "CDR3a", "cdr3b" = "CDR3b")) %>% 
     distinct()
+# Filter for unique PDB structures and correct VJ genes
+structures.final <- structures.receptors %>% 
+    group_by(PDB) %>%
+    filter((TRAV.gene == AV.gene & TRBV.gene == BV.gene) | 
+        (is.na(TRAV.gene) & is.na(TRBV.gene)) |
+        (is.na(AV.gene) & is.na(BV.gene))) %>%
+    mutate(AV.gene = case_when(is.na(AV.gene) ~ TRAV.gene, TRUE ~ AV.gene),
+        BV.gene = case_when(is.na(BV.gene) ~ TRBV.gene, TRUE ~ BV.gene)) %>%
+    ungroup() %>% 
+    dplyr::rename(Epitope = peptide, CDR3a = cdr3a, CDR3b = cdr3b)
+
+# Add crystal structure information to the distinct full sequence dataset
+# First, add column for receptors which are the reference crystal structures (matching VJ genes, epitope, and CDR3 sequences)
+all.reference.distinct <- all.reference.distinct %>%
+    left_join(structures.final %>% select(-MHC, -TRAV.gene, -TRBV.gene), by = c("Epitope", "CDR3a", "CDR3b", "AV.gene", "BV.gene")) %>%
+    dplyr::rename(crystal.structure = PDB, crystal.structure.name = PDB.name) 
+
+# Then, add column for receptors which are homologous to the reference crystal structures (same epitope and CDR3 sequences with > 90% similarity or matching VJ genes)\
+all.reference.distinct <- fetchHomologs(all.reference.distinct, structures.final, threshold = 0.75)
 
 
 glimpse(all.reference.distinct)
@@ -127,6 +159,7 @@ all.reference.distinct.cdrs <- all.reference.distinct %>%
 glimpse(all.reference.distinct.cdrs)
 data.frame(Distinct_values = sapply(all.reference.distinct.cdrs, function(x) length(unique(x))))
 
+write.csv(structures.final, "./paired-data/crystal-structures.csv", row.names = FALSE)
 write.csv(all.reference.distinct, "./paired-data/all-distinct-paired-sequences.csv", row.names = FALSE)
 write.csv(all.reference.distinct.cdrs, "./paired-data/all-distinct-cdr-paired-sequences.csv", row.names = FALSE)
 
@@ -166,8 +199,10 @@ cat("#### 75% CDR3 sequence similarity")
 similarity.75 <- filterSequenceSimilarity(compare.cdrs, "Compare", 0.75)
 data.frame(Distinct_values = sapply(similarity.75, function(x) length(unique(x))))
 
+
 write.csv(similarity.90 %>% select(-Compare), "./paired-data/similarity-90-paired-sequences.csv", row.names = FALSE)
 write.csv(similarity.75 %>% select(-Compare), "./paired-data/similarity-75-paired-sequences.csv", row.names = FALSE)
+
 
 ```
 
@@ -189,7 +224,64 @@ exclude.source = "chan"
 negative.data <- generateNegatives(all.reference.distinct.cdrs, n.negative, target.epitope, target.epitopes, exclude.source)
 
 
-
-
 ```
 
+
+## PIEMA benchmark data
+
+Section temporary, needs to be moved to PIEMA directory when documenting
+
+```{r piema-benchmark}
+
+# PIEMA benchmark data selection
+
+# Compare column for combined CDR3a and CDR3b sequences
+compare.cdrs <- high.confidence %>%
+    mutate(Compare = paste0(CDR3a, CDR3b))
+
+cat("#### 90% CDR3 sequence similarity, high confidence receptors")
+high.confidence.similarity.90 <- filterSequenceSimilarity(compare.cdrs, "Compare", 0.9)
+data.frame(Distinct_values = sapply(high.confidence.similarity.90, function(x) length(unique(x))))
+
+write.csv(high.confidence.similarity.90 %>% select(-Compare), "./paired-data/high-confidence-similarity-90-paired-sequences.csv", row.names = FALSE)
+
+# Generate negative data with specified epitope list (generates evenly distributed data for epitopes)
+# This list contains all epitopes with > 50 receptors in 90% similarity high confidence dataset
+target.epitopes.info <- fetchEpitopes(high.confidence.similarity.90, column = "Epitope", threshold = 50)
+target.epitopes <- target.epitopes.info %>% pull(Epitope)
+n.negative <- 50
+exclude.source = "chan"
+negative.data <- generateNegatives(all.reference.distinct, n.negative, target.epitope, target.epitopes, exclude.source)
+negative.data <- negative.data %>% 
+    group_by(Epitope) %>%   
+    mutate(clone.id = paste0("decoy_", Epitope, "_", row_number())) %>%
+    ungroup() 
+
+write.csv(negative.data, "./paired-data/piema-benchmark-negative-sequences.csv", row.names = FALSE)
+
+# Randomly sample 50 receptors per epitope from high confidence dataset
+# In this dataset, 36 are known to be cross-reactive between GIL and YVL epitopes
+# Their inclusion is purposeful and may be used to evaluate the ability of a method to distinguish between cross-reactive epitopes or discarded later
+# To minimize confusion, all cross-reactive receptors are assigned to the YVL epitope
+positive.data <- high.confidence.similarity.90 %>% 
+    mutate(Epitope = case_when(Epitope == "GILGFVFTL,YVLDHLIVV" ~ "YVLDHLIVV", TRUE ~ Epitope)) %>%
+    filter(Epitope %in% target.epitopes) %>%
+    group_by(Epitope) %>% 
+    sample_n(50) %>% 
+    ungroup()
+
+write.csv(positive.data, "./paired-data/piema-benchmark-positive-sequences.csv", row.names = FALSE)
+
+
+# Final data for benchmarking matrix: 
+# True binders: 50 receptors per epitope
+# "Unlikely" binders: the 250 true binding receptors not specific to epitope in question
+# Negative binders: 50 randomly generated binding receptors not specific to epitope in question (drawn from full pool of receptors, not high confidence receptors)
+
+all.input <- rbind(
+    positive.data %>% select(clone.id, AV, CDR3a, AJ, BV, CDR3b, BJ),
+    negative.data %>% select(clone.id, AV, CDR3a, AJ, BV, CDR3b, BJ))
+
+write.csv(all.input, "./paired-data/piema-benchmark-input-sequences.csv", row.names = FALSE)
+
+```

@@ -294,4 +294,42 @@ filterCDR3b <- function(data, motif, distance = NULL, similarity = NULL, represe
 }
 
 
+fetchHomologs <- function(reference.data, structures.data, threshold = 0.9) {
+  # Create Compare columns
+  structures.data <- structures.data %>%
+    mutate(Compare = paste0(CDR3a, CDR3b))
+  
+  reference.data <- reference.data %>%
+    mutate(Compare = paste0(CDR3a, CDR3b))
+  
+  # Initialize homolog.structure column
+  reference.data$homolog.structure <- NA
 
+  for (i in 1:nrow(reference.data)) {
+    # Condition for V gene match
+    v.gene.match <- structures.data %>%
+      filter(Epitope == reference.data$Epitope[i] & AV.gene == reference.data$AV.gene[i] & BV.gene == reference.data$BV.gene[i])
+    
+    if (nrow(v.gene.match) > 0) {
+      reference.data$homolog.structure[i] <- v.gene.match$PDB[1]  # Take the first match
+    }
+  
+    # Filter structures.data based on Epitope and compute string distances
+    filtered.structures <- structures.data %>%
+      filter(Epitope == reference.data$Epitope[i])
+    
+    if (nrow(filtered.structures) > 0) {
+      similarities <- 1 - stringdistmatrix(reference.data$Compare[i], filtered.structures$Compare) / nchar(reference.data$Compare[i])
+      max.sim.index <- which.max(similarities)
+      
+      if (similarities[max.sim.index] > threshold) {
+        reference.data$homolog.structure[i] <- filtered.structures$PDB[max.sim.index]
+      }
+    }
+  }
+
+  reference.data <- reference.data %>%
+    select(-Compare)
+    
+  return(reference.data)
+}

@@ -283,7 +283,7 @@ generateNegatives <- function(positive.data, n = 10000, target.epitope = NULL, t
         # Select specific epitope and relevant columns
         epitope <- positive.data %>%
             filter(Epitope == target.epitope) %>% 
-            slice_head(1) %>% 
+            dplyr::slice_head(1) %>% 
             select(Epitope, Epitope.gene, Epitope.species)
         
         negative.data.epitope <- data.frame()
@@ -292,14 +292,14 @@ generateNegatives <- function(positive.data, n = 10000, target.epitope = NULL, t
         while (nrow(negative.data.epitope) < n) {
             # Randomly select TCR
             sampled.tcr <- tcrs %>%
-                sample_n(1)
+                dplyr::sample_n(1)
             
             # Remove TCR from pool
             #tcrs <- tcrs %>%
             #    filter(clone.id != sampled.tcr$clone.id)
 
             # Combine TCR and epitope data
-            combined <- cbind(selected.tcr, epitope)
+            combined <- cbind(sampled.tcr, epitope)
             # Check if pair already exists in positive data- given some methods utilize only CDR3 sequences, check Epitope, CDR3a, and CDR3b tuples
             if (!any(
                 positive.data$Epitope == combined$Epitope &
@@ -323,10 +323,12 @@ generateNegatives <- function(positive.data, n = 10000, target.epitope = NULL, t
             # Select specific epitope and relevant columns
             epitope <- positive.data %>%
                 filter(Epitope == epitope) %>% 
-                slice_head(1) %>% 
+                dplyr::slice_head(n=1) %>% 
                 select(Epitope, Epitope.gene, Epitope.species)
 
-            while(nrow(negative.data) < n) {
+            negative.data.epitope <- data.frame()
+
+            while(nrow(negative.data.epitope) < n) {
                 # Randomly select TCR
                 sampled.tcr <- tcrs %>%
                     sample_n(1, replace = FALSE)
@@ -345,6 +347,7 @@ generateNegatives <- function(positive.data, n = 10000, target.epitope = NULL, t
                     negative.data$Epitope == combined$Epitope &
                     negative.data$CDR3a == combined$CDR3a &
                     negative.data$CDR3b == combined$CDR3b)) {
+                        negative.data.epitope <- rbind(negative.data.epitope, combined)
                         negative.data <- rbind(negative.data, combined)
                 }
             }
