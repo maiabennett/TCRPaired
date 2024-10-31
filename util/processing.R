@@ -278,7 +278,8 @@ generateNegatives <- function(positive.data, n = 10000, target.epitope = NULL, t
         # Select TCRs that do not bind the target epitope
         tcrs <- positive.data %>%
             filter(Epitope != target.epitope) %>%
-            select(clone.id, AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, AV.gene, AJ.gene, BV.gene, BJ.gene, alpha.seq, beta.seq, full.seq, alpha.seq.constant, beta.seq.constant, full.seq.constant, CDR2.5a, CDR2.5b) %>%
+            select(clone.id, AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, AV.gene, AJ.gene, BV.gene, BJ.gene, alpha.seq, beta.seq, full.seq, alpha.seq.constant, beta.seq.constant, full.seq.constant, CDR2.5a, CDR2.5b, Epitope, Epitope.gene, Epitope.species) %>%
+            dplyr::rename(True.epitope = Epitope, True.epitope.gene = Epitope.gene, True.epitope.species = Epitope.species) %>%
             distinct(AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, .keep_all = TRUE) 
         # Select specific epitope and relevant columns
         epitope <- positive.data %>%
@@ -316,8 +317,9 @@ generateNegatives <- function(positive.data, n = 10000, target.epitope = NULL, t
         for (epitope in target.epitopes) {
             # Select TCRs that do not bind the current target epitope
             tcrs <- positive.data %>%
-                filter(Epitope != epitope) %>%
-                select(clone.id, AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, AV.gene, AJ.gene, BV.gene, BJ.gene, alpha.seq, beta.seq, full.seq, alpha.seq.constant, beta.seq.constant, full.seq.constant, CDR2.5a, CDR2.5b) %>%
+                filter(!(Epitope %in% target.epitopes)) %>%
+                select(clone.id, AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, AV.gene, AJ.gene, BV.gene, BJ.gene, alpha.seq, beta.seq, full.seq, alpha.seq.constant, beta.seq.constant, full.seq.constant, CDR2.5a, CDR2.5b, Epitope, Epitope.gene, Epitope.species) %>%
+                dplyr::rename(True.epitope = Epitope, True.epitope.gene = Epitope.gene, True.epitope.species = Epitope.species) %>%
                 distinct(AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, .keep_all = TRUE)
 
             # Select specific epitope and relevant columns
@@ -356,7 +358,8 @@ generateNegatives <- function(positive.data, n = 10000, target.epitope = NULL, t
     # If not constrained to an epitope, randomly generate TCR-epitope pairs
     else {
         tcrs <- positive.data %>%
-            select(clone.id, AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, AV.gene, AJ.gene, BV.gene, BJ.gene, alpha.seq, beta.seq, full.seq, alpha.seq.constant, beta.seq.constant, full.seq.constant, CDR2.5a, CDR2.5b) %>%
+            select(clone.id, AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, AV.gene, AJ.gene, BV.gene, BJ.gene, alpha.seq, beta.seq, full.seq, alpha.seq.constant, beta.seq.constant, full.seq.constant, CDR2.5a, CDR2.5b, Epitope, Epitope.gene, Epitope.species) %>%
+            dplyr::rename(True.epitope = Epitope, True.epitope.gene = Epitope.gene, True.epitope.species = Epitope.species) %>%
             distinct(AV, CDR1a, CDR2a, CDR3a, AJ, BV, CDR1b, CDR2b, CDR3b, BJ, .keep_all = TRUE)
 
         epitopes <- positive.data %>%
@@ -390,4 +393,5 @@ generateNegatives <- function(positive.data, n = 10000, target.epitope = NULL, t
         select(-clone.id)
     
     return(negative.data)
+    
 }

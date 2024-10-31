@@ -5,12 +5,7 @@ date: "2024-08-30"
 output: html_document
 ---
 
-# Paired-chain T cell receptor (TCR) referen---
-title: "LC and ME/CFS T cell epitope prediction analysis: All pretrained reference set predictions"
-author: "Maia Bennett-Boehm"
-date: "2024-07-30"
-output: html_document
----ce dataset preparation
+# TCRPaired: Building comprehensive reference datasets of paired-chain T cell receptor sequences and epitope specificities
 
 ```{r setup, include=FALSE}
 source("./util/library.R")
@@ -25,7 +20,7 @@ setwd(dirname(filepath))
 
 ## Introduction
 
-This document describes the preparation of a paired-chain T cell receptor (TCR) reference dataset. The dataset intends to provide a comprehensive collection of TCR sequences and their associated antigen specificities. The dataset includes the [VDJdb](https://vdjdb.cdr3.net/) database; the [McPAS-TCR](https://friedmanlab.weizmann.ac.il/McPAS-TCR/) database; and the [IEDB](https://www.iedb.org/) database, all of which contain publicly available T cell epitopes and their associated antigen specificities. Additionally, this dataset utilizes several private datasets provided by collaborators at the University of Massachusetts Chan Medical College. The dataset is intended to be used as a consistent, comprehensive reference for TCR repertoire analysis and TCR specificity prediction.
+This document describes the preparation of a paired-chain T cell receptor (TCR) reference dataset. The dataset intends to provide a comprehensive set of tools to prepare benchmark datasets of TCR sequences and their associated antigen specificities which can be used, in a single form, across multiple TCR binding prediction methods to reduce data dependency and bias when assessing method effectiveness. The data prepared in this script includes the [VDJdb](https://vdjdb.cdr3.net/) database; the [McPAS-TCR](https://friedmanlab.weizmann.ac.il/McPAS-TCR/) database; and the [IEDB](https://www.iedb.org/) database, all of which contain publicly available T cell epitopes and their associated antigen specificities. Additionally, this dataset utilizes several private datasets provided by collaborators at the University of Massachusetts Chan Medical College. The dataset is intended to show the utility of a consistent, comprehensive reference for TCR repertoire analysis and TCR specificity prediction.
 
 ```{r data-import}
 
@@ -70,44 +65,6 @@ chan <- chan %>%
 # Get rid of comma-sep in clone.id column
 chan$clone.id <- gsub(",", "_", chan$clone.id)
 
-```
-
-After all relevant data have been imported, they are combined, formatted, and filtered to create a comprehensive reference dataset. This process includes converting epitope gene and species to common values and deterining full receptor and CDR region sequences based on V and J gene information. The dataset is then written to a CSV file. 
-
-```{r full-data-preparation, results='asis'}
-
-# Combine all datasets
-all.reference <- rbind(chan, iedb, mcpas, vdjdb)
-
-# Format the full dataset without filtering for unique receptors or NA values
-all.reference <- all.reference %>%
-    convertGenes() %>%
-    convertEpitopeSpecies() %>%
-    convertEpitopeGenes() %>%
-    getFullSeq() %>%
-    getCDRSeq()
-
-# Write the full, redundant dataset to file
-write.csv(all.reference, "./paired-data/all-paired-sequences.csv", row.names = FALSE)
-
-
-cat("### All paired-chain receptor data")
-glimpse(all.reference)
-data.frame(Distinct_values = sapply(all.reference, function(x) length(unique(x))))
-
-```
-
-## Non-redundant data subsets
-
-The full dataset is filtered to remove redundant receptor sequences and empty sequences. At this point, crystal structure or homolog structure information where relevant. The resulting non-redundant dataset containing receptors with unique full sequences is then written to a CSV file. 
-
-```{r nonredundant-data-preparation, results='asis'}
-
-cat("### Paired-chain receptor data: distinct, non-empty full sequence (alignment) + epitope binding pairs")
-all.reference.distinct <- all.reference %>%
-    filterFullSeq() 
-
-# Add crystal structure information
 # Import all PDB structures (from TCRen publication)
 structures <- read.csv("./reference-data/summary_PDB_structures.csv") %>%
     filter(complex.species == "Human", mhc.class == "MHCI") %>%
@@ -140,14 +97,53 @@ structures.final <- structures.receptors %>%
     ungroup() %>% 
     dplyr::rename(Epitope = peptide, CDR3a = cdr3a, CDR3b = cdr3b)
 
+write.csv(structures.final, "./paired-data/crystal-structures.csv", row.names = FALSE)
+
+```
+
+After all relevant data have been imported, they are combined, formatted, and filtered to create a comprehensive reference dataset. This process includes converting epitope gene and species to common values and deterining full receptor and CDR region sequences based on V and J gene information. The dataset is then written to a CSV file. 
+
+```{r full-data-preparation, results='asis'}
+
+# Combine all datasets
+all.reference <- rbind(chan, iedb, mcpas, vdjdb)
+
+# Format the full dataset without filtering for unique receptors or NA values
+all.reference <- all.reference %>%
+    convertGenes() %>%
+    convertEpitopeSpecies() %>%
+    convertEpitopeGenes() %>%
+    getFullSeq() %>%
+    getCDRSeq()
+
+# Write the full, redundant dataset to file
+write.csv(all.reference, "./paired-data/all-paired-sequences.csv", row.names = FALSE)
+
+
+cat("### All paired-chain receptor data")
+glimpse(all.reference)
+data.frame(Distinct_values = sapply(all.reference, function(x) length(unique(x))))
+
+```
+
+## Non-redundant data subsets
+
+The full dataset is filtered to remove redundant receptor sequences and empty sequences. At this point, crystal structure or homolog structure information can be added where relevant. The resulting non-redundant datasets containing receptors with nonredundant full sequences; nonredundant CDR sequences; and unique full sequences are then written to a CSV file. All steps through this point (not including structural data preparation) can be accomplished using the formatFullPaired() function, recommended for starting a new benchmark dataset which is compatible with all currently available TCR specificity prediction methods.
+
+```{r nonredundant-data-preparation, results='asis'}
+
+cat("### Paired-chain receptor data: distinct, non-empty full sequence (alignment) + epitope binding pairs")
+all.reference.distinct <- all.reference %>%
+    filterFullSeq() 
+
 # Add crystal structure information to the distinct full sequence dataset
 # First, add column for receptors which are the reference crystal structures (matching VJ genes, epitope, and CDR3 sequences)
 all.reference.distinct <- all.reference.distinct %>%
     left_join(structures.final %>% select(-MHC, -TRAV.gene, -TRBV.gene), by = c("Epitope", "CDR3a", "CDR3b", "AV.gene", "BV.gene")) %>%
     dplyr::rename(crystal.structure = PDB, crystal.structure.name = PDB.name) 
 
-# Then, add column for receptors which are homologous to the reference crystal structures (same epitope and CDR3 sequences with > 90% similarity or matching VJ genes)\
-all.reference.distinct <- fetchHomologs(all.reference.distinct, structures.final, threshold = 0.75)
+# Then, add column for receptors which are homologous to the reference crystal structures (same epitope and CDR3 sequences with > 90% similarity or matching V genes)
+all.reference.distinct <- fetchHomologs(all.reference.distinct, structures.final, threshold = 0.75, v.gene = FALSE)
 
 
 glimpse(all.reference.distinct)
@@ -159,17 +155,17 @@ all.reference.distinct.cdrs <- all.reference.distinct %>%
 glimpse(all.reference.distinct.cdrs)
 data.frame(Distinct_values = sapply(all.reference.distinct.cdrs, function(x) length(unique(x))))
 
-write.csv(structures.final, "./paired-data/crystal-structures.csv", row.names = FALSE)
 write.csv(all.reference.distinct, "./paired-data/all-distinct-paired-sequences.csv", row.names = FALSE)
 write.csv(all.reference.distinct.cdrs, "./paired-data/all-distinct-cdr-paired-sequences.csv", row.names = FALSE)
+
 
 ```
 
 ## Common data subsets 
 
-### High-confidence receptor data: VDJdb scores > 0
+### High-confidence receptor data
 
-High-confidence data is defined as data with a VDJdb score greater than 0. Additional score-based thresholds may be added for McPAS-TCR and IEDB if available. This high-confidence data is often used as a benchmark for TCR specificity prediction methods given the poor performance of structural modelling on complexes obtained with lower-confidence experimental methods.
+High-confidence data is defined as data with a VDJdb score at or greater than a given threshold (here, the threshold is a VDJdb score of 1). Additional score-based thresholds may be added for McPAS-TCR and IEDB if available. This high-confidence data is often used as a benchmark for TCR specificity prediction methods given the poor performance of structural modelling on complexes obtained with lower-confidence experimental methods.
 
 ```{r high-confidence-data}
 
@@ -184,7 +180,7 @@ write.csv(high.confidence, "./paired-data/high-confidence-paired-sequences.csv",
 
 ### Similarity-based receptor data
 
-Assessing the performance of binding prediction methods often requires prediction evaluation when given data with varying levels of similarity. To this end ...
+Assessing the performance of binding prediction methods often requires prediction evaluation when given data with varying levels of similarity. To this end, benchmark datasets can be filtered by a given percent sequence similarity of a specified column (*e.g.,*, CDR3a, CDR3b, CDR3, or full sequence). This step is highly recommended given the high level of sequence similarity in certain epitope-specific TCRs, which can lead to overfitting in prediction models.
 
 ```{r similarity-data} 
 
@@ -200,13 +196,15 @@ similarity.75 <- filterSequenceSimilarity(compare.cdrs, "Compare", 0.75)
 data.frame(Distinct_values = sapply(similarity.75, function(x) length(unique(x))))
 
 
-write.csv(similarity.90 %>% select(-Compare), "./paired-data/similarity-90-paired-sequences.csv", row.names = FALSE)
-write.csv(similarity.75 %>% select(-Compare), "./paired-data/similarity-75-paired-sequences.csv", row.names = FALSE)
+write.csv(similarity.90 %>% select(-Compare), "./paired-data/cdr3-similarity-90-paired-sequences.csv", row.names = FALSE)
+write.csv(similarity.75 %>% select(-Compare), "./paired-data/cdr3-similarity-75-paired-sequences.csv", row.names = FALSE)
 
 
 ```
 
 ## Generating negative data 
+
+Negative data is generated to provide a balanced dataset for training and testing TCR specificity prediction models. Negative data can be generated based on a specified epitope or epitope list, or for all data. Negative data can also be generated excluding a specific data source, such as crossreactive data from the Chan Medical College dataset.
 
 ```{r negative-data}
 
@@ -222,7 +220,60 @@ exclude.source = "chan"
 
 # Generate negative data from distinct CDRs dataset (to prevent redundancy) without specified epitope or epitope list (generates evenly distributed data for epitopes)
 negative.data <- generateNegatives(all.reference.distinct.cdrs, n.negative, target.epitope, target.epitopes, exclude.source)
+skim(negative.data)
 
+# Generate negative data from distinct CDRs dataset with specified epitope list
+target.epitopes <- fetchEpitopes(all.reference.distinct.cdrs, column = "Epitope", threshold = 50)
+n.negative <- 50
+negative.data <- generateNegatives(all.reference.distinct.cdrs, n.negative, target.epitope, target.epitopes, exclude.source)
+skim(negative.data)
+
+# Generate negative data from distinct CDRs dataset with specified epitope
+target.epitope <- "GILGFVFTL"
+target.epitopes <- NULL
+n.negative <- 300
+negative.data <- generateNegatives(all.reference.distinct.cdrs, n.negative, target.epitope, target.epitopes, exclude.source)
 
 ```
 
+## Formatting for TCR specificity prediction
+
+The final step in preparing the reference dataset is to format the data for use in specified TCR specificity prediction methods. This process includes converting the data to the appropriate format for each method, such as ERGO-II, TCRdist2, SwarmTCR, TRain, and PIEMA. Here, this is shown using the high-confidence data subset.
+
+```{r formatting}
+
+ergo.data <- formatERGO(high.confidence)
+
+tcrdist.data <- formatTCRdist2(high.confidence)
+
+swarm.data <- formatSwarmTCR(high.confidence)
+
+train.data <- formatVJCDR3(high.confidence)
+
+piema.data <- formatVJCDR3(high.confidence)
+
+write.csv(ergo.data, "./paired-data/ergo-high-confidence-data.csv", row.names = FALSE)
+write.csv(tcrdist.data, "./paired-data/tcrdist-high-confidence-data.csv", row.names = FALSE)
+write.csv(swarm.data, "./paired-data/swarm-high-confidence-data.csv", row.names = FALSE)
+write.csv(train.data, "./paired-data/train-high-confidence-data.csv", row.names = FALSE)
+write.csv(piema.data, "./paired-data/piema-high-confidence-data.csv", row.names = FALSE)
+
+```
+
+
+## Prediction benchmark dataset: An example
+
+Here, a sample dataset is prepared for use training and testnig various TCR specificity prediction methods. This dataset includes the Chan Medical College data, IEDB data, McPAS data, and VDJdb data. The dataset is filtered to remove redundant receptor sequences, empty sequences, and CDR sequences and filtered to remove receptors with > 95% CDR3 sequence similarity; and negative data is generated for the dataset at ... (complete SwarmTCRTools, then revisit)
+
+```{r sample-dataset}
+
+all.reference <- rbind(chan, iedb, mcpas, vdjdb)
+
+sample.dataset <- all.reference %>% 
+    formatFullPaired()
+
+sample.dataset <- sample.dataset %>%
+    mutate(CDR3 = paste0(CDR3a, CDR3b)) %>%
+    filterSequenceSimilarity("CDR3", 0.95)
+
+```

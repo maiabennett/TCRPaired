@@ -1,0 +1,6 @@
+
+# Ignore old plotting file
+plotting-old.R
+
+# Ignore .conda
+.conda

@@ -123,27 +123,6 @@ computeRepresentatives <- function(data, similarity = 0.9) {
     }
 
     return(rep.data)
-
-  #sim <- data %>% 
-  #  filter(max.similarity.level >= similarity) 
-  #if (nrow(sim) < 2) {
-  #  return(sim)
-  #} else {
-  #  column <- sim %>%
-  #    select(-dist.matrix, -similarity.level, -max.similarity.level, -clone.id) %>% pull()
-  #  dist.matrix <- stringdistmatrix(column, column, method = "lv")
-  #  sim.matrix <- 1 - dist.matrix / max(dist.matrix)
-  #  sim.clust <- hclust(as.dist(1-sim.matrix))
-  #  sim.clusters <- cutree(sim.clust, h = 1-similarity)
-  #  sim <- sim %>%
-  #    mutate(cluster = sim.clusters) %>%
-  #    group_by(cluster) %>%
-  #    arrange(desc(max.similarity.level)) %>%
-  #    slice(1) %>%
-  #    ungroup()
-
-  #  return(sim %>% select(-cluster))
-  #}
 }
 
 computeDistance <- function(data, compare.x, compare.y, method = "lv") {
@@ -160,13 +139,14 @@ computeDistance <- function(data, compare.x, compare.y, method = "lv") {
 # When above is true, filter out all rows which have sequences that are less than 90% similar to one another, 
 # essentially performing a motif search but with percent similarity rather than exact allowable distance
 
-# Re-working based on CD-HIT and CellaRepetorium
-# With the idea that we can lose some sequences with single-AA missing values (X, #, etc.) for sake of finding similar sequences in large datasets
-# As such, there's two wrappers from the previous one: 
-# filterSequenceSimilarity and filterMotifSimilarity
-# The former is for filtering by full sequences, producing massively polynomial matrices, the latter is for filtering by motifs (CDR3a, CDR3b, Epitopes, etc.), producing fixed-size matrices
+# filterSequenceSimilarity
+# Intended for filtering entire datasets by full sequence similarity, producing massively polynomial matrices 
 
 filterSequenceSimilarity <- function(data, column, similarity = 0.9) {
+  library(Biostrings)
+  library(dplyr)
+  library(stringdist)
+  library(CellaRepertorium)
     filter.by <- data %>%
         checkAASequence() %>% 
         select(clone.id, column)
@@ -198,20 +178,10 @@ filterSequenceSimilarity <- function(data, column, similarity = 0.9) {
     return(data)    
 }
 
+# filterMotifSimilarity
+# Intended for filtering by similarity to motifs or sequences (CDR3a, CDR3b, Epitopes, etc.), producing fixed-size matrices
 filterMotifSimilarity <- function(data, column, motif, similarity = 0.9, above = TRUE) {
     filter.by <- data %>% select(clone.id, column)
-    #if (is.null(motif)) {
-    #    sim <- computeSimilarity(filter.by, 
-    #        (filter.by %>% select(-clone.id) %>% pull()), 
-    #        (filter.by %>% select(-clone.id) %>% pull()), 
-    #        similarity)
-    #} else {
-    sim <- computeSimilarity(filter.by, (filter.by %>% select(-clone.id) %>% na.omit() %>% pull()), motif, similarity)
-    #}
-    #if (representative) {
-    #    reps <- computeRepresentatives(sim, similarity)
-    #    sim <- rbind(reps, sim %>% filter(max.similarity.level < similarity))
-    #}
     if (above) {
       sim <- sim %>% 
         filter(max.similarity.level >= similarity)
@@ -224,6 +194,9 @@ filterMotifSimilarity <- function(data, column, motif, similarity = 0.9, above =
     return(data) 
 }
 
+# filterDistance
+# Intended for filtering by sequence distance to motifs or sequences (CDR3a, CDR3b, Epitopes, etc.), producing fixed-size distance columns
+# Can be done to find similar or dissimilar sequences to the given motif, or to filter by allowable distance within a column
 filterDistance <- function(data, column, motif = NULL, distance = 0, above = FALSE) {
     filter.by <- data %>% select(clone.id, column)
     if (is.null(motif)) {
@@ -293,8 +266,9 @@ filterCDR3b <- function(data, motif, distance = NULL, similarity = NULL, represe
   return(data)
 }
 
-
-fetchHomologs <- function(reference.data, structures.data, threshold = 0.9) {
+# Complex method to assess 'structural homologs' for a given set of reference data and cru=ystal structures
+# This is done by matching the v gene (optional) and meeting an inputted minimum sequence similarity threshold
+fetchHomologs <- function(reference.data, structures.data, threshold = 0.9, v.gene = TRUE) {
   # Create Compare columns
   structures.data <- structures.data %>%
     mutate(Compare = paste0(CDR3a, CDR3b))
@@ -305,15 +279,19 @@ fetchHomologs <- function(reference.data, structures.data, threshold = 0.9) {
   # Initialize homolog.structure column
   reference.data$homolog.structure <- NA
 
-  for (i in 1:nrow(reference.data)) {
-    # Condition for V gene match
-    v.gene.match <- structures.data %>%
-      filter(Epitope == reference.data$Epitope[i] & AV.gene == reference.data$AV.gene[i] & BV.gene == reference.data$BV.gene[i])
-    
-    if (nrow(v.gene.match) > 0) {
-      reference.data$homolog.structure[i] <- v.gene.match$PDB[1]  # Take the first match
+  if (v.gene) {
+    for (i in seq_len(nrow(reference.data))) {
+      # Condition for V gene match
+      v.gene.match <- structures.data %>%
+        filter(Epitope == reference.data$Epitope[i] & AV.gene == reference.data$AV.gene[i] & BV.gene == reference.data$BV.gene[i])
+      
+      if (nrow(v.gene.match) > 0) {
+        reference.data$homolog.structure[i] <- v.gene.match$PDB[1]  # Take the first match
+      }
     }
-  
+  }
+
+  for (i in seq_len(nrow(reference.data))) {
     # Filter structures.data based on Epitope and compute string distances
     filtered.structures <- structures.data %>%
       filter(Epitope == reference.data$Epitope[i])

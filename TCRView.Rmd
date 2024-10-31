@@ -16,7 +16,12 @@ library(plotly)
 
 ```{r data-import}
 
+# tcr.view.file <- "./paired-data/all-distinct-cdr-paired-sequences.csv"
+tcr.view.file <- "./paired-data/high-confidence-paired-sequences.csv"
+tcr.view.set <- read.csv(tcr.view.file)
 
+# To make plots more legible, string wrap Epitope species values to 12 characters
+tcr.view.set$Epitope.species <- str_wrap(tcr.view.set$Epitope.species, 12)
 
 ```
 
@@ -24,7 +29,62 @@ library(plotly)
 
 ```{r vj-genes}
 
+# Datatable of VJ alleles, genes, families, with counts
+vj.table <- tcr.view.set %>%
+            select(clone.id, AV, AJ, BV, BJ, AV.gene, BV.gene, AJ.gene, BJ.gene, Epitope, MHC) %>%
+            mutate(AV.family = ifelse(str_detect(AV.gene, "/"),
+                        (str_replace_all(AV.gene, "(.*?)(/.*)", "\\1") %>%
+                            str_extract("^[^\\-*]+")),
+                        str_extract(AV.gene, "^[^\\-*]+")),
+                    BV.family = ifelse(str_detect(BV.gene, "/"),
+                        (str_replace_all(BV.gene, "(.*?)(/.*)", "\\1") %>%
+                            str_extract("^[^\\-*]+")),   
+                        str_extract(BV.gene, "^[^\\-*]+")),
+                    AJ.family = ifelse(str_detect(AJ.gene, "/"),
+                        (str_replace_all(AJ.gene, "(.*?)(/.*)", "\\1") %>%
+                            str_extract("^[^\\-*]+")),
+                        str_extract(AJ.gene, "^[^\\-*]+")),
+                    BJ.family = ifelse(str_detect(BJ.gene, "/"),
+                        (str_replace_all(BJ.gene, "(.*?)(/.*)", "\\1") %>%
+                            str_extract("^[^\\-*]+")),
+                        str_extract(BJ.gene, "^[^\\-*]+"))) %>%
+            pivot_longer(cols = c(AV, AJ, BV, BJ), names_to = "Gene Segment", values_to = "Allele") %>%
+            mutate(keep = case_when(
+                `Gene Segment` == "AV" ~ "AV.gene",
+                `Gene Segment` == "AJ" ~ "AJ.gene",
+                `Gene Segment` == "BV" ~ "BV.gene",
+                `Gene Segment` == "BJ" ~ "BJ.gene"
+            )) %>%
+            pivot_longer(cols = c(AV.gene, AJ.gene, BV.gene, BJ.gene), names_to = "Gene Fam. Segment", values_to = "Gene") %>%
+            filter(keep == `Gene Fam. Segment`) %>%
+            mutate(keep = case_when(
+                `Gene Fam. Segment` == "AV.gene" ~ "AV.family",
+                `Gene Fam. Segment` == "AJ.gene" ~ "AJ.family",
+                `Gene Fam. Segment` == "BV.gene" ~ "BV.family",
+                `Gene Fam. Segment` == "BJ.gene" ~ "BJ.family"
+            )) %>%
+            pivot_longer(cols = c(AV.family, AJ.family, BV.family, BJ.family), names_to = "Gene Chain", values_to = "Gene Family") %>%
+            filter(keep == `Gene Chain`) %>%
+            select(Allele, Gene, `Gene Family`, `Gene Segment`) %>%
+            add_count(Allele, name = "Allele Count") %>%
+            add_count(Gene, name = "Gene Count") %>%
+            add_count(`Gene Family`, name = "Family Count") %>%
+            distinct(.keep_all = TRUE) %>%
+            arrange(`Gene Segment`)
 
+datatable(vj.table, extensions=c('Scroller', 'RowGroup'), 
+    options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
+    rowGroup = list(dataSrc = 4), columnDefs = list(list(visible=FALSE, targets=c(4)))),
+    caption="V and J gene usage in the TCR dataset")
+
+# V J alleles (dropdown by gene)
+plotVJAllele(tcr.view.set) 
+
+# VJ genes (dropdown by gene family)
+plotVJGene(tcr.view.set)
+
+# VJ gene families
+plotVJFamily(tcr.view.set)
 
 ```
 
@@ -32,12 +92,31 @@ library(plotly)
 
 ```{r epitopes}
 
-# Epitope distribution
-
 # Epitope counts table (highest to lowest abundance)
+epitope.table <- tcr.view.set %>%
+    select(Epitope, Epitope.gene, Epitope.species) %>%
+    add_count(Epitope, name = "Epitope Count") %>%
+    add_count(Epitope.gene, name = "Epitope Gene Count") %>%
+    add_count(Epitope.species, name = "Epitope Species Count") %>%
+    distinct(.keep_all = TRUE) %>%
+    mutate(`Epitope Species` = paste0(Epitope.species, ": ", `Epitope Species Count`, " receptors")) %>%
+    arrange(`Epitope Species`)
 
-# Epitopes per epitope species (plotly dropdown to filter)
+datatable(epitope.table, extensions=c('Scroller', 'RowGroup'),
+    options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
+    rowGroup = list(dataSrc = 7), columnDefs = list(list(visible=FALSE, targets=c(7)))),
+    caption="Epitope distribution in the TCR dataset")
 
+# Epitope count distribution
+plotEpitopeCountDistribution(tcr.view.set)
+
+# Epitope count distribution per epitope species (top 10 species, all other as "Other")
+plotEpitopeCountDistributionByFactor(tcr.view.set, "Epitope.species", "Epitope Species", top = 10)
+
+# Epitopes for top epitope species 
+plotTopEpitopeCompositionByFactor(tcr.view.set, "Epitope.species", top = 10)
+
+# Epitopes (plotly dropdown to filter)
 
 ```
 
@@ -82,9 +161,10 @@ library(plotly)
 ```
 
 
-```{r cdr3-motif}
+```{r cdr3-clust}
 
-# CDR3 motifs 
-# Dropdown to filter by epitope, epitope species, MHC group
+# UMAP coordinates 
+# Dropdown to overlay with V genes, J genes, epitope specificity, MHC group
+
 
 ```

@@ -1,462 +1,699 @@
-#########################
-# Visualization methods #
-#########################
-
-# Plot clonotype distributions
-plotClonotypeDistributions <- function(data, data.name) {
-  data <- data %>% 
-    mutate(clonotype = as.numeric(gsub("clonotype", "", clonotype)),
-      clonotype.order = as.numeric(factor(clonotype)))
-  data %>%
-    ggplot(aes(x = clonotype.order, fill = as.factor(clonotype.order))) +
-      geom_bar() +
-      labs(title = paste0(data.name, " Clonotype Distribution"),
-        x = "Clonotype",
-        y = "Frequency") +
-      scale_fill_viridis(option = "F", discrete = TRUE, begin = 0.8, end = 0.2) +
-      theme(legend.position = "none")
-}
-
-# Plot epitope distributions
-plotEpitopeDistributions <- function(data, fill, data.name) {
-  data <- data %>% 
-    mutate(Epitope = as.factor(Epitope))
-  data %>%
-    ggplot(aes(x = Epitope, fill = fill)) +
-      geom_bar() +
-      labs(title = paste0(data.name, " Epitope Distribution"),
-        x = "Epitope",
-        y = "Frequency") +
-      scale_fill_viridis(option = "F", discrete = TRUE, begin = 0.8, end = 0.2) +
-      theme(legend.position = "none")
-}
-
-# Plot epitope distributions as a stacked bar chart per some factor
-plotEpitopeFactorDist <- function(data, x, colors) {
-  data[[x]] <- factor(data[[x]], levels = unique(data[[x]]))
-  data %>%
-    #na.omit() %>%
-    ggplot(aes(x = .data[[x]], fill = Epitope)) +
-    geom_bar(position = "stack") +
-    labs(title = paste0("Predicted epitopes per ", x),
-      x = x,
-      y = "Frequency") +
-    scale_fill_manual(values = colors) +
-    theme(legend.position = "bottom")
-}
-
-# Plot sequence similarity between receptors, colored by epitope prediction
-plotSeqSimilarity <- function(data, data.name, column = "sTCR.epitope", colors) {
-  data[[column]] <- factor(data[[column]], levels = unique(data[[column]]))
-  data %>%
-    ggplot(aes_string(x = "CDR3a.similarity", y = "CDR3b.similarity", color = column)) +
-    geom_point(aes(size = 4)) +
-    labs(title = paste0("Similarity between experimental and reference CDR3 sequences for ", data.name),
-      x = "CDR3a Similarity",
-      y = "CDR3b Similarity",
-      color = "Predicted epitope") +
-    scale_color_manual(values = colors) +
-    scale_x_continuous(limits = c(0,1)) +
-    scale_y_continuous(limits = c(0,1)) +
-    theme(legend.position = "bottom")
-}
-
-# Plot MHC group distributions
 
 
-# Plot V/J gene family distributions
+## Plotting functions for V/J genes
+plotVJAllele <- function(data, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
 
-
-# Plot V/J gene usage heatmaps
-plotVJHeatmapNormalized <- function(data, gene.name) {
-  allele.counts <- data %>%
-    gather(key = "gene", value = "allele", AV, AJ, BV, BJ) %>%
-    filter(gene == gene.name) %>%
-    group_by(source, gene, allele) %>%
-    summarise(n = n()) %>%
-    ungroup() %>%
-    group_by(source) %>%
-    mutate(percentage = n / sum(n) * 100) %>%
-    ungroup()
-
-  heatmap.data <- dcast(allele.counts, source + gene ~ allele, value.var = "percentage", fill = 0)
-  heatmap.matrix <- as.matrix(heatmap.data[,-c(1, 2)])
-  rownames(heatmap.matrix) <- heatmap.data$source
-  heatmap.data <- melt(heatmap.matrix)
-
-  unique_alleles <- unique(heatmap.data$Var2)
-  ordered_alleles <- sortAlleles(unique_alleles)
-  heatmap.data$Var2 <- factor(heatmap.data$Var2, levels = ordered_alleles)
-
-  heatmap <- ggplot(heatmap.data, aes(Var2, Var1, fill = value)) +
-    geom_tile() +
-     scale_fill_gradientn(colors = c("#d1e5f0", "#92c5de", "#f7fcb9", "#fee08b", "#fdae61", "#f46d43", "#d73027")) +
-    labs(title = paste0("TR", gene.name, " Heatmap"),
-         x = "Allele",
-         y = "Sample",
-         fill = "Normalized\npercentage") +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
-
-  return(heatmap)
-}
-
-# Gene co-usage for a single sample
-plotGeneVSGeneHeatmap <- function(data, gene1, gene2, sample.name) {
-  gene.counts <- data %>%
-    count(!!sym(gene1), !!sym(gene2)) %>%
-    complete(!!sym(gene1), !!sym(gene2), fill = list(n = 0))
-
-  unique_alleles <- unique(gene.counts[[gene1]])
-  ordered_alleles <- sortAlleles(unique_alleles)
-  gene.counts[[gene1]] <- factor(gene.counts[[gene1]], levels = ordered_alleles)
-
-  heatmap <- ggplot(gene.counts, aes_string(gene1, gene2, fill = "n")) +
-    geom_tile() +
-    scale_fill_gradientn(colors = c("#d1e5f0", "#92c5de", "#f7fcb9", "#fee08b", "#fdae61", "#f46d43", "#d73027"),
-      limits = c(0, max(gene.counts$n, na.rm = TRUE))) +
-    labs(title = paste0(gene1, " vs ", gene2, " Heatmap, ", sample.name),
-         x = gene1,
-         y = gene2, 
-         fill = "Count") +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1))
-
-  return(heatmap)
-}
-
-# Wrapper for normalized heatmaps, for comparing V/J gene usage between two samples (will need expanding as samples added)
-makeVJHeatmapsNormalized <- function(data, data.names) {
-  #data1 <- data1 %>% mutate(source = data.name1)
-  #data2 <- data2 %>% mutate(source = data.name2)
-  data.full <- data.frame()
-  for (i in seq_along(data.names)) {
-    sample <- data[[i]] %>% mutate(source = data.names[i])
-    data.full <- rbind(data.full, sample)
-  }
-
-  AV <- plotVJHeatmapNormalized(data.full, "AV")
-  AJ <- plotVJHeatmapNormalized(data.full, "AJ")
-  BV <- plotVJHeatmapNormalized(data.full, "BV")
-  BJ <- plotVJHeatmapNormalized(data.full, "BJ")
-
-  return(list(AV, AJ, BV, BJ))
-}
-
-
-
-## General functions to assist in plotting
-# Sorting V and J alleles for plots 
-sortAlleles <- function(alleles) {
-  alleles <- as.character(alleles)
-  
-  numeric_parts <- sapply(alleles, function(x) {
-    parts <- gsub("[A-Z]", "", unlist(strsplit(x, "-")))
-    parts <- unlist(strsplit(parts, "/"))
-    as.numeric(parts[1])
-  })
-  
-  order_indices <- order(numeric_parts)
-  alleles[order_indices]
-}
-
-# Counting the number of times a labeling (overlay) value appears in the data to facilitate top n + "other" labeling
-countLabelValues <- function(data, col) {
-  count.label <- data %>%
-    count(!!sym(col)) %>%
-    rename_with(~"label", .cols = all_of(col))
-  return(count.label)
-}
-
-# Relevel the data during plotting to whichever levels are specified
-# Common use is to order clonotypes and clusters numerically, or to relevel T cell types
-relevelPlot <- function(data, count.label, levels) {
-  levels_mapping <- setNames(nm = levels, levels)
-  for (level in levels) {
-    if (level %in% count.label$label) {
-      levels_mapping[level] <- paste0(level, "\nn = ", (count.label %>% filter(label == level) %>% select(n)))
-    } 
-  }
-  levels <- levels_mapping
-  data$label <- factor(data$label, levels = levels)
-  return(data)
-}
-
-
-## Method set for plotting clusters with optional overlays ##
-
-# Makes individual CDR cluster plots, with magnitude-aware point sizes for data where one point (identical CDR3) may represent multiple receptors
-plotCDRCluster <- function(data, count.label, col, top, point.size, umap_x, umap_y, title, levels = NULL, method = FALSE) {
-
-  if (!any(data$label == "Did not meet threshold", na.rm = TRUE)) {
     data <- data %>%
-      mutate(label = ifelse(label != "Other", paste0(label, "\nn = ", n), "Other"))
-  }
+        select(clone.id, AV, AJ, BV, BJ, AV.gene, BV.gene, AJ.gene, BJ.gene, Epitope, MHC, Epitope.species) %>%
+        pivot_longer(cols = c(AV, AJ, BV, BJ), names_to = "Gene Segment", values_to = "Allele") %>%
+        mutate(keep = case_when(
+            `Gene Segment` == "AV" ~ "AV.gene",
+            `Gene Segment` == "AJ" ~ "AJ.gene",
+            `Gene Segment` == "BV" ~ "BV.gene",
+            `Gene Segment` == "BJ" ~ "BJ.gene"
+        )) %>%
+        pivot_longer(cols = c(AV.gene, AJ.gene, BV.gene, BJ.gene), names_to = "Gene Fam. Segment", values_to = "Gene") %>%
+        filter(keep == `Gene Fam. Segment`) %>%
+        group_by(Gene) %>%
+        add_count(Allele, name = "Count") %>% 
+        ungroup()
 
-  else  {
-    data <- data %>% 
-      mutate(label = ifelse(label != "Did not meet threshold", label, "Did not meet threshold"),
-        n = ifelse(label != "Did not meet threshold", n, 1))
-  }
+    plot <- ggplot(data,  
+        aes(x = Allele, y = Count, fill = Gene)) +
+        geom_bar(stat = "identity") +
+        facet_wrap(~`Gene`, strip.position = "bottom", scales = "free", nrow = 1) +
+        facet_wrap(~`Gene Segment`, scales = "free") +
+        theme_minimal() +
+        theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+              strip.text = element_text(size = 8),
+              legend.position = "none") +
+        labs(title = "V/J Alleles",
+                x = "Allele",
+                y = "Count") +
+        scale_fill_viridis_d(option = "viridis")
 
-  if (!is.null(levels)) {
-    data <- relevelPlot(data, count.label, levels)
-  } else {
-    data$label <- factor(data$label, levels = c(setdiff(unique(data$label), c("Other", NA)), "Other", NA))
-  }
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
+}
 
-  if (!any(names(data) == "color")) {
-    data$color <- viridis(length(unique(data$label)))
-  } 
 
-  color.mapping <- setNames(data$color, data$label)
+plotVJGene <- function(data, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
 
-  if (method) {
-    clustplot <- data %>%
-      filter(!label %in% c("Other", "Did not meet threshold") & !is.na(label)) %>% 
-    ggplot(aes_string(x = umap_x, y = umap_y, color = "label")) +
-      geom_point(data = data %>% filter(label %in% c("Other", "Did not meet threshold") | is.na(label)), 
-        aes(x = !!sym(umap_x), y = !!sym(umap_y), color = label, size = 0.25),
-        alpha = 0.4) +
-      geom_point(aes(size = n, shape = Method), 
-        alpha = 0.8) +
-      labs(title = title,
-        x = "UMAP 1",
-        y = "UMAP 2",
-        color = col) +
-      theme(legend.position = "bottom") +
-      scale_color_manual(values = color.mapping) +
-      scale_size_continuous(range = c(1, point.size)) +
-      guides(size = "none")
+    data <- data %>%
+            pivot_longer(cols = c(AV, AJ, BV, BJ), names_to = "Gene Segment", values_to = "Allele") %>%
+            mutate(keep = case_when(
+                `Gene Segment` == "AV" ~ "AV.gene",
+                `Gene Segment` == "AJ" ~ "AJ.gene",
+                `Gene Segment` == "BV" ~ "BV.gene",
+                `Gene Segment` == "BJ" ~ "BJ.gene"
+            )) %>%
+            pivot_longer(cols = c(AV.gene, AJ.gene, BV.gene, BJ.gene), names_to = "Gene Fam. Segment", values_to = "Gene") %>%
+            filter(keep == `Gene Fam. Segment`) %>%
+            mutate(keep = case_when(
+                `Gene Fam. Segment` == "AV.gene" ~ "AV.family",
+                `Gene Fam. Segment` == "AJ.gene" ~ "AJ.family",
+                `Gene Fam. Segment` == "BV.gene" ~ "BV.family",
+                `Gene Fam. Segment` == "BJ.gene" ~ "BJ.family"
+            )) %>%
+            pivot_longer(cols = c(AV.family, AJ.family, BV.family, BJ.family), names_to = "Gene Chain", values_to = "Gene Family") %>%
+            filter(keep == `Gene Chain`) %>%
+            group_by(`Gene Family`) %>%
+            add_count(Gene, name = "Count") %>% 
+            ungroup()
+    plot <- ggplot(data, 
+        aes(x = Gene, fill = `Gene Family`)) +
+        geom_bar(position = "dodge") +
+        facet_wrap(~`Gene Family`, strip.position = "bottom", scales = "free", nrow = 1) +
+        facet_wrap(~`Gene Segment`, scales = "free") +
+        theme_minimal() +
+        theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+              strip.text = element_text(size = 8),
+              legend.position = "none") +
+        labs(title = "V/J Genes",
+                x = "Gene",
+                y = "Count") +
+        scale_fill_viridis_d(option = "viridis")
+
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
+}
+
+plotVJFamily <- function(data, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+
+    data <- data %>%
+            pivot_longer(cols = c(AV, AJ, BV, BJ), names_to = "Gene Segment", values_to = "Allele") %>%
+            mutate(keep = case_when(
+                `Gene Segment` == "AV" ~ "AV.gene",
+                `Gene Segment` == "AJ" ~ "AJ.gene",
+                `Gene Segment` == "BV" ~ "BV.gene",
+                `Gene Segment` == "BJ" ~ "BJ.gene"
+            )) %>%
+            pivot_longer(cols = c(AV.gene, AJ.gene, BV.gene, BJ.gene), names_to = "Gene Fam. Segment", values_to = "Gene") %>%
+            filter(keep == `Gene Fam. Segment`) %>%
+            mutate(keep = case_when(
+                `Gene Fam. Segment` == "AV.gene" ~ "AV.family",
+                `Gene Fam. Segment` == "AJ.gene" ~ "AJ.family",
+                `Gene Fam. Segment` == "BV.gene" ~ "BV.family",
+                `Gene Fam. Segment` == "BJ.gene" ~ "BJ.family"
+            )) %>%
+            pivot_longer(cols = c(AV.family, AJ.family, BV.family, BJ.family), names_to = "Gene Chain", values_to = "Gene Family") %>%
+            filter(keep == `Gene Chain`) %>% 
+            add_count(`Gene Family`, name = "Count") %>%
+            ungroup()
+    ggplot(data, 
+        aes(x = `Gene Family`, fill = `Gene Family`)) +
+        geom_bar(position = "dodge") +
+        facet_wrap(~`Gene Family`, strip.position = "bottom", scales = "free", nrow = 1) +
+        facet_wrap(~`Gene Segment`, scales = "free") +
+        theme_minimal() +
+        theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+              strip.text = element_text(size = 8),
+              legend.position = "none") +
+        labs(title = "V/J Genes",
+                x = "Gene",
+                y = "Count") +
+        scale_fill_viridis_d(option = "viridis")
+
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
+}
+
+
+## Plotting functions for epitope
+plotEpitopeCountDistribution <- function(data, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+
+    plot <- plotCountDistribution(data, "Epitope") 
+
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
+}
+
+plotEpitopeCountDistributionByFactor <- function(data, factor, top = NULL, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
     
-  } else {
-    clustplot <- data %>% 
-      filter(!label %in% c("Other", "Did not meet threshold") & !is.na(label)) %>% 
-        ggplot(aes_string(x = umap_x, y = umap_y, color = "label")) +
-          geom_point(data = data %>% filter(label %in% c("Other", "Did not meet threshold", NA) | is.na(label)), 
-            aes(x = !!sym(umap_x), y = !!sym(umap_y), color = label, size = 0.25),
-            alpha = 0.4) +
-          geom_point(aes(size = n),
-            alpha = 0.8) +
-          labs(title = title,
-            x = "UMAP 1",
-            y = "UMAP 2",
-            color = col) +
-          theme(legend.position = "bottom") +
-          scale_color_manual(values = color.mapping) +
-          scale_size_continuous(range = c(1, point.size)) +
-          guides(size = "none")
-  }
+    if (is.null(top)) {
+        plot <- plotCountDistributionByFactor(data, "Epitope", factor)
+    } else {
+        plot <- plotTopCountDistributionByFactor(data, "Epitope", factor, top)
+    }
 
-  return(clustplot)
-  
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
 }
 
-# Generic function to plot CDR3a and CDR3b UMAPs with the top n label values used to color the UMAP plots.
-# Commonly, these labels are clonotype, CDR cluster, T cell type, donor, and predicted epitope. 
-plotCDRClusters <- function(data, count.a, col.a, count.b, col.b, top = 20, point.size = 10, levels.a = NULL, levels.b = NULL, method = FALSE) {
-  clustplota <- plotCDRCluster(data, count.label = count.a, col = col.a, top, point.size, "CDR3a_UMAP_1", "CDR3a_UMAP_2", "CDR3a Clustering", levels.a, method)
-  clustplotb <- plotCDRCluster(data, count.label = count.b, col = col.b, top, point.size, "CDR3b_UMAP_1", "CDR3b_UMAP_2", "CDR3b Clustering", levels.a, method)
+plotEpitopeComposition <- function(data, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+            
+    plot <- plotComposition(data, "Epitope")
 
-  return(list(clustplota, clustplotb))
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
 }
 
-# Wrapper for clonotype overlays
-plotClonotypeCluster <- function(data, col = "clonotype", top = 20, point.size = 10) {
-  count <- countLabelValues(data, col)
-  data <- data %>%
-    rename_with(~"label", .cols = all_of(col)) %>%
-    left_join(count, by = "label") %>%
-    mutate(label = ifelse(label %in% (count %>% top_n(top, n) %>% pull(label)), 
-      label, "Other"))
-  labels <- unique(data$label)
-  levels <- labels[order(as.numeric(gsub("clonotype", "", labels)))] 
-  data$label <- factor(data$label, levels = unique(data$label))
-  colors <- viridis::turbo(length(labels))
-  names(colors) <- labels
-  colors <- c(colors, "Other" = "#717070", "Did not meet threshold" = "#717070")
-  data$color <- colors[data$label]
+plotEpitopeCompositionByFactor <- function(data, factor, top = NULL, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+    
+    if (is.null(top)) {
+        plot <- plotCompositionByFactor(data, "Epitope", factor)
+    } else {
+        plot <- plotTopCountDistributionByFactor(data, "Epitope", factor, top)
+    }
 
-  return(plotCDRClusters(data, count.a = count, col.a = col, count.b = count, col.b = col, top, point.size, levels.a = levels, levels.b = levels))
-
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
 }
 
-# Wrapper for CDR3 cluster overlays
-plotCDR3Cluster <- function(data, col.a = "CDR3a_cluster_0.5", col.b = "CDR3b_cluster_0.5", top = 20, point.size = 2) {
-  count.a <- countLabelValues(data, "CDR3a_cluster_0.5")
-  count.b <- countLabelValues(data, "CDR3b_cluster_0.5")
-  data <- data %>%
-    mutate(label.a = !!sym(col.a), label.b = !!sym(col.b)) %>%
-    select(-!!sym(col.a), -!!sym(col.b)) %>%
-    #rename(label.a = !!sym(col.a), label.b = !!sym(col.b)) #%>%
-    left_join(count.a, join_by("label.a" == "label"), suffix = c("", ".a")) %>%
-    left_join(count.b, join_by("label.b" == "label"), suffix = c(".a", ".b")) %>%
-    mutate(label.a = ifelse(label.a %in% (count.a %>% top_n(top, n) %>% pull(label)), 
-      label.a, "Other"),
-      label.b = ifelse(label.b %in% (count.b %>% top_n(top, n) %>% pull(label)), 
-        as.character(label.b), "Other"))
-  labels.a <- unique(data$label.a)
-  levels.a <- labels.a[order(as.numeric(labels.a))]
-  colors.a <- viridis::turbo(length(labels.a))
-  names(colors.a) <- labels.a
-  colors.a[["Other"]] <- "#717070"
-  colors.a <- c(colors.a, "Other" = "#717070", "Does not meet threshold" = "#717070")
-  data$color.a <- colors.a[data$label.a]
-  labels.b <- unique(data$label.b)
-  levels.b <- labels.b[order(as.numeric(labels.b))]
-  colors.b <- viridis::turbo(length(labels.b))
-  names(colors.b) <- labels.b
-  colors.b <- c(colors.b, "Other" = "#717070", "Does not meet threshold" = "#717070")
-  data$color.b <- colors.b[data$label.b]
+plotEpitopeSpeciesComposition <- function(data, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
 
-  clustplota <- plotCDRCluster((data %>% 
-    mutate(label = label.a, n = n.a) %>% select(-label.a, -n.a) %>% dplyr::rename(color = color.a)), 
-    count.label = count.a, col = col.a, top, point.size, "CDR3a_UMAP_1", "CDR3a_UMAP_2", "CDR3a Clustering", levels.a)
-  clustplotb <- plotCDRCluster((data %>% 
-    mutate(label = label.b, n = n.b) %>% select(-label.b, -n.b) %>% dplyr::rename(color = color.b)),
-    count.label = count.b, col = col.b, top, point.size, "CDR3b_UMAP_1", "CDR3b_UMAP_2", "CDR3b Clustering", levels.b)
+    plot <- plotComposition(data, "Epitope.species")
 
-  return(list(clustplota, clustplotb))
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
 }
 
-# Wrapper for epitope prediction overlays
-plotEpitopeCluster <- function(data, col = "sTCR.epitope", data.subset, top = 20, point.size = 10, colors, method = FALSE) {
-  count <- countLabelValues(data, col)
-  data <- data %>%
-    rename_with(~"label", .cols = all_of(col)) %>%
-    left_join(count, by = "label") %>%
-    mutate(label = ifelse(clone.id %in%
-      (data.subset %>% pull(clone.id)), label, "Did not meet threshold")) %>%
-    arrange(label == "Did not meet threshold")
-  labels <- unique(data$label)
-  levels <- c(setdiff(labels, c("Did not meet threshold", "Other")), "Other", "Did not meet threshold")
-  data$color <- colors[data$label]
-  return(plotCDRClusters(data, count.a = count, col.a = col, count.b = count, col.b = col, top, point.size, levels.a = NULL, levels.b = NULL, method))
+plotEpitopeSpeciesCompositionByFactor <- function(data, factor, top = NULL, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+    
+    if (is.null(top)) {
+        plot <- plotCompositionByFactor(data, "Epitope.species", factor)
+    } else {
+        plot <- plotTopCountDistributionByFactor(data, "Epitope.species", factor, top)
+    }
+
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
 }
 
+## Plotting functions for MHC
+plotMHCAlleleCountDistribution <- function(data, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
 
-## Method set for plotting CDR3 motifs ##
+    plot <- plotCountDistribution(data, "MHC") 
 
-# Makes individual motif plots per chain
-plotMotif <- function(data, count.label, data.col, cluster.col, chain, levels = NULL) {
-  data <- data %>%
-    mutate(label = ifelse(label != "Other", paste0(label, "\nn = ", n), "Other"),
-      chain = chain) %>%
-    filter(label != "Other")
-
-  if (!is.null(levels)) {
-    data <- relevelPlot(data, count.label, levels)
-  }
-
-  motifplot <- data %>% plot_motifs(data_col = data.col, cluster_col = "label", chain_col = "chain", chain = chain)
-  return(motifplot)
-  
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
 }
 
-# Generic function that relies on a previous count implementation
-plotCDRMotifs <- function(data, count.a, data.col.a = "CDR3a", cluster.col.a, count.b, data.col.b = "CDR3b", cluster.col.b, top = 20, levels.a = NULL, levels.b = NULL) {
-  motifplota <- plotCDRMotif(data, count.label = count.a, data.col = data.col.a, cluster.col = cluster.col.a, chain = "A", levels.a)
-  motifplotb <- plotCDRMotif(data, count.label = count.b, data.col = data.col.b, cluster.col = cluster.col.b, chain = "B", levels.b)
+plotMHCAlleleCountDistributionByFactor <- function(data, factor, top = NULL, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+    
+    if (is.null(top)) {
+        plot <- plotCountDistributionByFactor(data, "MHC", factor)
+    } else {
+        plot <- plotTopCountDistributionByFactor(data, "MHC", factor, top)
+    }
 
-  return(list(motifplota, motifplotb))
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
 }
 
-# Wrapper for plotting CDR3 clusters with motifs
-plotCDRClusterMotifs <- function(data, data.col.a = "CDR3a", cluster.col.a = "CDR3a_cluster_0.5", data.col.b = "CDR3b", cluster.col.b = "CDR3b_cluster_0.5", top = 20) {
-  count.a <- countLabelValues(data, cluster.col.a)
-  count.b <- countLabelValues(data, cluster.col.b)
-  data <- data %>%
-    mutate(label.a = !!sym(cluster.col.a), label.b = !!sym(cluster.col.b)) %>%
-    select(-!!sym(cluster.col.a), -!!sym(cluster.col.b)) %>%
-    #rename("label.a" = cluster.col.a, "label.b" = cluster.col.b) %>%
-    left_join(count.a, join_by("label.a" == "label"), suffix = c("", ".a")) %>%
-    left_join(count.b, join_by("label.b" == "label"), suffix = c(".a", ".b")) %>%
-    mutate(label.a = ifelse(label.a %in% (count.a %>% top_n(top, n) %>% pull(label)), 
-      label.a, "Other"),
-      label.b = ifelse(label.b %in% (count.b %>% top_n(top, n) %>% pull(label)), 
-        label.b, "Other"))
-  labels.a <- unique(data$label.a)
-  levels.a <- labels.a[order(as.numeric(labels.a))]
-  labels.b <- unique(data$label.b)
-  levels.b <- labels.b[order(as.numeric(labels.b))]
+plotMHCComposition <- function(data, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+    
+    plot <- plotComposition(data, "MHC")
 
-  motifplota <- plotMotif((data %>% 
-    mutate(label = label.a, n = n.a) %>% select(-label.a, -n.a)),
-    count.label = count.a, data.col = data.col.a, cluster.col = cluster.col.a, chain = "A", levels.a)
-  motifplotb <- plotMotif((data %>% 
-    mutate(label = label.b, n = n.b) %>% select(-label.b, -n.b)), 
-    count.label = count.b, data.col = data.col.b, cluster.col = cluster.col.b, chain = "A", levels.b)
-
-  return(list(motifplota, motifplotb))
-}
-
-# Wrapper for plotting CDR3 motifs per predicted epitope
-plotEpitopeMotifs <- function(data, data.col.a = "CDR3a", cluster.col.a = "Epitope", data.col.b = "CDR3b", cluster.col.b = "Epitope", top = 20) {
-  count.a <- countLabelValues(data, cluster.col.a)
-  count.b <- countLabelValues(data, cluster.col.b)
-  data <- data %>%
-    mutate(label.a = !!sym(cluster.col.a), label.b = !!sym(cluster.col.b)) %>%
-    select(-!!sym(cluster.col.a), -!!sym(cluster.col.b)) %>%
-    #rename("label.a" = cluster.col.a, "label.b" = cluster.col.b) %>%
-    left_join(count.a, join_by("label.a" == "label"), suffix = c("", ".a")) %>%
-    left_join(count.b, join_by("label.b" == "label"), suffix = c(".a", ".b")) %>% 
-    filter(n.a > 2, n.b > 2)
-  motifplota <- plotMotif((data %>% 
-    mutate(label = label.a, n = n.a) %>% select(-label.a, -n.a)),
-    count.label = count.a, data.col = data.col.a, cluster.col = cluster.col.a, chain = "A")
-  motifplotb <- plotMotif((data %>% 
-    mutate(label = label.b, n = n.b) %>% select(-label.b, -n.b)), 
-    count.label = count.b, data.col = data.col.b, cluster.col = cluster.col.b, chain = "A")
-
-  return(list(motifplota, motifplotb))
-
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
 }
 
 
-## Method set for plotting V/J gene usage ##
+plotMHCCompositionByFactor <- function(data, factor, top = NULL, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+    
+    if (is.null(top)) {
+        plot <- plotCompositionByFactor(data, "MHC", factor)
+    } else {
+        plot <- plotTopCountDistributionByFactor(data, "MHC", factor, top)
+    }
 
-# Makes individual V/J Sankey plots
-# Data must be filtered to subset prior to calling function
-# If data is filtered, this method can be called in standalone version
-plotVJSankey <- function(data) {
-  vj.freq <- data %>% 
-    count(AV, AJ, BV, BJ)
-  nodes <- data.frame(name = unique(c(vj.freq$AV, vj.freq$AJ, vj.freq$BV, vj.freq$BJ)))
-  nodes$name <- sortAlleles(nodes$name)
-  links <- data.frame(source = match(vj.freq$AJ, nodes$name) - 1,
-    target = match(vj.freq$AV, nodes$name) - 1,
-    value = vj.freq$n,
-    stringsAsFactors = FALSE)
-  links <- rbind(links,
-    data.frame(source = match(vj.freq$AV, nodes$name) - 1,
-      target = match(vj.freq$BV, nodes$name) - 1,
-      value = vj.freq$n,
-      stringsAsFactors = FALSE))
-  links <- rbind(links,
-    data.frame(source = match(vj.freq$BV, nodes$name) - 1,
-      target = match(vj.freq$BJ, nodes$name) - 1,
-      value = vj.freq$n,
-      stringsAsFactors = FALSE))
-  nodes <- nodes %>%
-    mutate(source = 0:(nrow(nodes) - 1))
-  links <- links %>%
-    left_join(nodes, join_by(source))
-  links <- links %>%
-    mutate(gene = name) %>%
-    select(-name)
-
-  sankeyplot <- sankeyNetwork(Links = links, Nodes = nodes, Source = "source", 
-    Target = "target", Value = "value", NodeID = "name", sinksRight = FALSE, LinkGroup = "gene")
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
 }
 
-# General function to plot V/J sankey given a dataframe and column to facilitate 'top n' subsetting
-# Common use is to subset by top clonotypes or CDR3 clusters
-plotClusterVJSankey <- function(data, col, top = 20) {
-  count <- countLabelValues(data, col)
-  data <- data %>%
-    mutate(label = !!sym(col)) %>%
-    select(-!!sym(col)) %>%
-    #rename("label" = col) %>%
-    filter(label %in% (count %>% top_n(top, n) %>% pull(label)))
-  return(plotVJSankey(data))
+plotMHCLocusComposition <- function(data, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+
+    plot <- plotComposition(data, "MHC.locus")
+
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
+}
+
+plotMHCLocusCompositionByFactor <- function(data, factor, top = NULL, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+    
+    if (is.null(top)) {
+        plot <- plotCompositionByFactor(data, "MHC.locus", factor)
+    } else {
+        plot <- plotTopCountDistributionByFactor(data, "MHC.locus", factor, top)
+    }
+
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
+}
+
+plotMHCAlleleComposition <- function(data, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+
+    plot <- plotComposition(data, "MHC.allele")
+
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
+}
+
+plotMHCAlleleCompositionByFactor <- function(data, factor, top = NULL, plotly = TRUE, filter.by = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+    
+    if (is.null(top)) {
+        plot <- plotCompositionByFactor(data, "MHC.allele", factor)
+    } else {
+        plot <- plotTopCountDistributionByFactor(data, "MHC.allele", factor, top)
+    }
+
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
+}
+
+## Plotting functions for CDR3 length
+# For both CDR3a and CDR3b, x is the clone.id and y is the length of CDR3, colored by an inputted factor
+plotCDR3SeqLength <- function(data, plotly = TRUE, filter.by = NULL, factor = "Epitope") {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+
+    plot <- ggplot((data %>%
+        pivot_longer(cols = c(CDR3a, CDR3b), names_to = "CDR3", values_to = "CDR3.seq")),
+        aes(x = clone.id, y = str_length(CDR3.seq), color = !!sym(factor))) +
+        geom_point() +
+        facet_wrap(~CDR3, scales = "free_x") +
+        theme_minimal() +
+        theme(axis.text.x = element_blank(),
+              strip.text = element_text(size = 8),
+              legend.position = "none") +
+        labs(title = "CDR3 Length",
+                x = "Clone ID",
+                y = "Length") +
+        scale_color_viridis_d(option = "viridis")
+
+
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
 }
 
 
+## Plotting functions for full sequence clustering
+
+
+
+## Plotting functions for CDR clustering
+
+
+
+## Plotting functions for CDR3 clustering
+
+
+
+## Plotting functions for full-receptor PCA plotting
+# Common wrapper: Full seq, CDR3 seqs, V+J genes, MHC, color by epitope
+
+
+
+## Generic functions
+plotCountDistribution <- function(data, column) {
+    # If top is not null, group all other values not in the top n counts into "Other" category
+    data <- data %>%
+        add_count(!!sym(column), name = "Count") %>%
+        distinct(Epitope, .keep_all = TRUE)
+    plot <- ggplot(data, aes(x = Count)) +
+        geom_density() + 
+        theme_minimal() +
+        scale_x_log10() +
+        labs(title = paste0(column, "Count Distribution"),
+                x = column,
+                y = "Density")
+}
+
+
+plotCountDistributionByFactor <- function(data, column, factor) {
+    column.sym <- sym(column)
+    column.n.sym <- sym(paste0(factor, " count"))
+    factor.sym <- sym(factor)
+    factor.n.sym <- sym(paste0(factor, " count"))
+    data <- data %>% 
+        select(!!column.sym, !!factor.sym) %>%
+            add_count(!!column.sym, name = paste0(factor, " count")) %>%
+            add_count(!!factor.sym, name = paste0(factor, " count")) %>%
+            distinct(.keep_all = TRUE) %>%
+            na.omit()
+    plot <- ggplot(data, aes(x = !!column.n.sym, color = !!factor.sym)) +
+        geom_density() + 
+        theme_minimal() +
+        scale_x_log10() +
+        labs(title = paste0(column, "Count Distribution"),
+                x = column,
+                y = "Density") + 
+        scale_color_viridis_d(option = "viridis")
+}
+
+plotTopCountDistributionByFactor <- function(data, column, factor, top = 10) {
+    column.sym <- sym(column)
+    column.n.sym <- sym(paste0(column, " count"))
+    factor.sym <- sym(factor)
+    factor.n.sym <- sym(paste0(factor, " count"))
+    data <- data %>%
+        select(!!column.sym, !!factor.sym) %>%
+            add_count(!!column.sym, name = paste0(column, " count")) %>%
+            add_count(!!factor.sym, name = paste0(factor, " count")) %>%
+            distinct(.keep_all = TRUE) %>%
+            na.omit()
+    data <- data %>% 
+        mutate(!!factor.sym := ifelse(!!factor.sym %in% 
+        (data %>% 
+            distinct(!!factor.sym, .keep_all = TRUE) %>% 
+            slice_max(!!factor.n.sym, n = top) %>% 
+            pull(!!factor.sym)), 
+        !!factor.sym, "Other"))
+    color.names <- data %>% distinct(!!factor.sym) %>% pull(!!factor.sym) 
+    color.names <- color.names <- setdiff(color.names, "Other")
+    color.factor <- c(viridis(length(color.names), option = "viridis"), "grey")
+    names(color.factor) <- c(color.names, "Other")
+    plot <- ggplot(data %>%
+        mutate(!!factor.sym := factor(!!factor.sym, levels = c(color.names, "Other"))), aes(x = !!column.n.sym, color = !!factor.sym)) +
+        geom_density() + 
+        theme_minimal() +
+        scale_x_log10() +
+        labs(title = paste0(column, "Count Distribution"),
+                x = column,
+                y = "Density") + 
+        scale_color_manual(values = color.factor)
+}
+
+plotComposition <- function(data, column) {
+    data <- data %>%
+            add_count(!!sym(column), name = "Count") 
+    plot <- ggplot((data %>% distinct(!!sym(column), Count, .keep_all = TRUE)), 
+        aes(x = !!sym(column), y = Count, fill = !!sym(column))) +
+        geom_bar(stat = "identity") +
+        theme_minimal() +
+        theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+            legend.position = "none") +
+        labs(title = paste0(column, " Composition"),
+                x = column,
+                y = "Count") +
+        scale_fill_viridis_d(option = "viridis")
+}
+
+plotCompositionByFactor <- function(data, column, factor) {
+    column.sym <- sym(column)
+    factor.sym <- sym(factor)
+    data <- data %>%
+            select(!!column.sym, !!factor.sym) %>%
+            add_count(!!column.sym, name = "Count") %>%
+            add_count(!!factor.sym, name = paste0(factor, " count")) %>%
+            na.omit()
+    plot <- ggplot(data, 
+        aes(x = !!column.sym, y = `Count`, fill = !!factor.sym)) +
+        geom_bar(stat = "identity", position = "dodge") +
+        facet_wrap(vars(!!factor.sym), strip.position = "top", scales = "free_x", nrow = 1) +
+        theme_minimal() +
+        theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+            legend.position = "none") +
+        labs(title = paste0(column, " Composition"),
+                x = column,
+                y = "Count") +
+        scale_fill_viridis_d(option = "viridis")
+}
+
+plotTopCompositionByFactor <- function(data, column, factor, top = 10) {
+    column.sym <- sym(column)
+    factor.sym <- sym(factor)
+    data <- data %>%
+            select(!!column.sym, !!factor.sym) %>%
+            add_count(!!column.sym, name = "Count") %>%
+            add_count(!!factor.sym, name = paste0(factor, " count")) %>%
+            distinct(.keep_all = TRUE) %>%
+            na.omit()
+    data <- data %>% 
+        mutate(!!factor.sym := ifelse(!!factor.sym %in% 
+        (data %>% 
+            distinct(!!factor.sym, .keep_all = TRUE) %>% 
+            slice_max(!!factor.sym, n = top) %>% 
+            pull(!!factor.sym)), 
+        !!factor.sym, "Other"))
+    plot <- ggplot(data, 
+        aes(x = !!column.sym, y = `Count`, fill = !!factor.sym)) +
+        geom_bar(stat = "identity", position = "dodge") +
+        facet_wrap(vars(!!factor.sym), strip.position = "top", scales = "free_x", nrow = 1) +
+        theme_minimal() +
+        theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+            legend.position = "none") +
+        labs(title = paste0(column, " Composition"),
+                x = column,
+                y = "Count") +
+        scale_fill_viridis_d(option = "viridis")
+}
+
+plotClusterResults <- function(data, column, chain, filter.by = NULL, color = NULL) {
+    
+    umap1.name <- paste0(column, "_UMAP_1")
+    umap2.name <- paste0(column, "_UMAP_2")
+    cluster.name <- paste0(column, "_cluster_0.5")
+    if (is.null(color)) {
+        color <- cluster.name
+    }
+
+    if (!umap1.name %in% colnames(data)) {
+        data <- data %>%
+            getCDRCluster(column, chain, filter.by = filter.by)
+    } else if (umap1.name %in% colnames(data) & !is.null(filter.by)) {
+        data <- data %>%
+            filter(!!rlang::parse_expr(filter.by))
+    }
+
+    plot <- ggplot(data, aes_string(x = umap1.name, y = umap2.name, color = color)) +
+        geom_point() +
+        theme_minimal() +
+        labs(title = paste0(column, " Clustering"),
+                x = umap1.name,
+                y = umap2.name, 
+                color = paste0(column, " cluster")) +
+        scale_color_viridis_d(option = "viridis")
+
+    return(plot)
+
+}
+
+# Wrapper function for plotting with top approach
+plotClusterResultsTop <- function(data, column, chain, filter.by = NULL, top = 20, top.col = NULL, color = NULL) {
+
+    cluster.name <- paste0(column, "_cluster_0.5")
+
+    if (is.null(color)) {
+        color <- cluster.name
+    }
+
+    if (is.null(top.col)) {
+        top.col <- color
+    }
+
+    data <- data %>%
+        mutate(label = !!sym(color)) %>%
+        add_count(label, name = "n")
+
+    top_labels <- data %>%
+        count(label) %>%
+        top_n(top, n) %>%
+        pull(label)
+
+    data <- data %>%
+        mutate(label = ifelse(label %in% top_labels, label, "Other"))
+
+    labels <- unique(data$label)
+    colors <- viridis(length(labels))
+    names(colors) <- labels
+    colors["Other"] <- "#717070"
+
+    plot <- plotClusterResults(data, column, chain, filter.by, color = "label") +
+        scale_color_manual(values = colors)
+
+    return(plot)
+}
+
+# Wrapper function for plotting with threshold approach
+plotClusterResultsThreshold <- function(data, column, chain, filter.by = NULL, threshold = 100, threshold.col = NULL, color = NULL) {
+    cluster.name <- paste0(column, "_cluster_0.5")
+
+    if (is.null(color)) {
+        color <- cluster.name
+    }
+
+    if (is.null(threshold.col)) {
+        threshold.col <- color
+    }
+
+    data <- data %>%
+        rename(label = !!sym(color)) %>%
+        add_count(label, name = "n") %>%
+        mutate(label = ifelse(n >= threshold, label, "Other"))
+
+    labels <- unique(data$label)
+    colors <- viridis(length(labels), option ="mako")
+    names(colors) <- labels
+    colors["Other"] <- "#717070"
+
+    plot <- plotClusterResults(data, column, chain, filter.by, color = "label") +
+        scale_color_manual(values = colors)
+
+    return(plot)
+}
+
+plotPCA <- function(data, columns, filter.by = NULL, color = "Epitope") {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+
+    pca <- prcomp(data %>% select(all_of(columns)), scale = TRUE)
+    pca.data <- data.frame(pca$x)
+    pca.data <- cbind(data, pca.data)
+
+    plot <- ggplot(pca.data, aes_string(x = "PC1", y = "PC2", color = color)) +
+        geom_point() +
+        theme_minimal() +
+        labs(title = "PCA Plot",
+                x = "PC1",
+                y = "PC2",
+                color = color) +
+        scale_color_viridis_d(option = "viridis")
+
+    return(plot)
+}
