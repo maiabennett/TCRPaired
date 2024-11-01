@@ -20,7 +20,7 @@ setwd(dirname(filepath))
 
 ## Introduction
 
-This document describes the preparation of a paired-chain T cell receptor (TCR) reference dataset. The dataset intends to provide a comprehensive set of tools to prepare benchmark datasets of TCR sequences and their associated antigen specificities which can be used, in a single form, across multiple TCR binding prediction methods to reduce data dependency and bias when assessing method effectiveness. The data prepared in this script includes the [VDJdb](https://vdjdb.cdr3.net/) database; the [McPAS-TCR](https://friedmanlab.weizmann.ac.il/McPAS-TCR/) database; and the [IEDB](https://www.iedb.org/) database, all of which contain publicly available T cell epitopes and their associated antigen specificities. Additionally, this dataset utilizes several private datasets provided by collaborators at the University of Massachusetts Chan Medical College. The dataset is intended to show the utility of a consistent, comprehensive reference for TCR repertoire analysis and TCR specificity prediction.
+This document facilitates preparation of a comprehensive paired-chain T cell receptor (TCR) reference dataset. TCRPaired intends to provide a comprehensive set of tools to prepare benchmark datasets of TCR sequences and their associated antigen specificities which can be used, in a single form, across multiple TCR binding prediction methods to reduce data dependency and bias when assessing method effectiveness. The data prepared in this script includes the [VDJdb](https://vdjdb.cdr3.net/) database; the [McPAS-TCR](https://friedmanlab.weizmann.ac.il/McPAS-TCR/) database; and the [IEDB](https://www.iedb.org/) database, all of which contain publicly available T cell epitopes and their associated antigen specificities. Additionally, this dataset utilizes several private datasets provided by collaborators at the University of Massachusetts Chan Medical College. The dataset is intended to show the utility of a consistent, comprehensive reference for TCR repertoire analysis and TCR specificity prediction.
 
 ```{r data-import}
 
@@ -263,7 +263,7 @@ write.csv(piema.data, "./paired-data/piema-high-confidence-data.csv", row.names 
 
 ## Prediction benchmark dataset: An example
 
-Here, a sample dataset is prepared for use training and testnig various TCR specificity prediction methods. This dataset includes the Chan Medical College data, IEDB data, McPAS data, and VDJdb data. The dataset is filtered to remove redundant receptor sequences, empty sequences, and CDR sequences and filtered to remove receptors with > 95% CDR3 sequence similarity; and negative data is generated for the dataset at ... (complete SwarmTCRTools, then revisit)
+Here, a sample dataset is prepared for use training and testnig various TCR specificity prediction methods. This dataset includes the Chan Medical College data, IEDB data, McPAS data, and VDJdb data. The dataset is filtered to remove redundant receptor sequences, empty sequences, and CDR sequences, then filtered to remove receptors with > 90% CDR3 sequence similarity; negative data is generated for the dataset at ... (complete SwarmTCRTools, then revisit)
 
 ```{r sample-dataset}
 

@@ -5,11 +5,17 @@ date: "2024-08-30"
 output: html_document
 ---
 
-# Paired-chain T cell receptor (TCR) reference dataset visualization
+# TCRView: Visualizing relationships in a comprehensive reference dataset of paired-chain T cell receptor (TCR) sequences and epitope specificities
+
+## Introduction
+
+This document facilitates the visualization of paired-chain T cell receptor (TCR) datasets prepared using TCRPaired. TCRView provides a complementary set of tools to explore the distribution of, and relationships between, TCR:pMHC complex components in a benchmark dataset. These components include epitopes, major histocompatibility complexes (MHCs), and TCR features such as VJ genes and sequence segments. 
+
 
 ```{r setup, include=FALSE}
 source("./util/library.R")
 source("./util/plotting.R")
+source("./util/clustering.R")
 library(rstudioapi)
 library(plotly)
 ```
@@ -25,29 +31,192 @@ tcr.view.set$Epitope.species <- str_wrap(tcr.view.set$Epitope.species, 12)
 
 ```
 
-## Introduction: Components of the TCR:pMHC complex
+TCRView is intended to run on entire datasets as well as data subsets for both 1) investigation of data composition and bias in TCR:pMHC complex datasets and 2) exploration of relationships between TCR:pMHC complex components. As such, a number of parameters can be set to filter and facet the data, as well as to save clustering data for further analysis. 
 
-```{r vj-genes}
+The following parameters can be set to customize the data visualization:
+
+- `plotly`: Set to `TRUE` to generate interactive plotly plots, or `FALSE` to generate basic ggplot2 plots.
+
+- `filter.by`: A filtering expression to subset the data. For example, `filter.by = "str_detect(Epitope.species, 'SARS-CoV-2')"` will filter the data to include only receptors with epitopes from SARS-CoV-2 in all plots. This can be useful for exploring relationships between TCR:pMHC complex components for specific epitopes, epitope species, MHC loci, or V/J gene profiles.
+
+- `group.by`: The name of a column to group the data by. For example, `group.by = "Epitope.species"` will create separate distribution lines for each epitope species in count distribution plots and limit composition plots to those epitopes. This can be useful for comparing the distribution of TCR:pMHC complex components across different subgroups. 
+
+- `top`: The number of top group.by values to display in count distribution and composition plots. For example, `top = 10` will display the top 10 epitopes in the dataset. Additionally, this has use in the clustering section, which is specified later.
+
+- `out.path`: The path to save the clustering data. This allows you to save plots and data for further analysis, especially when running multiple subsets of the same data.
+
+
+Due to the reuse of some of these parameters in differing plot types across components, there are multiple `setup` sections throughout TCRView to allow ease of analysis while specifying intended plot orientations. These also introduce new parameters as needed.
+
+
+```{r setup-epitope}
+
+# Do you want the plots to be a basic ggplot or interactive plotly plot?
+plotly = TRUE
+
+# Do you want to filter the data using a filtering expression (e.g., str_detect(Epitope.species, "SARS-CoV-2"))?
+filter.by = NULL
+
+# Do you want to group the data by a factor (e.g., "Epitope.species")?
+group.by = "Epitope.species"
+
+# Do you want to limit the grouped data to the top n values?
+top = 10
+
+
+# Where do you want to save any plot and clustering data?
+out.path = "./view-data/high-confidence-data/"
+
+dir.create(out.path, showWarnings = FALSE, recursive = TRUE)
+
+```
+
+
+## Components of the TCR:pMHC complex
+
+### Epitopes
+
+Epitopes are the antigenic peptides that are presented by MHC molecules and recognized by TCRs. The distribution of epitopes in a dataset can provide insight into the diversity of the dataset and the potential biases in the data. The following tables and plots provide an overview of the epitopes in the dataset.
+
+```{r epitope-table, echo = FALSE}
+
+if (!is.null(filter.by)) {
+    epitope.set <- tcr.view.set %>% filter(!!rlang::parse_expr(filter.by))
+}
+
+# Epitope counts table (highest to lowest abundance)
+epitope.table <- epitope.set %>%
+    select(Epitope, Epitope.gene, Epitope.species) %>%
+    add_count(Epitope, name = "Epitope Count") %>%
+    add_count(Epitope.gene, name = "Epitope Gene Count") %>%
+    add_count(Epitope.species, name = "Epitope Species Count") %>%
+    distinct(.keep_all = TRUE) %>%
+    mutate(`Epitope Species` = paste0(Epitope.species, ": ", `Epitope Species Count`, " receptors")) %>%
+    arrange(`Epitope Species`)
+
+datatable(epitope.table, extensions=c('Scroller', 'RowGroup'),
+    options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
+    rowGroup = list(dataSrc = 7), columnDefs = list(list(visible=FALSE, targets=c(7)))),
+    caption="Epitope distribution in the TCR dataset")
+
+
+```
+
+```{r epitope-count-dist}
+
+# Epitope count distribution
+plotEpitopeCountDistribution(tcr.view.set, plotly = plotly, filter.by = filter.by)
+
+# Epitope count distribution per epitope species (top 10 species, all other as "Other")
+plotEpitopeCountDistribution(tcr.view.set, top = top, plotly = plotly, filter.by = filter.by)
+
+# All epitopes
+plotEpitopeComposition(tcr.view.set)
+
+# Epitopes for top epitope species 
+plotTopEpitopeComposition(tcr.view.set, group.by = group.by, top = top, plotly = plotly, filter.by = filter.by)
+
+# All epitope species
+plotEpitopeSpeciesComposition(tcr.view.set, plotly = plotly, filter.by = filter.by)
+
+```
+
+### Major histocompatibility complexes (MHCs)
+
+MHC molecules are responsible for presenting epitopes to TCRs. Although not directly present involved in the TCR:epitope binding interface, MHC identity plays an important role in epitope processing and assist in determining protein complex binding conformations. The following tables and plots provide an overview of the MHCs in the dataset.
+
+```{r mhc-table}
+
+if (!is.null(filter.by)) {
+    mhc.set <- tcr.view.set %>% filter(!!rlang::parse_expr(filter.by))
+}
+
+# MHC counts table
+mhc.table <- mhc.set %>%
+    select(MHC.locus, MHC.allele, MHC) %>%
+    add_count(MHC.locus, name = "MHC Locus Count") %>%
+    add_count(MHC.allele, name = "MHC Allele Count") %>%
+    add_count(MHC, name = "MHC Group Count") %>%
+    distinct(.keep_all = TRUE) %>%
+    na.omit() %>%
+    filter(MHC.locus != "") %>%
+    arrange(MHC.allele)
+
+datatable(mhc.table, extensions=c('Scroller', 'RowGroup'),
+    options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
+    rowGroup = list(dataSrc = 1)),
+    caption="MHC distribution in the TCR dataset")
+
+```
+
+
+
+```{r setup-mhc}
+
+# Do you want the plots to be a basic ggplot or interactive plotly plot?
+plotly = TRUE
+
+# Do you want to filter the data using a filtering expression (e.g., str_detect(Epitope.species, "SARS-CoV-2"))?
+filter.by = NULL
+
+# Do you want to group the data by a factor (e.g., "Epitope.species")?
+group.by = "MHC.locus"
+
+# Do you want to limit the grouped data to the top n values?
+top = 10
+
+```
+
+
+```{r mhc}
+
+# MHC distribution
+# MHC locus
+plotMHCLocusCountDistribution(tcr.view.set, plotly = plotly, filter.by = filter.by)
+
+# MHC allele
+plotMHCAlleleCountDistribution(tcr.view.set, plotly = plotly, filter.by = filter.by)
+
+# MHC 
+plotMHCCountDistribution(tcr.view.set, plotly = plotly, filter.by = filter.by)
+
+# MHC distribution by factor
+# MHC locus
+plotMHCLocusCountDistribution(tcr.view.set, group.by = group.by, top = top, plotly = plotly, filter.by = filter.by)
+
+# MHC allele
+plotMHCAlleleCountDistribution(tcr.view.set, group.by = group.by, top = top, plotly = plotly, filter.by = filter.by)
+
+# MHC
+plotMHCCountDistribution(tcr.view.set, group.by = group.by, top = top, plotly = plotly, filter.by = filter.by)
+
+# MHC composition
+# MHC locus
+plotMHCLocusComposition(tcr.view.set, plotly = plotly, filter.by = filter.by)
+
+# MHC allele
+plotMHCAlleleComposition(tcr.view.set, plotly = plotly, filter.by = filter.by)
+
+# MHC
+plotMHCComposition(tcr.view.set, plotly = plotly, filter.by = filter.by)
+
+
+```
+
+### T cell receptors (TCRs)
+
+#### Variable and joining (VJ) genes
+
+VJ genes are the variable and joining gene segments that make up the TCR. These genes contribute directly to TCR sequence through the process of variable (diversity) joining recombination, and as such play an important role in understanding and predicting TCR specificity. The following tables and plots provide an overview of the VJ genes in the dataset. 
+
+```{r vj-gene-table}
+
+if (!is.null(filter.by)) {
+    vj.set <- tcr.view.set %>% filter(!!rlang::parse_expr(filter.by))
+}
 
 # Datatable of VJ alleles, genes, families, with counts
-vj.table <- tcr.view.set %>%
-            select(clone.id, AV, AJ, BV, BJ, AV.gene, BV.gene, AJ.gene, BJ.gene, Epitope, MHC) %>%
-            mutate(AV.family = ifelse(str_detect(AV.gene, "/"),
-                        (str_replace_all(AV.gene, "(.*?)(/.*)", "\\1") %>%
-                            str_extract("^[^\\-*]+")),
-                        str_extract(AV.gene, "^[^\\-*]+")),
-                    BV.family = ifelse(str_detect(BV.gene, "/"),
-                        (str_replace_all(BV.gene, "(.*?)(/.*)", "\\1") %>%
-                            str_extract("^[^\\-*]+")),   
-                        str_extract(BV.gene, "^[^\\-*]+")),
-                    AJ.family = ifelse(str_detect(AJ.gene, "/"),
-                        (str_replace_all(AJ.gene, "(.*?)(/.*)", "\\1") %>%
-                            str_extract("^[^\\-*]+")),
-                        str_extract(AJ.gene, "^[^\\-*]+")),
-                    BJ.family = ifelse(str_detect(BJ.gene, "/"),
-                        (str_replace_all(BJ.gene, "(.*?)(/.*)", "\\1") %>%
-                            str_extract("^[^\\-*]+")),
-                        str_extract(BJ.gene, "^[^\\-*]+"))) %>%
+vj.table <- vj.set %>%
             pivot_longer(cols = c(AV, AJ, BV, BJ), names_to = "Gene Segment", values_to = "Allele") %>%
             mutate(keep = case_when(
                 `Gene Segment` == "AV" ~ "AV.gene",
@@ -77,85 +246,127 @@ datatable(vj.table, extensions=c('Scroller', 'RowGroup'),
     rowGroup = list(dataSrc = 4), columnDefs = list(list(visible=FALSE, targets=c(4)))),
     caption="V and J gene usage in the TCR dataset")
 
-# V J alleles (dropdown by gene)
-plotVJAllele(tcr.view.set) 
+```
 
-# VJ genes (dropdown by gene family)
-plotVJGene(tcr.view.set)
+
+
+```{r setup-vj-gene}
+
+# Do you want the plots to be a basic ggplot or interactive plotly plot?
+plotly = TRUE
+
+# Do you want to filter the data using a filtering expression (e.g., str_detect(Epitope.species, "SARS-CoV-2"))?
+filter.by = NULL
+
+# Do you want to facet the data by a factor (e.g., "Epitope.species")?
+group.by = "`Gene Family`"
+
+# Do you want to limit the filtered and/or faceted data to the top n values?
+top = 10
+
+
+```
+
+
+```{r vj-genes}
+
+# V J distribution
+# V J alleles 
+plotVJAlleleCountDistribution(tcr.view.set, plotly, filter.by)
+
+# V J genes
+plotVJGeneCountDistribution(tcr.view.set, plotly, filter.by)
+
+# V J gene families
+plotVJFamilyCountDistribution(tcr.view.set, plotly, filter.by)
+
+# VJ composition
+# V J alleles 
+plotVJAllele(tcr.view.set, plotly, filter.by) 
+
+# VJ genes 
+plotVJGene(tcr.view.set, plotly, filter.by)
 
 # VJ gene families
-plotVJFamily(tcr.view.set)
+plotVJFamily(tcr.view.set, plotly, filter.by)
 
 ```
-
-
-
-```{r epitopes}
-
-# Epitope counts table (highest to lowest abundance)
-epitope.table <- tcr.view.set %>%
-    select(Epitope, Epitope.gene, Epitope.species) %>%
-    add_count(Epitope, name = "Epitope Count") %>%
-    add_count(Epitope.gene, name = "Epitope Gene Count") %>%
-    add_count(Epitope.species, name = "Epitope Species Count") %>%
-    distinct(.keep_all = TRUE) %>%
-    mutate(`Epitope Species` = paste0(Epitope.species, ": ", `Epitope Species Count`, " receptors")) %>%
-    arrange(`Epitope Species`)
-
-datatable(epitope.table, extensions=c('Scroller', 'RowGroup'),
-    options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
-    rowGroup = list(dataSrc = 7), columnDefs = list(list(visible=FALSE, targets=c(7)))),
-    caption="Epitope distribution in the TCR dataset")
-
-# Epitope count distribution
-plotEpitopeCountDistribution(tcr.view.set)
-
-# Epitope count distribution per epitope species (top 10 species, all other as "Other")
-plotEpitopeCountDistributionByFactor(tcr.view.set, "Epitope.species", "Epitope Species", top = 10)
-
-# Epitopes for top epitope species 
-plotTopEpitopeCompositionByFactor(tcr.view.set, "Epitope.species", top = 10)
-
-# Epitopes (plotly dropdown to filter)
-
-```
-
-
-```{r mhc}
-
-# MHC group distribution
-
-# MHC counts table
-
-# MHC alleles per group (plotly dropdown to filter)
-
-
-```
-
-
-## Complex relationships in TCR:pMHC complexes
 
 ```{r vj-sankey}
 
 # V J gene profile sankey diagrams
-# Dropdown to filter by epitope, epitope species, MHC group
+
 
 ```
 
+#### Sequence
+
+The following parameters are changed or added for the analysis of TCR sequences, particularly clustering of complementarity determining regions (CDRs) and full sequences:
+
+- `top.col`: If provided, the name of a column to limit the coloring of the data to. For example, `top.col = "Epitope.species"` will limit the coloring of the data to the epitope species in clustering plots. All other values will be colored as "Other". Cannot be used concurrently with 'threshold.col'.
+
+- `top`: The number of top facet.by values to display in count distribution and composition plots. For example, `top = 10` will display the top 10 epitopes in the dataset. Additionally, this is the number of top values to display in clustering plots, *e.g.*, the top 10 epitope species in the dataset.
+
+- `threshold.col`: If provided, the name of a column to limit the coloring of the data to some feature with > n receptors. For example, `threshold.col = "Epitope"` and `threshold = 50` will limit the coloring of the data to receptors with epitopes that have > 50 receptors in clustering plots. All other values will be colored as "Other". Cannot be used concurrently with 'top.col'.
+
+- `threshold`: The number of receptors to limit the coloring to. For example, `threshold = 50` will limit the coloring of the data to receptors with epitopes that have > 50 receptors in clustering plots. All other values will be colored as "Other".
+
+- `highlight`: A vector of values to highlight in clustering plots **without** discarding non-matching data, as is accomplished using `filter.by`. For example, `highlight = c("Epitope == 'GILGFVFTL'")` will highlight receptors with the epitope "GILGFVFTL" in clustering plots, coloring all other receptors as "Other". It can also be used to highlight specific TCRs using the clone.id parameter for use in benchmark case studies.
+
+- `color`: If used in conjunction with highlight, the name of a column to label the highlighted values by. For example, `color = "Epitope"` will label the highlighted values by epitope in clustering plots. If not used in conjunction with highlight, this parameter will be used to color the data in clustering plots. The default value of `color` is "Epitope". 
+
+- `save`: Set to `TRUE` to save clustering data in the initial TCRView dataset, or `FALSE` to not save clustering data. If not run prior to the clustering functions, plots will include the clustering step, but UMAP coordinates cannot be guaranteed to be the same across plots. 
+
+
+As before, these parameters may be changed on a per-plot basis. This is shown in the cluster plots below, which aim to highlight the utility of clustering functions. 
+
+
+```{r setup-epitope}
+
+# Do you want the plots to be a basic ggplot or interactive plotly plot?
+plotly = TRUE
+
+# Do you want to filter the data using a filtering expression (e.g., str_detect(Epitope.species, "SARS-CoV-2"))?
+filter.by = NULL
+
+# Do you want to limit the coloring of the data to a specific factor (e.g., "Epitope.species")?
+top.col = NULL
+
+# How many top values do you want to display?
+top = 10
+
+# Do you want to limit the coloring of the data to some feature with > n receptors?
+threshold.col = NULL
+
+# How many receptors do you want to limit the coloring to?
+threshold = NULL
+
+# Do you want to highlight the position of specific values (e.g., clone.id %in% ..., Epitope == "GILGFVFTL") without hiding the rest of the data?
+highlight = NULL
+
+# What column do you want to label these values by?
+color = NULL
+
+# Do you want to save clustering data?
+save = TRUE
+
+
+```
+
+
+##### Complementarity determining region 3 (CDR3)
 
 ```{r cdr3-length}
 
 # CDR3 alpha and beta lengths
-# Dropdown to color by V gene family, J gene family, MHC
+# By epitope
+plotCDR3SeqLength(tcr.view.set, color.by = "Epitope", plotly = plotly, filter.by = filter.by)
 
+# By epitope species
+plotCDR3SeqLength(tcr.view.set, color.by = "Epitope.species", plotly = plotly, filter.by = filter.by)
 
-```
-
-
-```{r cdr-clust}
-
-# UMAP coordinates 
-# Dropdown to overlay with V genes, J genes, epitope specificity, MHC group
+# By MHC locus
+plotCDR3SeqLength(tcr.view.set, color.by = "MHC.locus", plotly = plotly, filter.by = filter.by)
 
 
 ```
@@ -163,8 +374,159 @@ plotTopEpitopeCompositionByFactor(tcr.view.set, "Epitope.species", top = 10)
 
 ```{r cdr3-clust}
 
-# UMAP coordinates 
-# Dropdown to overlay with V genes, J genes, epitope specificity, MHC group
+set.seed(77482951)
 
+# CDR3 
+# Combined chains
+# Run clustering 
+tcr.view.set <- getCDR3SeqCluster(tcr.view.set, combine.chains = TRUE, filter.by = filter.by)
+
+# All, colored by cluster (default)
+plotCDR3SeqClusterResults(tcr.view.set, combine.chains = TRUE, plotly = plotly, filter.by = filter.by)
+
+# Top 10 epitope species
+plotCDR3SeqClusterResults(tcr.view.set, combine.chains = TRUE, top = top, top.col = "Epitope.species", plotly = plotly, filter.by = filter.by)
+
+# Receptors from epitopes with > 50 receptors
+plotCDR3SeqClusterResults(tcr.view.set, combine.chains = TRUE, threshold = 50, threshold.col = "Epitope", plotly = plotly, filter.by = filter.by)
+
+# Receptors limited to SARS-CoV-2 epitopes, colored by epitope: this will not save clusters to the original data file; if you wanted to do that, you'd have to re-run the clustering with the filter.by argument
+plotCDR3SeqClusterResults(tcr.view.set, combine.chains = TRUE, plotly = plotly, filter.by = "str_detect(Epitope.species, 'SARS-CoV-2')", color = "Epitope")
+
+# SARS-CoV-2 epitope, overlaid on all receptors
+plotCDR3SeqClusterResults(tcr.view.set, combine.chains = TRUE, plotly = plotly, highlight = "str_detect(Epitope.species, 'SARS-CoV-2')", color = "Epitope")
+
+# Per chain
+# Run clustering 
+tcr.view.set <- getCDR3SeqCluster(tcr.view.set, combine.chains = FALSE, filter.by = filter.by)
+
+# All, colored by cluster (default)
+plotCDR3SeqClusterResults(tcr.view.set, combine.chains = FALSE, plotly = plotly, filter.by = filter.by)
+
+# Top 10 epitope species
+plotCDR3SeqClusterResults(tcr.view.set, combine.chains = FALSE, top = top, top.col = "Epitope.species", plotly = plotly, filter.by = filter.by)
+
+# Receptors from epitopes with > 50 receptors
+plotCDR3SeqClusterResults(tcr.view.set, combine.chains = FALSE, threshold = 50, threshold.col = "Epitope", plotly = plotly, filter.by = filter.by)
+
+# Receptors limited to SARS-CoV-2 epitopes
+plotCDR3SeqClusterResults(tcr.view.set, combine.chains = FALSE, plotly = plotly, filter.by = "str_detect(Epitope.species, 'SARS-CoV-2')", color = "Epitope")
+
+# SARS-CoV-2 epitope, overlaid on all receptors
+plotCDR3SeqClusterResults(tcr.view.set, combine.chains = FALSE, plotly = plotly, highlight = "str_detect(Epitope.species, 'SARS-CoV-2')", color = "Epitope")
+
+```
+
+##### All complementarity determining regions (CDRs)
+
+```{r cdr-clust}
+
+set.seed(77482951)
+
+# CDR clustering
+# Combined chains
+# Run clustering 
+tcr.view.set <- getCDRSeqCluster(tcr.view.set, combine.chains = TRUE, filter.by = filter.by)
+
+# All, colored by cluster (default)
+plotCDRSeqClusterResults(tcr.view.set, combine.chains = TRUE, plotly = plotly, filter.by = filter.by)
+
+# Top 10 epitope species
+plotCDRSeqClusterResults(tcr.view.set, combine.chains = TRUE, top = top, top.col = "Epitope.species", plotly = plotly, filter.by = filter.by)
+
+# Receptors from epitopes with > 50 receptors
+plotCDRSeqClusterResults(tcr.view.set, combine.chains = TRUE, threshold = 50, threshold.col = "Epitope", plotly = plotly, filter.by = filter.by)
+
+# Receptors limited to SARS-CoV-2 epitopes, colored by epitope
+plotCDRSeqClusterResults(tcr.view.set, combine.chains = TRUE, plotly = plotly, filter.by = "str_detect(Epitope.species, 'SARS-CoV-2')", color = "Epitope")
+
+# SARS-CoV-2 epitope, overlaid on all receptors
+plotCDRSeqClusterResults(tcr.view.set, combine.chains = TRUE, plotly = plotly, highlight = "str_detect(Epitope.species, 'SARS-CoV-2')", color = "Epitope")
+
+# Per chain
+# Run clustering 
+tcr.view.set <- getCDRSeqCluster(tcr.view.set, combine.chains = FALSE, filter.by = filter.by)
+
+# All, colored by cluster (default)
+plotCDRSeqClusterResults(tcr.view.set, combine.chains = FALSE, plotly = plotly, filter.by = filter.by)
+
+# Top 10 epitope species
+plotCDRSeqClusterResults(tcr.view.set, combine.chains = FALSE, top = top, top.col = "Epitope.species", plotly = plotly, filter.by = filter.by)
+
+# Receptors from epitopes with > 50 receptors
+plotCDRSeqClusterResults(tcr.view.set, combine.chains = FALSE, threshold = 50, threshold.col = "Epitope", plotly = plotly, filter.by = filter.by)
+
+# Receptors limited to SARS-CoV-2 epitopes
+plotCDRSeqClusterResults(tcr.view.set, combine.chains = FALSE, plotly = plotly, filter.by = "str_detect(Epitope.species, 'SARS-CoV-2')", color = "Epitope")
+
+# SARS-CoV-2 epitope, overlaid on all receptors
+plotCDRSeqClusterResults(tcr.view.set, combine.chains = FALSE, plotly = plotly, highlight = "str_detect(Epitope.species, 'SARS-CoV-2')", color = "Epitope")
+
+
+```
+
+##### Full sequence
+
+```{r full-seq-clust}
+
+# Full sequence clustering
+# Run clustering 
+tcr.view.set <- getFullSeqCluster(tcr.view.set, combine.chains = TRUE, filter.by = filter.by)
+
+# All, colored by cluster (default)
+plotFullSeqClusterResults(tcr.view.set, combine.chains = TRUE, plotly = plotly, filter.by = filter.by)
+
+# Top 10 epitope species
+plotFullSeqClusterResults(tcr.view.set, combine.chains = TRUE, top = top, top.col = "Epitope.species", plotly = plotly, filter.by = filter.by)
+
+# Receptors from epitopes with > 50 receptors
+plotFullSeqClusterResults(tcr.view.set, combine.chains = TRUE, threshold = 50, threshold.col = "Epitope", plotly = plotly, filter.by = filter.by)
+
+# Receptors limited to SARS-CoV-2 epitopes
+plotFullSeqClusterResults(tcr.view.set, combine.chains = TRUE, plotly = plotly, filter.by = "str_detect(Epitope.species, 'SARS-CoV-2')", color = "Epitope")
+
+# SARS-CoV-2 epitope, overlaid on all receptors
+plotFullSeqClusterResults(tcr.view.set, combine.chains = TRUE, plotly = plotly, highlight = "str_detect(Epitope.species, 'SARS-CoV-2')", color = "Epitope")
+
+```
+
+
+```{r save-data}
+
+if (save) {
+    write.csv(tcr.view.set, file = paste0(out.path, "TCRView-data.csv"), row.names = FALSE)
+}
+
+```
+
+## Relationships between all TCR:pMHC complex components
+
+
+The following parameters are changed or added for the analysis of TCR sequences, particularly clustering of complementarity determining regions (CDRs) and full sequences:
+
+```{r setup-pca}
+
+# Do you want the plots to be a basic ggplot or interactive plotly plot?
+plotly = TRUE
+
+# Do you want to filter the data using a filtering expression (e.g., str_detect(Epitope.species, "SARS-CoV-2"))?
+filter.by = NULL
+
+# How do you want to color the PCA plot by (e.g., "Epitope.species")?
+color = "Epitope.species"
+
+# Which columns do you want to include in the PCA plot? Default is a large subset including all sequence components, V/J genes, and MHC information.
+columns <- c()
+
+```
+
+
+```{r pca}
+
+# PCA of all TCR:pMHC complex components, colored by epitope species
+plotReceptorPCA(tcr.view.set, plotly, filter.by, color = color)
+
+# PCA of specified components, colored by epitope species
+plotPCA(tcr.view.set, columns, plotly, filter.by, color = color)
 
 ```
