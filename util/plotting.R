@@ -27,7 +27,7 @@ pivotVJData <- function(data) {
 
 }
 
-plotVJAlleleCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL) {
+plotVJAlleleCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL, option = "viridis", begin = 0, end = 1) {
 
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
@@ -38,13 +38,13 @@ plotVJAlleleCountDistribution <- function(data, plotly = TRUE, filter.by = NULL,
         pivotVJData() 
 
     if (is.null(top) && !is.null(group.by)) {
-        plot <- plotCountDistributionByFactor(data, "Allele", group.by) + 
+        plot <- plotCountDistributionByFactor(data, "Allele", group.by, option, begin, end) + 
             facet_wrap(~`Gene Segment`, scales = "free", ncol = 2)
     } else if (!is.null(top) && !is.null(group.by)) {
-        plot <- plotTopCountDistributionByFactor(data, "Allele", group.by, top) + 
+        plot <- plotTopCountDistributionByFactor(data, "Allele", group.by, top, option, begin, end) + 
             facet_wrap(~`Gene Segment`, scales = "free", ncol = 2)
     } else {
-        plot <- plotCountDistribution(data, "Allele") + 
+        plot <- plotCountDistribution(data, "Allele", option) + 
             facet_wrap(~`Gene Segment`, scales = "free", ncol = 2)
     }
 
@@ -57,7 +57,7 @@ plotVJAlleleCountDistribution <- function(data, plotly = TRUE, filter.by = NULL,
 
 }
 
-plotVJGeneCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL) {
+plotVJGeneCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL, option = "viridis", begin = 0, end = 1) {
 
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
@@ -68,13 +68,13 @@ plotVJGeneCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, g
         pivotVJData()
 
     if (is.null(top) && !is.null(group.by)) {
-        plot <- plotCountDistributionByFactor(data, "Gene", group.by) + 
+        plot <- plotCountDistributionByFactor(data, "Gene", group.by, option, begin, end) + 
             facet_wrap(~`Gene Segment`, scales = "free", ncol = 2)
     } else if (!is.null(top) && !is.null(group.by)) {
-        plot <- plotTopCountDistributionByFactor(data, "Gene", group.by, top) + 
+        plot <- plotTopCountDistributionByFactor(data, "Gene", group.by, top, option, begin, end) + 
             facet_wrap(~`Gene Segment`, scales = "free", ncol = 2)
     } else {
-        plot <- plotCountDistribution(data, "Gene") + 
+        plot <- plotCountDistribution(data, "Gene", option) + 
             facet_wrap(~`Gene Segment`, scales = "free", ncol = 2)
     }
 
@@ -87,7 +87,7 @@ plotVJGeneCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, g
 
 }
 
-plotVJFamilyCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL) {
+plotVJFamilyCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL, option = "viridis", begin = 0, end = 1) {
 
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
@@ -98,13 +98,13 @@ plotVJFamilyCountDistribution <- function(data, plotly = TRUE, filter.by = NULL,
         pivotVJData()
 
     if (is.null(top) && !is.null(group.by)) {
-        plot <- plotCountDistributionByFactor(data, "Gene Family", group.by) + 
+        plot <- plotCountDistributionByFactor(data, "Gene Family", group.by, option, begin, end) + 
             facet_wrap(~`Gene Segment`, scales = "free", ncol = 2)
     } else if (!is.null(top) && !is.null(group.by)) {
-        plot <- plotTopCountDistributionByFactor(data, "Gene Family", group.by, top) + 
+        plot <- plotTopCountDistributionByFactor(data, "Gene Family", group.by, top, option, begin, end) + 
             facet_wrap(~`Gene Segment`, scales = "free", ncol = 2)
     } else {
-        plot <- plotCountDistribution(data, "Gene Family") + 
+        plot <- plotCountDistribution(data, "Gene Family", option) + 
             facet_wrap(~`Gene Segment`, scales = "free", ncol = 2)
     }
 
@@ -118,7 +118,7 @@ plotVJFamilyCountDistribution <- function(data, plotly = TRUE, filter.by = NULL,
 }
 
 
-plotVJAllele <- function(data, plotly = TRUE, filter.by = NULL) {
+plotVJAllele <- function(data, plotly = TRUE, filter.by = NULL, option = "viridis", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
@@ -142,7 +142,7 @@ plotVJAllele <- function(data, plotly = TRUE, filter.by = NULL) {
         labs(title = "V/J Alleles",
                 x = "Allele",
                 y = "Count") +
-        scale_fill_viridis_d(option = "viridis")
+        scale_fill_viridis_d(option = option, begin = begin, end = end)
 
     if (plotly) {
         plot <- ggplotly(plot)
@@ -153,7 +153,7 @@ plotVJAllele <- function(data, plotly = TRUE, filter.by = NULL) {
 }
 
 
-plotVJGene <- function(data, plotly = TRUE, filter.by = NULL) {
+plotVJGene <- function(data, plotly = TRUE, filter.by = NULL, option = "viridis", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
@@ -177,7 +177,7 @@ plotVJGene <- function(data, plotly = TRUE, filter.by = NULL) {
         labs(title = "V/J Genes",
                 x = "Gene",
                 y = "Count") +
-        scale_fill_viridis_d(option = "viridis")
+        scale_fill_viridis_d(option = option, begin = begin, end = end)
 
     if (plotly) {
         plot <- ggplotly(plot)
@@ -187,7 +187,7 @@ plotVJGene <- function(data, plotly = TRUE, filter.by = NULL) {
     }
 }
 
-plotVJFamily <- function(data, plotly = TRUE, filter.by = NULL) {
+plotVJFamily <- function(data, plotly = TRUE, filter.by = NULL, option = "viridis", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
@@ -198,7 +198,7 @@ plotVJFamily <- function(data, plotly = TRUE, filter.by = NULL) {
         add_count(`Gene Family`, name = "Count") %>%
         ungroup()
 
-    ggplot(data, 
+    plot <- ggplot(data, 
         aes(x = `Gene Family`, fill = `Gene Family`)) +
         geom_bar(position = "dodge") +
         facet_wrap(~`Gene Family`, strip.position = "bottom", scales = "free", nrow = 1) +
@@ -207,10 +207,10 @@ plotVJFamily <- function(data, plotly = TRUE, filter.by = NULL) {
         theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
               strip.text = element_text(size = 8),
               legend.position = "none") +
-        labs(title = "V/J Genes",
+        labs(title = "V/J Gene Families",
                 x = "Gene",
                 y = "Count") +
-        scale_fill_viridis_d(option = "viridis")
+        scale_fill_viridis_d(option = option, begin = begin, end = end)
 
     if (plotly) {
         plot <- ggplotly(plot)
@@ -225,18 +225,18 @@ plotVJFamily <- function(data, plotly = TRUE, filter.by = NULL) {
 
 
 ## Plotting functions for epitope
-plotEpitopeCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL) {
+plotEpitopeCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL, option = "turbo", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
     }
 
     if (is.null(top) && !is.null(group.by)) {
-        plot <- plotCountDistributionByFactor(data, "Epitope", group.by)
+        plot <- plotCountDistributionByFactor(data, "Epitope", group.by, option, begin, end)
     } else if (!is.null(top) && !is.null(group.by)) {
-        plot <- plotTopCountDistributionByFactor(data, "Epitope", group.by, top)
+        plot <- plotTopCountDistributionByFactor(data, "Epitope", group.by, top, option, begin, end)
     } else {
-        plot <- plotCountDistribution(data, "Epitope")
+        plot <- plotCountDistribution(data, "Epitope", option)
     }
 
     if (plotly) {
@@ -248,25 +248,25 @@ plotEpitopeCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, 
 }
 
 
-plotEpitopeComposition <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL) {
+plotEpitopeComposition <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL, option = "turbo", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
     }
 
     if (is.null(top) && !is.null(group.by)) {
-        plot <- plotCompositionByFactor(data, "Epitope", group.by)
+        plot <- plotCompositionByFactor(data, "Epitope", group.by, option, begin, end)
     } else if (!is.null(top) && !is.null(group.by)) {
-        plot <- plotTopCountDistributionByFactor(data, "Epitope", group.by, top)
+        plot <- plotTopCompositionByFactor(data, "Epitope", group.by, top, option, begin, end)
     } else {
-        plot <- plotComposition(data, "Epitope")
+        plot <- plotComposition(data, "Epitope", option, begin, end)
     }
 
     if (plotly) {
-        plot <- ggplotly(plot)
         if (is.null(filter.by) && is.null(group.by)) {
             plot <- plot + theme(axis.text.x = element_blank())
         } 
+        plot <- ggplotly(plot)
         return(plot)
     } else {
         return(plot)
@@ -274,18 +274,18 @@ plotEpitopeComposition <- function(data, plotly = TRUE, filter.by = NULL, group.
 }
 
 
-plotEpitopeSpeciesComposition <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL) {
+plotEpitopeSpeciesComposition <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL, option = "turbo", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
     }
 
     if (is.null(top) && !is.null(group.by)) {
-        plot <- plotCompositionByFactor(data, "Epitope.species", group.by)
+        plot <- plotCompositionByFactor(data, "Epitope.species", group.by, option, begin, end)
     } else if (!is.null(top) && !is.null(group.by)) {
-        plot <- plotTopCountDistributionByFactor(data, "Epitope.species", group.by, top)
+        plot <- plotTopCompositionFactor(data, "Epitope.species", group.by, top, option, begin = begin, end = end)
     } else {
-        plot <- plotComposition(data, "Epitope.species")
+        plot <- plotComposition(data, "Epitope.species", option, begin = begin, end = end)
     }
 
     if (plotly) {
@@ -297,18 +297,20 @@ plotEpitopeSpeciesComposition <- function(data, plotly = TRUE, filter.by = NULL,
 }
 
 ## Plotting functions for MHC
-plotMHCAlleleCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL) {
+plotMHCAlleleCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL, option = "plasma", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
     }
 
     if (is.null(top) && !is.null(group.by)) {
-        plot <- plotCountDistributionByFactor(data, "MHC.allele", group.by)
+        plot <- plotCountDistributionByFactor(data, "MHC.allele", group.by, option, begin = begin, end = end) +
+            scale_fill_viridis_d(option = option, begin = 1, end = 0.1)
     } else if (!is.null(top) && !is.null(group.by)) {
-        plot <- plotTopCountDistributionByFactor(data, "MHC.allele", group.by, top)
+        plot <- plotTopCountDistributionByFactor(data, "MHC.allele", group.by, top, option, begin = begin, end = end) +
+            scale_fill_viridis_d(option = option, begin = 1, end = 0.1)
     } else {
-        plot <- plotCountDistribution(data, "MHC.allele")
+        plot <- plotCountDistribution(data, "MHC.allele", option) 
     }
 
     if (plotly) {
@@ -319,18 +321,18 @@ plotMHCAlleleCountDistribution <- function(data, plotly = TRUE, filter.by = NULL
     }
 }
 
-plotMHCLocusCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL) {
+plotMHCLocusCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL, option = "plasma", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
     }
 
     if (is.null(top) && !is.null(group.by)) {
-        plot <- plotCountDistributionByFactor(data, "MHC.locus", group.by)
+        plot <- plotCountDistributionByFactor(data, "MHC.locus", group.by, option, begin = begin, end = end)
     } else if (!is.null(top) && !is.null(group.by)) {
-        plot <- plotTopCountDistributionByFactor(data, "MHC.locus", group.by, top)
+        plot <- plotTopCountDistributionByFactor(data, "MHC.locus", group.by, top, option, begin = begin, end = end)
     } else {
-        plot <- plotCountDistribution(data, "MHC.locus")
+        plot <- plotCountDistribution(data, "MHC.locus", option)
     }
 
     if (plotly) {
@@ -342,18 +344,18 @@ plotMHCLocusCountDistribution <- function(data, plotly = TRUE, filter.by = NULL,
 }
 
 
-plotMHCCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL) {
+plotMHCCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL, option = "plasma", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
     }
 
     if (is.null(top) && !is.null(group.by)) {
-        plot <- plotCountDistributionByFactor(data, "MHC", group.by)
+        plot <- plotCountDistributionByFactor(data, "MHC", group.by, option, begin = begin, end = end)
     } else if (!is.null(top) && !is.null(group.by)) {
-        plot <- plotTopCountDistributionByFactor(data, "MHC", group.by, top)
+        plot <- plotTopCountDistributionByFactor(data, "MHC", group.by, top, option, begin = begin, end = end)
     } else {
-        plot <- plotCountDistribution(data, "MHC")
+        plot <- plotCountDistribution(data, "MHC", option)
     }
 
     if (plotly) {
@@ -364,18 +366,18 @@ plotMHCCountDistribution <- function(data, plotly = TRUE, filter.by = NULL, grou
     }
 }
 
-plotMHCComposition <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL) {
+plotMHCComposition <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL, option = "plasma", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
     }
     
     if (is.null(top) && !is.null(group.by)) {
-        plot <- plotCompositionByFactor(data, "MHC", group.by)
+        plot <- plotCompositionByFactor(data, "MHC", group.by, option, begin = begin, end = end)
     } else if (!is.null(top) && !is.null(group.by)) {
-        plot <- plotTopCompositionByFactor(data, "MHC", group.by, top)
+        plot <- plotTopCompositionByFactor(data, "MHC", group.by, top, option, begin = begin, end = end)
     } else {
-        plot <- plotComposition(data, "MHC")
+        plot <- plotComposition(data, "MHC", option, begin = begin, end = end)
     }
 
     if (plotly) {
@@ -387,18 +389,18 @@ plotMHCComposition <- function(data, plotly = TRUE, filter.by = NULL, group.by =
 }
 
 
-plotMHCLocusComposition <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL) {
+plotMHCLocusComposition <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL, option = "plasma", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
     }
 
     if (is.null(top) && !is.null(group.by)) {
-        plot <- plotCompositionByFactor(data, "MHC.locus", group.by)
+        plot <- plotCompositionByFactor(data, "MHC.locus", group.by, option, begin = begin, end = end)
     } else if (!is.null(top) && !is.null(group.by)) {
-        plot <- plotTopCompositionByFactor(data, "MHC.locus", group.by, top)
+        plot <- plotTopCompositionByFactor(data, "MHC.locus", group.by, top, option, begin = begin, end = end)
     } else {
-        plot <- plotComposition(data, "MHC.locus")
+        plot <- plotComposition(data, "MHC.locus", option, begin = begin, end = end)
     }
 
     if (plotly) {
@@ -410,18 +412,18 @@ plotMHCLocusComposition <- function(data, plotly = TRUE, filter.by = NULL, group
 }
 
 
-plotMHCAlleleComposition <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL) {
+plotMHCAlleleComposition <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, top = NULL, option = "plasma", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
     }
 
     if (is.null(top) && !is.null(group.by)) {
-        plot <- plotCompositionByFactor(data, "MHC.allele", group.by)
+        plot <- plotCompositionByFactor(data, "MHC.allele", group.by, option, begin = begin, end = end)
     } else if (!is.null(top) && !is.null(group.by)) {
-        plot <- plotTopCompositionByFactor(data, "MHC.allele", group.by, top)
+        plot <- plotTopCompositionByFactor(data, "MHC.allele", group.by, top, option, begin = begin, end = end)
     } else {
-        plot <- plotComposition(data, "MHC.allele")
+        plot <- plotComposition(data, "MHC.allele", option, begin = begin, end = end)
     }
 
     if (plotly) {
@@ -435,25 +437,47 @@ plotMHCAlleleComposition <- function(data, plotly = TRUE, filter.by = NULL, grou
 
 ## Plotting functions for CDR3 length
 # For both CDR3a and CDR3b, x is the clone.id and y is the length of CDR3, colored by an inputted group.by
-plotCDR3SeqLength <- function(data, color.by = "Epitope", plotly = TRUE, filter.by = NULL) {
+plotCDR3SeqLength <- function(data, color.by = "Epitope", plotly = TRUE, filter.by = NULL, top = NULL, option = "viridis", begin = 0, end = 1) {
+
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
     }
 
+  
     plot <- ggplot((data %>%
-        pivot_longer(cols = c(CDR3a, CDR3b), names_to = "CDR3", values_to = "CDR3.seq")),
-        aes(x = clone.id, y = str_length(CDR3.seq), color = !!sym(group.by))) +
+        pivot_longer(cols = c(CDR3a, CDR3b), names_to = "CDR3.chain", values_to = "CDR3.seq")),
+        aes(x = clone.id, y = str_length(CDR3.seq), color = !!sym(color.by))) +
         geom_point() +
-        facet_wrap(~CDR3, scales = "free_x") +
+        facet_wrap(~CDR3.chain, scales = "free_x") +
         theme_minimal() +
         theme(axis.text.x = element_blank(),
               strip.text = element_text(size = 8),
-              legend.position = "none") +
+              legend.position = "bottom") +
         labs(title = "CDR3 Length",
                 x = "Clone ID",
                 y = "Length") +
-        scale_color_viridis_d(option = "viridis")
+        scale_color_viridis_d(option = option, begin = begin, end = end)
+
+    if (!is.null(top)) {
+        data <- data %>%
+            mutate(label = !!sym(color.by)) %>%
+            add_count(label, name = "n")
+
+        top.labels <- data %>%
+            count(label) %>%
+            top_n(top, n) %>%
+            pull(label)
+
+        data <- data %>%
+            mutate(label = ifelse(label %in% top.labels, label, "Other"))
+
+        labels <- unique(data$label)
+        colors <- viridis(length(labels), option = option, begin = begin, end = end)
+        names(colors) <- labels
+        colors["Other"] <- "#717070"
+        plot <- plot + scale_color_manual(values = colors)
+    }
 
 
     if (plotly) {
@@ -466,20 +490,20 @@ plotCDR3SeqLength <- function(data, color.by = "Epitope", plotly = TRUE, filter.
 
 
 ## Plotting functions for full sequence clustering
-plotFullSeqClusterResults <- function(data, plotly = TRUE, filter.by = NULL, color = NULL, top = NULL, top.col = NULL, threshold = NULL, threshold.col = NULL, highlight = NULL) {
+plotFullSeqClusterResults <- function(data, plotly = TRUE, filter.by = NULL, color = NULL, top = NULL, top.col = NULL, threshold = NULL, threshold.col = NULL, highlight = NULL, option = "viridis", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
     }
 
     if (!is.null(top)) {
-        plot <- plotClusterResultsTop(data, "full.seq", "AB", top = top, top.col = top.col)
+        plot <- plotClusterResultsTop(data, "full.seq", "AB", top = top, top.col = top.col, option = option, begin = begin, end = end)
     } else if (!is.null(threshold)) {
-        plot <- plotClusterResultsThreshold(data, "full.seq", "AB", threshold = threshold, threshold.col = threshold.col)
+        plot <- plotClusterResultsThreshold(data, "full.seq", "AB", threshold = threshold, threshold.col = threshold.col, option = option, begin = begin, end = end)
     } else if (!is.null(highlight)) {
-        plot <- plotClusterResultsHighlight(data, "full.seq", "AB", filter.by = filter.by, color = color, highlight = highlight)
+        plot <- plotClusterResultsHighlight(data, "full.seq", "AB", filter.by = filter.by, color = color, highlight = highlight, option = option, begin = begin, end = end)
     } else {
-        plot <- plotClusterResults(data, "full.seq", "AB", filter.by = filter.by, color = color)
+        plot <- plotClusterResults(data, "full.seq", "AB", filter.by = filter.by, color = color, option = option, begin = begin, end = end)
     }
 
     if (plotly) {
@@ -492,7 +516,7 @@ plotFullSeqClusterResults <- function(data, plotly = TRUE, filter.by = NULL, col
 
 
 ## Plotting functions for CDR clustering
-plotCDRSeqClusterResults <- function(data, combine.chains = TRUE, plotly = TRUE, filter.by = NULL, color = NULL, top = NULL, top.col = NULL, threshold = NULL, threshold.col = NULL, highlight = NULL) {
+plotCDRSeqClusterResults <- function(data, combine.chains = TRUE, plotly = TRUE, filter.by = NULL, color = NULL, top = NULL, top.col = NULL, threshold = NULL, threshold.col = NULL, highlight = NULL, option = "viridis", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
@@ -503,13 +527,13 @@ plotCDRSeqClusterResults <- function(data, combine.chains = TRUE, plotly = TRUE,
             mutate(CDR.seq = paste0(CDR1a, CDR2a, CDR2.5a, CDR3a, CDR1b, CDR2b, CDR2.5b, CDR3b))
 
         if (!is.null(top)) {
-            plot <- plotClusterResultsTop(data, "CDR.seq", "AB", top = top, top.col = top.col)
+            plot <- plotClusterResultsTop(data, "CDR.seq", "AB", top = top, top.col = top.col, option = option, begin = begin, end = end)
         } else if (!is.null(threshold)) {
-            plot <- plotClusterResultsThreshold(data, "CDR.seq", "AB", threshold = threshold, threshold.col = threshold.col)
+            plot <- plotClusterResultsThreshold(data, "CDR.seq", "AB", threshold = threshold, threshold.col = threshold.col, option = option, begin = begin, end = end)
         } else if (!is.null(highlight)) {
-            plot <- plotClusterResultsHighlight(data, "CDR.seq", "AB", filter.by = filter.by, color = color, highlight = highlight)
+            plot <- plotClusterResultsHighlight(data, "CDR.seq", "AB", filter.by = filter.by, color = color, highlight = highlight, option = option, begin = begin, end = end)
         } else {
-            plot <- plotClusterResults(data, "CDR.seq", "AB", filter.by = filter.by, color = color)
+            plot <- plotClusterResults(data, "CDR.seq", "AB", filter.by = filter.by, color = color, option = option, begin = begin, end = end)
         }
 
         if (plotly) {
@@ -525,20 +549,20 @@ plotCDRSeqClusterResults <- function(data, combine.chains = TRUE, plotly = TRUE,
                    CDRb.seq = paste0(CDR1b, CDR2b, CDR2.5b, CDR3b))
 
         if (!is.null(top)) {
-            plota <- plotClusterResultsTop(data, "CDRa.seq", "A", top = top, top.col = top.col)
-            plotb <- plotClusterResultsTop(data, "CDRb.seq", "B", top = top, top.col = top.col) + 
+            plota <- plotClusterResultsTop(data, "CDRa.seq", "A", top = top, top.col = top.col, option = option, begin = begin, end = end)
+            plotb <- plotClusterResultsTop(data, "CDRb.seq", "B", top = top, top.col = top.col, option = option, begin = begin, end = end) + 
                 labs(title = "CDR3 Clustering")
         } else if (!is.null(threshold)) {
-            plota <- plotClusterResultsThreshold(data, "CDRa.seq", "A", threshold = threshold, threshold.col = threshold.col)
-            plotb <- plotClusterResultsThreshold(data, "CDRb.seq", "B", threshold = threshold, threshold.col = threshold.col) + 
+            plota <- plotClusterResultsThreshold(data, "CDRa.seq", "A", threshold = threshold, threshold.col = threshold.col, option = option, begin = begin, end = end)
+            plotb <- plotClusterResultsThreshold(data, "CDRb.seq", "B", threshold = threshold, threshold.col = threshold.col, option = option, begin = begin, end = end) + 
                 labs(title = "CDR3 Clustering")
         } else if (!is.null(highlight)) {
-            plota <- plotClusterResultsHighlight(data, "CDRa.seq", "A", filter.by = filter.by, color = color, highlight = highlight)
-            plotb <- plotClusterResultsHighlight(data, "CDRb.seq", "B", filter.by = filter.by, color = color, highlight = highlight) + 
+            plota <- plotClusterResultsHighlight(data, "CDRa.seq", "A", filter.by = filter.by, color = color, highlight = highlight, option = option, begin = begin, end = end)
+            plotb <- plotClusterResultsHighlight(data, "CDRb.seq", "B", filter.by = filter.by, color = color, highlight = highlight, option = option, begin = begin, end = end) + 
                 labs(title = "CDR3 Clustering")
         } else {
-            plota <- plotClusterResults(data, "CDRa.seq", "A", filter.by = filter.by, color = color)
-            plotb <- plotClusterResults(data, "CDRb.seq", "B", filter.by = filter.by, color = color) + 
+            plota <- plotClusterResults(data, "CDRa.seq", "A", filter.by = filter.by, color = color, option = option, begin = begin, end = end)
+            plotb <- plotClusterResults(data, "CDRb.seq", "B", filter.by = filter.by, color = color, option = option, begin = begin, end = end) + 
                 labs(title = "CDR3 Clustering")
         }
 
@@ -555,7 +579,7 @@ plotCDRSeqClusterResults <- function(data, combine.chains = TRUE, plotly = TRUE,
 
 
 ## Plotting functions for CDR3 clustering
-plotCDR3SeqClusterResults <- function(data, combine.chains = TRUE, plotly = TRUE, filter.by = NULL, color = NULL, top = NULL, top.col = NULL, threshold = NULL, threshold.col = NULL, highlight = NULL) {
+plotCDR3SeqClusterResults <- function(data, combine.chains = TRUE, plotly = TRUE, filter.by = NULL, color = NULL, top = NULL, top.col = NULL, threshold = NULL, threshold.col = NULL, highlight = NULL, option = "viridis", begin = 0, end = 1) {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
@@ -566,13 +590,13 @@ plotCDR3SeqClusterResults <- function(data, combine.chains = TRUE, plotly = TRUE
             mutate(CDR3 = paste0(CDR3a, CDR3b))
 
         if (!is.null(top)) {
-            plot <- plotClusterResultsTop(data, "CDR3", "AB", top = top, top.col = top.col)
+            plot <- plotClusterResultsTop(data, "CDR3", "AB", top = top, top.col = top.col, option = option, begin = begin, end = end)
         } else if (!is.null(threshold)) {
-            plot <- plotClusterResultsThreshold(data, "CDR3", "AB", threshold = threshold, threshold.col = threshold.col)
+            plot <- plotClusterResultsThreshold(data, "CDR3", "AB", threshold = threshold, threshold.col = threshold.col, option = option, begin = begin, end = end)
         } else if (!is.null(highlight)) {
-            plot <- plotClusterResultsHighlight(data, "CDR3", "AB", filter.by = filter.by, color = color, highlight = highlight)
+            plot <- plotClusterResultsHighlight(data, "CDR3", "AB", filter.by = filter.by, color = color, highlight = highlight, option = option, begin = begin, end = end)
         } else {
-            plot <- plotClusterResults(data, "CDR3", "AB", filter.by = filter.by, color = color)
+            plot <- plotClusterResults(data, "CDR3", "AB", filter.by = filter.by, color = color, option = option, begin = begin, end = end)
         }
 
         if (plotly) {
@@ -585,20 +609,20 @@ plotCDR3SeqClusterResults <- function(data, combine.chains = TRUE, plotly = TRUE
     } else {
 
         if (!is.null(top)) {
-            plota <- plotClusterResultsTop(data, "CDR3a", "A", top = top, top.col = top.col)
-            plotb <- plotClusterResultsTop(data, "CDR3b", "B", top = top, top.col = top.col) + 
+            plota <- plotClusterResultsTop(data, "CDR3a", "A", top = top, top.col = top.col, option = option, begin = begin, end = end)
+            plotb <- plotClusterResultsTop(data, "CDR3b", "B", top = top, top.col = top.col, option = option, begin = begin, end = end) + 
                 labs(title = "CDR3 Clustering")
         } else if (!is.null(threshold)) {
-            plota <- plotClusterResultsThreshold(data, "CDR3a", "A", threshold = threshold, threshold.col = threshold.col)
-            plotb <- plotClusterResultsThreshold(data, "CDR3b", "B", threshold = threshold, threshold.col = threshold.col) + 
+            plota <- plotClusterResultsThreshold(data, "CDR3a", "A", threshold = threshold, threshold.col = threshold.col, option = option, begin = begin, end = end)
+            plotb <- plotClusterResultsThreshold(data, "CDR3b", "B", threshold = threshold, threshold.col = threshold.col, option = option, begin = begin, end = end) + 
                 labs(title = "CDR3 Clustering")
         } else if (!is.null(highlight)) {
-            plota <- plotClusterResultsHighlight(data, "CDR3a", "A", filter.by = filter.by, color = color, highlight = highlight)
-            plotb <- plotClusterResultsHighlight(data, "CDR3b", "B", filter.by = filter.by, color = color, highlight = highlight) + 
+            plota <- plotClusterResultsHighlight(data, "CDR3a", "A", filter.by = filter.by, color = color, highlight = highlight, option = option, begin = begin, end = end)
+            plotb <- plotClusterResultsHighlight(data, "CDR3b", "B", filter.by = filter.by, color = color, highlight = highlight, option = option, begin = begin, end = end) + 
                 labs(title = "CDR3 Clustering")
         } else {
-            plota <- plotClusterResults(data, "CDR3a", "A", filter.by = filter.by, color = color)
-            plotb <- plotClusterResults(data, "CDR3b", "B", filter.by = filter.by, color = color) + 
+            plota <- plotClusterResults(data, "CDR3a", "A", filter.by = filter.by, color = color, option = option, begin = begin, end = end)
+            plotb <- plotClusterResults(data, "CDR3b", "B", filter.by = filter.by, color = color, option = option, begin = begin, end = end) + 
                 labs(title = "CDR3 Clustering")
         }
 
@@ -637,22 +661,22 @@ plotReceptorPCA <- function(data, plotly = TRUE, filter.by = NULL, color = "Epit
 
 
 ## Generic functions
-plotCountDistribution <- function(data, column) {
+plotCountDistribution <- function(data, column, option = "viridis") {
     # If top is not null, group all other values not in the top n counts into "Other" category
     data <- data %>%
         add_count(!!sym(column), name = "Count") %>%
-        distinct(Epitope, .keep_all = TRUE)
+        distinct(!!sym(column), .keep_all = TRUE)
     plot <- ggplot(data, aes(x = Count)) +
-        geom_density() + 
+        geom_density(color = viridis(1, option = option, begin = begin, end = end)) + 
         theme_minimal() +
         scale_x_log10() +
-        labs(title = paste0(column, "Count Distribution"),
-                x = column,
+        labs(title = paste0(column, " Count Distribution"),
+                x = "Count",
                 y = "Density")
 }
 
 
-plotCountDistributionByFactor <- function(data, column, group.by) {
+plotCountDistributionByFactor <- function(data, column, group.by, option = "viridis", begin = 0, end = 1) {
     column.sym <- sym(column)
     column.n.sym <- sym(paste0(group.by, " count"))
     group.by.sym <- sym(group.by)
@@ -661,19 +685,19 @@ plotCountDistributionByFactor <- function(data, column, group.by) {
         select(!!column.sym, !!group.by.sym) %>%
             add_count(!!column.sym, name = paste0(group.by, " count")) %>%
             add_count(!!group.by.sym, name = paste0(group.by, " count")) %>%
-            distinct(.keep_all = TRUE) %>%
+            distinct(!!column.sym, !!group.by.sym, .keep_all = TRUE) %>%
             na.omit()
     plot <- ggplot(data, aes(x = !!column.n.sym, color = !!group.by.sym)) +
         geom_density() + 
         theme_minimal() +
         scale_x_log10() +
-        labs(title = paste0(column, "Count Distribution"),
-                x = column,
+        labs(title = paste0(column, " Count Distribution"),
+                x = "Count",
                 y = "Density") + 
-        scale_color_viridis_d(option = "viridis")
+        scale_color_viridis_d(option = option)
 }
 
-plotTopCountDistributionByFactor <- function(data, column, group.by, top = 10) {
+plotTopCountDistributionByFactor <- function(data, column, group.by, top = 10, option = "viridis", begin = 0, end = 1) {
     column.sym <- sym(column)
     column.n.sym <- sym(paste0(column, " count"))
     group.by.sym <- sym(group.by)
@@ -682,7 +706,7 @@ plotTopCountDistributionByFactor <- function(data, column, group.by, top = 10) {
         select(!!column.sym, !!group.by.sym) %>%
             add_count(!!column.sym, name = paste0(column, " count")) %>%
             add_count(!!group.by.sym, name = paste0(group.by, " count")) %>%
-            distinct(.keep_all = TRUE) %>%
+            distinct(!!column.sym, !!group.by.sym, .keep_all = TRUE) %>%
             na.omit()
     data <- data %>% 
         mutate(!!group.by.sym := ifelse(!!group.by.sym %in% 
@@ -693,20 +717,20 @@ plotTopCountDistributionByFactor <- function(data, column, group.by, top = 10) {
         !!group.by.sym, "Other"))
     color.names <- data %>% distinct(!!group.by.sym) %>% pull(!!group.by.sym) 
     color.names <- color.names <- setdiff(color.names, "Other")
-    color.group.by <- c(viridis(length(color.names), option = "viridis"), "grey")
+    color.group.by <- c(viridis(length(color.names), option = option, begin = begin, end = end), "grey")
     names(color.group.by) <- c(color.names, "Other")
     plot <- ggplot(data %>%
-        mutate(!!group.by.sym := group.by(!!group.by.sym, levels = c(color.names, "Other"))), aes(x = !!column.n.sym, color = !!group.by.sym)) +
+        mutate(!!group.by.sym := factor(!!group.by.sym, levels = c(color.names, "Other"))), aes(x = !!column.n.sym, color = !!group.by.sym)) +
         geom_density() + 
         theme_minimal() +
         scale_x_log10() +
-        labs(title = paste0(column, "Count Distribution"),
-                x = column,
+        labs(title = paste0(column, " Count Distribution"),
+                x = "Count",
                 y = "Density") + 
         scale_color_manual(values = color.group.by)
 }
 
-plotComposition <- function(data, column) {
+plotComposition <- function(data, column, option = "viridis", begin = 0, end = 1) {
     data <- data %>%
             add_count(!!sym(column), name = "Count") 
     plot <- ggplot((data %>% distinct(!!sym(column), Count, .keep_all = TRUE)), 
@@ -718,10 +742,10 @@ plotComposition <- function(data, column) {
         labs(title = paste0(column, " Composition"),
                 x = column,
                 y = "Count") +
-        scale_fill_viridis_d(option = "viridis")
+        scale_fill_viridis_d(option = option, begin = begin, end = end)
 }
 
-plotCompositionByFactor <- function(data, column, group.by) {
+plotCompositionByFactor <- function(data, column, group.by, option = "viridis", begin = 0, end = 1) {
     column.sym <- sym(column)
     group.by.sym <- sym(group.by)
     data <- data %>%
@@ -739,25 +763,25 @@ plotCompositionByFactor <- function(data, column, group.by) {
         labs(title = paste0(column, " Composition"),
                 x = column,
                 y = "Count") +
-        scale_fill_viridis_d(option = "viridis")
+        scale_fill_viridis_d(option = option, begin = begin, end = end)
 }
 
-plotTopCompositionByFactor <- function(data, column, group.by, top = 10) {
+plotTopCompositionByFactor <- function(data, column, group.by, top = 10, option = "viridis", begin = 0, end = 1) {
     column.sym <- sym(column)
+    column.n.sym <- sym(paste0(column, " count"))
     group.by.sym <- sym(group.by)
+    group.by.n.sym <- sym(paste0(group.by, " count"))
     data <- data %>%
             select(!!column.sym, !!group.by.sym) %>%
             add_count(!!column.sym, name = "Count") %>%
             add_count(!!group.by.sym, name = paste0(group.by, " count")) %>%
-            distinct(.keep_all = TRUE) %>%
+            distinct(!!column.sym, !!group.by.sym, .keep_all = TRUE) %>%
             na.omit()
     data <- data %>% 
-        mutate(!!group.by.sym := ifelse(!!group.by.sym %in% 
-        (data %>% 
+        filter(!!group.by.sym %in% (data %>% 
             distinct(!!group.by.sym, .keep_all = TRUE) %>% 
-            slice_max(!!group.by.sym, n = top) %>% 
-            pull(!!group.by.sym)), 
-        !!group.by.sym, "Other"))
+            slice_max(!!group.by.n.sym, n = top) %>% 
+            pull(!!group.by.sym)))
     plot <- ggplot(data, 
         aes(x = !!column.sym, y = `Count`, fill = !!group.by.sym)) +
         geom_bar(stat = "identity", position = "dodge") +
@@ -768,16 +792,17 @@ plotTopCompositionByFactor <- function(data, column, group.by, top = 10) {
         labs(title = paste0(column, " Composition"),
                 x = column,
                 y = "Count") +
-        scale_fill_viridis_d(option = "viridis")
+        scale_fill_viridis_d(option = option, begin = begin, end = end)
 }
 
-plotClusterResults <- function(data, column, chain, filter.by = NULL, color = NULL) {
+plotClusterResults <- function(data, column, chain, filter.by = NULL, color = NULL, option = "viridis", begin = 0, end = 1) {
     
     umap1.name <- paste0(column, "_UMAP_1")
     umap2.name <- paste0(column, "_UMAP_2")
     cluster.name <- paste0(column, "_cluster_0.5")
     if (is.null(color)) {
         color <- cluster.name
+        data <- data %>% mutate(!!sym(color) := factor(!!sym(color)))
     }
 
     if (!umap1.name %in% colnames(data)) {
@@ -785,7 +810,8 @@ plotClusterResults <- function(data, column, chain, filter.by = NULL, color = NU
             getSeqCluster(column, chain, filter.by = filter.by)
     } else if (umap1.name %in% colnames(data) && !is.null(filter.by)) {
         data <- data %>%
-            filter(!!rlang::parse_expr(filter.by))
+            select(-c(umap1.name, umap2.name, cluster.name)) %>%
+            getSeqCluster(column, chain, filter.by = filter.by)
     }
 
     plot <- ggplot(data, aes_string(x = umap1.name, y = umap2.name, color = color)) +
@@ -796,8 +822,7 @@ plotClusterResults <- function(data, column, chain, filter.by = NULL, color = NU
                 x = umap1.name,
                 y = umap2.name, 
                 color = paste0(column, " cluster")) +
-        scale_color_viridis_d(option = "viridis") +
-        coord_fixed()
+        scale_color_viridis_d(option = option, begin = begin, end = end)  
 
     if (color != cluster.name) {
         plot <- plot + labs(color = color)
@@ -808,12 +833,13 @@ plotClusterResults <- function(data, column, chain, filter.by = NULL, color = NU
 }
 
 # Wrapper function for plotting with top approach
-plotClusterResultsTop <- function(data, column, chain, filter.by = NULL, top = 20, top.col = NULL) {
+plotClusterResultsTop <- function(data, column, chain, filter.by = NULL, top = 20, top.col = NULL, option = "viridis", begin = 0, end = 1) {
 
     cluster.name <- paste0(column, "_cluster_0.5")
 
     if (is.null(top.col)) {
         top.col <- cluster.name
+        data <- data %>% mutate(!!sym(color) := factor(!!sym(color)))
     } 
 
     if (!is.null(filter.by)) {
@@ -835,7 +861,7 @@ plotClusterResultsTop <- function(data, column, chain, filter.by = NULL, top = 2
         mutate(label = ifelse(label %in% top.labels, label, "Other"))
 
     labels <- unique(data$label)
-    colors <- viridis(length(labels))
+    colors <- viridis(length(labels), option = option, begin = begin, end = end)
     names(colors) <- labels
     colors["Other"] <- "#717070"
 
@@ -847,11 +873,12 @@ plotClusterResultsTop <- function(data, column, chain, filter.by = NULL, top = 2
 }
 
 # Wrapper function for plotting with threshold approach
-plotClusterResultsThreshold <- function(data, column, chain, filter.by = NULL, threshold = 100, threshold.col = NULL) {
+plotClusterResultsThreshold <- function(data, column, chain, filter.by = NULL, threshold = 100, threshold.col = NULL, option = option, begin = 0, end = 1) {
     cluster.name <- paste0(column, "_cluster_0.5")
 
     if (is.null(threshold.col)) {
         threshold.col <- cluster.name
+        data <- data %>% mutate(!!sym(color) := factor(!!sym(color)))
     }   
 
     if (!is.null(filter.by)) {
@@ -865,18 +892,19 @@ plotClusterResultsThreshold <- function(data, column, chain, filter.by = NULL, t
         mutate(label = ifelse(n >= threshold, label, "Other"))
 
     labels <- unique(data$label)
-    colors <- viridis(length(labels), option ="viridis")
+    colors <- viridis(length(labels), option = option, begin = begin, end = end)
     names(colors) <- labels
     colors["Other"] <- "#717070"
 
     plot <- plotClusterResults(data, column, chain, filter.by, color = "label") +
-        scale_color_manual(values = colors)
+        scale_color_manual(values = colors) + 
+        labs(color = threshold.col)
 
     return(plot)
 }
 
 # Wrapper function for plotting with specific values overlaid on all data (different from filtering as it shows all values in original clustering in grey, but uses the same expression syntax)
-plotClusterResultsHighlight <- function(data, column, chain, filter.by = NULL, highlight, color) {
+plotClusterResultsHighlight <- function(data, column, chain, filter.by = NULL, highlight, color, option = "viridis", begin = 0, end = 1) {
 
     if (!is.null(filter.by)) {
         data <- data %>%
@@ -888,19 +916,24 @@ plotClusterResultsHighlight <- function(data, column, chain, filter.by = NULL, h
         mutate(label = !!sym(color)) %>%
         pull(!!sym(color))
 
-    highlight <- unique(data$label)
-    colors <- viridis(length(highlight))
+    data <- data %>% 
+        mutate(label = !!sym(color)) %>%
+        mutate(label = ifelse(label %in% highlight.labels, label, "Other"))
+
+    highlight <- unique(highlight.labels)
+    colors <- viridis(length(highlight), option = option, begin = begin, end = end)
     names(colors) <- highlight
     colors["Other"] <- "#717070"
 
     plot <- plotClusterResults(data, column, chain, filter.by, color = "label") +
-        scale_color_manual(values = colors)
+        scale_color_manual(values = colors) + 
+        labs(color = color)
 
     return(plot)
 
 }
 
-plotPCA <- function(data, columns, filter.by = NULL, color = "Epitope") {
+plotPCA <- function(data, columns, filter.by = NULL, color = "Epitope", option = "viridis") {
     if (!is.null(filter.by)) {
         filter.expression <- rlang::parse_expr(filter.by)
         data <- data %>% filter(!!filter.expression)
@@ -917,7 +950,7 @@ plotPCA <- function(data, columns, filter.by = NULL, color = "Epitope") {
                 x = "PC1",
                 y = "PC2",
                 color = color) +
-        scale_color_viridis_d(option = "viridis")
+        scale_color_viridis_d(option = option)
 
     return(plot)
 }

@@ -226,31 +226,38 @@ formatVJCDR3 <- function(data) {
 
 # Convert to SwarmTCR format
 formatSwarmTCR <- function(data, flag = NULL, keep_epitopes = FALSE) {
-    data <- filterCDRSeq(data)
     if (!is.null(flag)) {
-        data <- data %>%
-        mutate(FLAG = flag) %>%
-        rename(TCR_ID = clone.id) %>% 
-        filter(across(contains("CDR"), ~ !grepl("[^[:alnum:]]", .))) # remove rows with symbols in CDR sequences
-        if (keep_epitopes) {
-        data <- data %>%
-        select(TCR_ID, FLAG, CDR1a, CDR2a, CDR2.5a, CDR3a, CDR1b, CDR2b, CDR2.5b, CDR3b, Epitope)
-        } else {
-        data <- data %>%
-            select(TCR_ID, FLAG, CDR1a, CDR2a, CDR2.5a, CDR3a, CDR1b, CDR2b, CDR2.5b, CDR3b)
-        }
-    } else {
-        data <- data %>%
-        rename(TCR_ID = clone.id) %>% 
-        filter(across(contains("CDR"), ~ !grepl("[^[:alnum:]]", .))) # remove rows with symbols in CDR sequences
-        if (keep_epitopes) {
-        data <- data %>%
-            select(TCR_ID, CDR1a, CDR2a, CDR2.5a, CDR3a, CDR1b, CDR2b, CDR2.5b, CDR3b, Epitope)
-        } else {
-        data <- data %>%
-            select(TCR_ID, CDR1a, CDR2a, CDR2.5a, CDR3a, CDR1b, CDR2b, CDR2.5b, CDR3b)
-        }
+    if (any(names(data) == "clone.id")) {
+      data <- filterCDRSeq(data)
+      data <- data %>%
+        dplyr::rename(TCR_ID = clone.id)
     }
+    data <- data %>%
+      mutate(FLAG = flag) %>%
+      filter(across(contains("CDR"), ~ !grepl("[^[:alnum:]]", .))) # remove rows with symbols in CDR sequences
+    if (keep_epitopes) {
+      data <- data %>%
+      select(TCR_ID, FLAG, CDR1a, CDR2a, CDR2.5a, CDR3a, CDR1b, CDR2b, CDR2.5b, CDR3b, Epitope)
+    } else {
+      data <- data %>%
+        select(TCR_ID, FLAG, CDR1a, CDR2a, CDR2.5a, CDR3a, CDR1b, CDR2b, CDR2.5b, CDR3b)
+    }
+  } else {
+    if (any(names(data) == "clone.id")) {
+      data <- filterCDRSeq(data)
+      data <- data %>%
+        dplyr::rename(TCR_ID = clone.id)
+    }
+    data <- data %>%
+      filter(across(contains("CDR"), ~ !grepl("[^[:alnum:]]", .))) # remove rows with symbols in CDR sequences
+    if (keep_epitopes) {
+      data <- data %>%
+        select(TCR_ID, CDR1a, CDR2a, CDR2.5a, CDR3a, CDR1b, CDR2b, CDR2.5b, CDR3b, Epitope)
+    } else {
+      data <- data %>%
+        select(TCR_ID, CDR1a, CDR2a, CDR2.5a, CDR3a, CDR1b, CDR2b, CDR2.5b, CDR3b)
+    }
+  }
 }
 
 # Convert to TCRdist2 format
