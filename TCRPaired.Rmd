@@ -65,39 +65,7 @@ chan <- chan %>%
 # Get rid of comma-sep in clone.id column
 chan$clone.id <- gsub(",", "_", chan$clone.id)
 
-# Import all PDB structures (from TCRen publication)
-structures <- read.csv("./reference-data/summary_PDB_structures.csv") %>%
-    filter(complex.species == "Human", mhc.class == "MHCI") %>%
-    select(pdb.id, peptide, cdr3a, cdr3b)  %>%
-    mutate(pdb.id = toupper(pdb.id)) %>%
-    dplyr::rename(PDB = pdb.id)
-# Import available VJ gene information for PDB structures (from Szeto et al. 2021)
-structures.genes <- read.csv("./reference-data/VJ-gene_PDB_structures.csv") %>%
-    mutate(Peptide = gsub(" (\\(.*\\))", "", Peptide),
-        TRAV.gene = paste0("TRAV", str_extract(TRAV, "^[^\\*]*")),
-        TRBV.gene = paste0("TRBV", str_extract(TRBV, "^[^\\*]*"))) %>%
-    dplyr::rename(PDB.name = TCR, peptide = Peptide) %>%
-    select("PDB", "peptide", "PDB.name", "TRAV.gene", "TRBV.gene", "MHC")
-# Join structures and structures genes
-structures <- left_join(structures, structures.genes, by = c("PDB", "peptide"))
-# Join structures with distinct sequence reference data to add VJ gene information where not available
-structures.receptors <- left_join(structures,
-    all.reference.distinct %>% 
-        select(Epitope, CDR3a, CDR3b, AV.gene, BV.gene), 
-    by = c("peptide" = "Epitope", "cdr3a" = "CDR3a", "cdr3b" = "CDR3b")) %>% 
-    distinct()
-# Filter for unique PDB structures and correct VJ genes
-structures.final <- structures.receptors %>% 
-    group_by(PDB) %>%
-    filter((TRAV.gene == AV.gene & TRBV.gene == BV.gene) | 
-        (is.na(TRAV.gene) & is.na(TRBV.gene)) |
-        (is.na(AV.gene) & is.na(BV.gene))) %>%
-    mutate(AV.gene = case_when(is.na(AV.gene) ~ TRAV.gene, TRUE ~ AV.gene),
-        BV.gene = case_when(is.na(BV.gene) ~ TRBV.gene, TRUE ~ BV.gene)) %>%
-    ungroup() %>% 
-    dplyr::rename(Epitope = peptide, CDR3a = cdr3a, CDR3b = cdr3b)
 
-write.csv(structures.final, "./paired-data/crystal-structures.csv", row.names = FALSE)
 
 ```
 
@@ -125,6 +93,47 @@ glimpse(all.reference)
 data.frame(Distinct_values = sapply(all.reference, function(x) length(unique(x))))
 
 ```
+
+
+```{r structure-data-preparation}
+
+# Import all PDB structures (from TCRen publication)
+structures <- read.csv("./reference-data/summary_PDB_structures.csv") %>%
+    filter(complex.species == "Human", mhc.class == "MHCI") %>%
+    select(pdb.id, peptide, cdr3a, cdr3b)  %>%
+    mutate(pdb.id = toupper(pdb.id)) %>%
+    dplyr::rename(PDB = pdb.id)
+# Import available VJ gene information for PDB structures (from Szeto et al. 2021)
+structures.genes <- read.csv("./reference-data/VJ-gene_PDB_structures.csv") %>%
+    mutate(Peptide = gsub(" (\\(.*\\))", "", Peptide),
+        TRAV.gene = paste0("TRAV", str_extract(TRAV, "^[^\\*]*")),
+        TRBV.gene = paste0("TRBV", str_extract(TRBV, "^[^\\*]*"))) %>%
+    dplyr::rename(PDB.name = TCR, peptide = Peptide) %>%
+    select("PDB", "peptide", "PDB.name", "TRAV.gene", "TRBV.gene", "MHC")
+# Join structures and structures genes
+structures <- left_join(structures, structures.genes, by = c("PDB", "peptide"))
+# Join structures with distinct sequence reference data to add VJ gene information where not available
+structures.receptors <- left_join(structures,
+    all.reference %>% 
+        select(Epitope, CDR3a, CDR3b, AV.gene, BV.gene), 
+    by = c("peptide" = "Epitope", "cdr3a" = "CDR3a", "cdr3b" = "CDR3b")) %>% 
+    distinct()
+# Filter for unique PDB structures and correct VJ genes
+structures.final <- structures.receptors %>% 
+    group_by(PDB) %>%
+    filter((TRAV.gene == AV.gene & TRBV.gene == BV.gene) | 
+        (is.na(TRAV.gene) & is.na(TRBV.gene)) |
+        (is.na(AV.gene) & is.na(BV.gene))) %>%
+    mutate(AV.gene = case_when(is.na(AV.gene) ~ TRAV.gene, TRUE ~ AV.gene),
+        BV.gene = case_when(is.na(BV.gene) ~ TRBV.gene, TRUE ~ BV.gene)) %>%
+    ungroup() %>% 
+    dplyr::rename(Epitope = peptide, CDR3a = cdr3a, CDR3b = cdr3b)
+
+write.csv(structures.final, "./paired-data/crystal-structures.csv", row.names = FALSE)
+
+```
+
+
 
 ## Non-redundant data subsets
 

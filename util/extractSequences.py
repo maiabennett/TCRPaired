@@ -12,6 +12,9 @@ import numpy as np
 from Bio import Align
 
 
+repository_filepath = "c:/Users/maiam/OneDrive - University of Nebraska at Omaha/Thesis/projects/TCRPaired/"
+
+
 # The following indices correspond to their respective CDR Loops
 c1 = [26,38]
 c2 = [55,65]
@@ -92,7 +95,7 @@ class ref_CDRAASeq():
 
 # Convert new paired sequencing data to CDR loop format
 def convert_data_paired(new, gene_column_alpha, gene_column_beta):
-    ref = pd.read_csv('./util/ref/paired_genes.csv')
+    ref = pd.read_csv(f'{repository_filepath}util/ref/paired_genes.csv') 
     new['CDR1a'] = new[gene_column_alpha].map(ref.set_index('Gene')['CDR1'])
     new['CDR2a'] = new[gene_column_alpha].map(ref.set_index('Gene')['CDR2'])
     new['CDR2.5a'] = new[gene_column_alpha].map(ref.set_index('Gene')['CDR2.5'])
@@ -427,7 +430,7 @@ def create_constant_dic(organism):
         dictionary of the constant regions for the organism selected
     """
     constant_dic = {}
-    constant_region_file = './util/ref/constant_regions.fasta' 
+    constant_region_file = f'{repository_filepath}util/ref/constant_regions.fasta' 
     with open(constant_region_file, "r") as f:
         temp_imgt_id = ""
         flag = False  # Flag to know when to collect sequence information for dic
@@ -531,7 +534,7 @@ def return_sequences(tcr_seq_dic):
 
 # all functionalities taken from SeqConductor.py
 def manage_sequences(data, alpha_file=None, beta_file=None, constant_regions=False, append=True):  # main function for binding data
-    create_gene_dic("./util/ref/family_seq.fasta")
+    create_gene_dic(f"{repository_filepath}util/ref/family_seq.fasta")
     tcr_dic = get_tcr_info(data)
     # create full tcr sequences
     tcr_seq_dic = make_tcr_seq(tcr_dic)

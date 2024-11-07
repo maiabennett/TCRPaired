@@ -1,7 +1,8 @@
 
-
-use_condaenv("./util/.conda", required = TRUE)
-source_python("./util/extractSequences.py")
+# Change the working directory to the script's directory
+repository.filepath <- "c:/Users/maiam/OneDrive - University of Nebraska at Omaha/Thesis/projects/TCRPaired/"
+use_condaenv(paste0(repository.filepath, "util/.conda"), required = TRUE)
+source_python(paste0(repository.filepath, "util/extractSequences.py"))
 
 
 ###################################

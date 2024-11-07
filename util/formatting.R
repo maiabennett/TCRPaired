@@ -1,4 +1,5 @@
 
+repository.filepath <- "c:/Users/maiam/OneDrive - University of Nebraska at Omaha/Thesis/projects/TCRPaired/"
 
 
 ######################
@@ -7,7 +8,7 @@
 # Convert MHC and VDJ gene names to a standard format
 convertGenes <- function(data) {
 
-    gene.file <- "./util/ref/family_alignment.txt"
+    gene.file <- paste0(repository.filepath, "util/ref/family_alignment.txt")
     gene.ref <- data.frame(ID = readChar(gene.file, file.info(gene.file)$size))
     gene.ref <- gene.ref %>% 
         dplyr::mutate(ID = strsplit(as.character(ID), ">")) %>%
@@ -123,7 +124,7 @@ convertEpitopeSpecies <- function(data) {
         dplyr::mutate(Epitope.species = ifelse(Epitope.species == "" | is.na(Epitope.species), min(Epitope.species[nchar(Epitope.species) > 0], na.rm = TRUE), Epitope.species)) %>%
         dplyr::ungroup() %>%
         # Filter out epitope species erroneously in Epitope column
-        filter(str_detect(Epitope, "^[A-Z]+$"))
+        filter(str_detect(Epitope, "^[A-Z,\\-_]+$"))
 }
 
 # Convert epitope gene names to a standard format
