@@ -220,8 +220,180 @@ plotVJFamily <- function(data, plotly = TRUE, filter.by = NULL, option = "viridi
     }
 }
 
+# More generic VJ composition function
+plotVJComposition <- function(data, plotly = TRUE, filter.by = NULL, group.by = NULL, option = "viridis", begin = 0, end = 1) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+
+    data <- data %>% 
+        add_count(Allele, name = "Count") %>%
+        distinct(.keep_all = TRUE)
+
+    plot <- ggplot(data = data, 
+        aes(x = Allele, y = Count, fill = Allele)) +
+        geom_bar(stat = "identity") +
+        facet_wrap(~`Gene Segment`, scales = "free") +
+        theme_minimal() +
+        theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+              strip.text = element_text(size = 8),
+              legend.position = "none") +
+        labs(title = "V/J Alleles",
+                x = "Allele",
+                y = "Count") +
+        scale_fill_viridis_d(option = option, begin = begin, end = end)
+
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
+}
+
 
 # VJ sankey diagram
+plotVJSankey <- function(data, filter.by = NULL, top = NULL, threshold = NULL) {
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+
+    data <- data %>% 
+        select(AV, AJ, BV, BJ)
+
+    if (!is.null(top)) {
+        top.av <- data %>% 
+            count(AV) %>% 
+            slice_max(order_by = n, n = top) %>%
+            pull(AV)
+        top.aj <- data %>% 
+            count(AJ) %>%
+            slice_max(order_by = n, n = top) %>%
+            pull(AJ)
+        top.bv <- data %>% 
+            count(BV) %>%
+            slice_max(order_by = n, n = top) %>%
+            pull(BV)
+        top.bj <- data %>% 
+            count(BJ) %>%
+            slice_max(order_by = n, n = top) %>%
+            pull(BJ)
+        data <- data %>% 
+            mutate(AV = ifelse(AV %in% top.av, AV, "Other AV"),
+                AJ = ifelse(AJ %in% top.aj, AJ, "Other AJ"),
+                BV = ifelse(BV %in% top.bv, BV, "Other BV"),
+                BJ = ifelse(BJ %in% top.bj, BJ, "Other AV"))
+    } else if (!is.null(threshold)) {
+        threshold.av <- data %>% 
+            count(AV, name = "AV.count") %>%
+            filter(AV.count >= threshold) %>%
+            pull(AV)
+        threshold.aj <- data %>%
+            count(AJ, name = "AJ.count") %>%
+            filter(AJ.count >= threshold) %>%
+            pull(AJ)
+        threshold.bv <- data %>%
+            count(BV, name = "BV.count") %>%
+            filter(BV.count >= threshold) %>%
+            pull(BV)
+        threshold.bj <- data %>%
+            count(BJ, name = "BJ.count") %>%
+            filter(BJ.count >= threshold) %>%
+            pull(BJ)
+        data <- data %>%
+            mutate(AV = ifelse(AV %in% threshold.av, AV, "Other AV"),
+                AJ = ifelse(AJ %in% threshold.aj, AJ, "Other AJ"),
+                BV = ifelse(BV %in% threshold.bv, BV, "Other BV"),
+                BJ = ifelse(BJ %in% threshold.bj, BJ, "Other BJ"))
+    }
+
+    vj.freq <- data %>% 
+        count(AV, AJ, BV, BJ) %>%
+        arrange(desc(n))
+
+    nodes <- data.frame(name = unique(c(vj.freq$AV, vj.freq$AJ, vj.freq$BV, vj.freq$BJ)))
+    links <- data.frame(source = match(vj.freq$AJ, nodes$name) - 1,
+        target = match(vj.freq$AV, nodes$name) - 1,
+        value = vj.freq$n,
+        stringsAsFactors = FALSE)
+    links <- rbind(links,
+        data.frame(source = match(vj.freq$AV, nodes$name) - 1,
+        target = match(vj.freq$BV, nodes$name) - 1,
+        value = vj.freq$n,
+        stringsAsFactors = FALSE))
+    links <- rbind(links,
+        data.frame(source = match(vj.freq$BV, nodes$name) - 1,
+        target = match(vj.freq$BJ, nodes$name) - 1,
+        value = vj.freq$n,
+        stringsAsFactors = FALSE))
+    nodes <- nodes %>%
+        mutate(source = 0:(nrow(nodes) - 1))
+    links <- links %>%
+        left_join(nodes, join_by(source))
+    links <- links %>%
+        mutate(gene = name) %>%
+        select(-name)
+
+    sankeyplot <- sankeyNetwork(Links = links, Nodes = nodes, Source = "source", 
+        Target = "target", Value = "value", NodeID = "name", sinksRight = FALSE, LinkGroup = "gene")
+}
+
+
+# V and J gene heatmaps
+# Plot V/J gene usage heatmaps
+plotVJHeatmapNormalized <- function(data, gene.name) {
+  allele.counts <- data %>%
+    gather(key = "gene", value = "allele", AV, AJ, BV, BJ) %>%
+    filter(gene == gene.name) %>%
+    group_by(source, gene, allele) %>%
+    summarise(n = n()) %>%
+    ungroup() %>%
+    group_by(source) %>%
+    mutate(percentage = n / sum(n) * 100) %>%
+    ungroup()
+
+  heatmap.data <- dcast(allele.counts, source + gene ~ allele, value.var = "percentage", fill = 0)
+  heatmap.matrix <- as.matrix(heatmap.data[,-c(1, 2)])
+  rownames(heatmap.matrix) <- heatmap.data$source
+  heatmap.data <- melt(heatmap.matrix)
+
+  unique_alleles <- unique(heatmap.data$Var2)
+#   ordered_alleles <- sortAlleles(unique_alleles)
+  heatmap.data$Var2 <- factor(heatmap.data$Var2)
+
+  heatmap <- ggplot(heatmap.data, aes(Var2, Var1, fill = value)) +
+    geom_tile() +
+     scale_fill_gradientn(colors = c("#d1e5f0", "#92c5de", "#f7fcb9", "#fee08b", "#fdae61", "#f46d43", "#d73027")) +
+    labs(title = paste0("TR", gene.name, " Heatmap"),
+         x = "Allele",
+         y = "Sample",
+         fill = "Normalized\npercentage") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
+
+  return(heatmap)
+}
+
+
+# Wrapper for normalized heatmaps
+makeVJHeatmapsNormalized <- function(data, column) {
+
+  data <- data %>% 
+    mutate(source = !!sym(column))
+#   for (i in unique(data[[column]])) {
+#     sample <- data[[column]] %>% mutate(source = data.names[i])
+#     data.full <- rbind(data.full, sample)
+#   }
+
+    AV <- plotVJHeatmapNormalized(data, "AV")
+    AJ <- plotVJHeatmapNormalized(data, "AJ")
+    BV <- plotVJHeatmapNormalized(data, "BV")
+    BJ <- plotVJHeatmapNormalized(data, "BJ")
+
+    return(list(AV, AJ, BV, BJ))
+}
+
 
 
 ## Plotting functions for epitope
@@ -466,7 +638,7 @@ plotCDR3SeqLength <- function(data, color.by = "Epitope", plotly = TRUE, filter.
 
         top.labels <- data %>%
             count(label) %>%
-            top_n(top, n) %>%
+            slice_max(n = top, order_by = n) %>%
             pull(label)
 
         data <- data %>%
@@ -712,7 +884,7 @@ plotTopCountDistributionByFactor <- function(data, column, group.by, top = 10, o
         mutate(!!group.by.sym := ifelse(!!group.by.sym %in% 
         (data %>% 
             distinct(!!group.by.sym, .keep_all = TRUE) %>% 
-            slice_max(!!group.by.n.sym, n = top) %>% 
+            slice_max(order_by = !!group.by.n.sym, n = top) %>% 
             pull(!!group.by.sym)), 
         !!group.by.sym, "Other"))
     color.names <- data %>% distinct(!!group.by.sym) %>% pull(!!group.by.sym) 
@@ -780,7 +952,7 @@ plotTopCompositionByFactor <- function(data, column, group.by, top = 10, option 
     data <- data %>% 
         filter(!!group.by.sym %in% (data %>% 
             distinct(!!group.by.sym, .keep_all = TRUE) %>% 
-            slice_max(!!group.by.n.sym, n = top) %>% 
+            slice_max(order_by = !!group.by.n.sym, n = top) %>% 
             pull(!!group.by.sym)))
     plot <- ggplot(data, 
         aes(x = !!column.sym, y = `Count`, fill = !!group.by.sym)) +
@@ -854,7 +1026,7 @@ plotClusterResultsTop <- function(data, column, chain, filter.by = NULL, top = 2
 
     top.labels <- data %>%
         count(label) %>%
-        top_n(top, n) %>%
+        slice_max(n = top, order_by = n) %>%
         pull(label)
 
     data <- data %>%

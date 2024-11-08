@@ -197,7 +197,7 @@ preprocessMcPAS <- function(data) {
 
 # Where epitope indicates if there is an epitope and name is the name to use in clone.id
 # Currently, assumes no epitope
-preprocess10X <- function(data, epitope, name) {
+preprocess10X <- function(data, epitope = NULL, name) {
   name <- ifelse(is.null(name), "10x", name)
   counts <- data %>%
     count(barcode, sort=TRUE, name='count') %>% 
