@@ -82,9 +82,9 @@ begin = 0
 end = 1
 
 # Where do you want to save any plot and clustering data?
-# out.path = "./view-data/high-confidence-data/"
+out.path = "./view-data/high-confidence-data/"
 # out.path = "./view-data/all-data/"
-out.path = "./view-data/high-confidence-similarity-90-data/"
+# out.path = "./view-data/high-confidence-similarity-90-data/"
 
 dir.create(out.path, showWarnings = FALSE, recursive = TRUE)
 
@@ -295,12 +295,23 @@ vj.table <- vj.set %>%
     select(-`Gene Segment Count`) %>%
     arrange(`Gene Segment`)
 
-write.csv(vj.table %>% select(-"Gene Segment"), file = paste0(out.path, "vj-gene-table.csv"), row.names = FALSE)
+write.csv(vj.table %>% filter(str_detect(Allele, "AV")) %>% select(-"Gene Segment") %>% arrange(desc("Allele Count")), file = paste0(out.path, "av-gene-table.csv"), row.names = FALSE)
+write.csv(vj.table %>% filter(str_detect(Allele, "AJ")) %>% select(-"Gene Segment") %>% arrange(desc("Allele Count")), file = paste0(out.path, "aj-gene-table.csv"), row.names = FALSE)
+write.csv(vj.table %>% filter(str_detect(Allele, "BV")) %>% select(-"Gene Segment") %>% arrange(desc("Allele Count")), file = paste0(out.path, "bv-gene-table.csv"), row.names = FALSE)
+write.csv(vj.table %>% filter(str_detect(Allele, "BJ")) %>% select(-"Gene Segment") %>% arrange(desc("Allele Count")), file = paste0(out.path, "bj-gene-table.csv"), row.names = FALSE)
 
 datatable(vj.table, extensions=c('Scroller', 'RowGroup'), 
     options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
     rowGroup = list(dataSrc = 4), columnDefs = list(list(visible=FALSE, targets=c(4)))),
     caption="V and J gene usage in the TCR dataset")
+
+
+co.gene.table <- vj.set %>% 
+    count(AV.gene, AJ.gene, BV.gene, BJ.gene) %>%
+    arrange(desc(n))
+
+write.csv(co.gene.table, file = paste0(out.path, "vj-gene-cooccurrence-table.csv"), row.names = FALSE)
+
 
 rm(vj.set)
 
