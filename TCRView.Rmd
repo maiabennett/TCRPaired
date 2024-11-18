@@ -29,8 +29,8 @@ knitr::opts_chunk$set(
 ```{r data-import}
 
 # tcr.view.file <- "./paired-data/all-distinct-cdr-paired-sequences.csv"
-tcr.view.file <- "./paired-data/high-confidence-paired-sequences.csv"
-# tcr.view.file <- "./paired-data/high-confidence-cdr3-similarity-90-paired-sequences.csv"
+# tcr.view.file <- "./paired-data/high-confidence-paired-sequences.csv"
+tcr.view.file <- "./paired-data/high-confidence-cdr3-similarity-90-paired-sequences.csv"
 tcr.view.set <- read.csv(tcr.view.file)
 
 # To make plots more legible, string wrap Epitope species values to 12 characters
@@ -82,9 +82,9 @@ begin = 0
 end = 1
 
 # Where do you want to save any plot and clustering data?
-out.path = "./view-data/high-confidence-data/"
 # out.path = "./view-data/all-data/"
-# out.path = "./view-data/high-confidence-similarity-90-data/"
+# out.path = "./view-data/high-confidence-data/"
+out.path = "./view-data/high-confidence-similarity-90-data/"
 
 dir.create(out.path, showWarnings = FALSE, recursive = TRUE)
 
@@ -191,6 +191,12 @@ datatable(mhc.table, extensions=c('Scroller', 'RowGroup'),
     options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
     rowGroup = list(dataSrc = 1)),
     caption="MHC distribution in the TCR dataset")
+
+mhc.locus.table <- filter.set %>% 
+    count(MHC.locus) %>%
+    arrange(desc(n))
+
+write.csv(mhc.locus.table, file = paste0(out.path, "mhc-locus-table.csv"), row.names = FALSE)
 
 rm(filter.set)
 
