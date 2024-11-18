@@ -229,6 +229,26 @@ size.table <- data.frame(Source = c("All", "IEDB", "McPAS", "VDJdb", "Private so
         nrow(similarity.90 %>% filter(str_detect(clone.id, "chan_"))))
 )
 write.csv(size.table, "./paired-data/cdr3-similarity-method-contributions.csv", row.names = FALSE)
+write.csv(similarity.90 %>% select(-Compare), "./paired-data/cdr3-similarity-90-paired-sequences.csv", row.names = FALSE)
+
+compare.cdrs <- high.confidence %>%
+    mutate(Compare = paste0(CDR3a, CDR3b))
+
+cat("#### 90% CDR3 sequence similarity, high confidence receptors")
+similarity.90 <- filterSequenceSimilarity(compare.cdrs, "Compare", 0.9)
+(distinct.values <- data.frame(Distinct_values = sapply(similarity.90, function(x) length(unique(x)))))
+write.csv(distinct.values, "./paired-data/high-confidence-cdr3-similarity-distinct-values.csv")
+
+size.table <- data.frame(Source = c("All", "IEDB", "McPAS", "VDJdb", "Private sources\n(Chan Medical College)"), 
+    Count = c(nrow(similarity.90), 
+        nrow(similarity.90 %>% filter(str_detect(clone.id, "iedb_"))),
+        nrow(similarity.90 %>% filter(str_detect(clone.id, "mcpas_"))),
+        nrow(similarity.90 %>% filter(str_detect(clone.id, "vdj_"))),
+        nrow(similarity.90 %>% filter(str_detect(clone.id, "chan_"))))
+)
+write.csv(size.table, "./paired-data/high-confidence-cdr3-similarity-method-contributions.csv", row.names = FALSE)
+write.csv(similarity.90 %>% select(-Compare), "./paired-data/high-confidence-cdr3-similarity-90-paired-sequences.csv", row.names = FALSE)
+
 
 cat("#### 75% CDR3 sequence similarity")
 similarity.75 <- filterSequenceSimilarity(compare.cdrs, "Compare", 0.75)
@@ -243,9 +263,6 @@ size.table <- data.frame(Source = c("All", "IEDB", "McPAS", "VDJdb", "Private so
         nrow(similarity.75 %>% filter(str_detect(clone.id, "chan_"))))
 )
 write.csv(size.table, "./paired-data/cdr3-similarity-75-method-contributions.csv", row.names = FALSE)
-
-
-write.csv(similarity.90 %>% select(-Compare), "./paired-data/cdr3-similarity-90-paired-sequences.csv", row.names = FALSE)
 write.csv(similarity.75 %>% select(-Compare), "./paired-data/cdr3-similarity-75-paired-sequences.csv", row.names = FALSE)
 
 ```

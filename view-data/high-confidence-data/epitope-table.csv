@@ -1,0 +1,1098 @@
+"Epitope","Epitope.gene","Epitope.species","Epitope Count","Epitope Gene Count","Epitope Species Count"
+"GILGFVFTL","M1","Influenza A",532,534,586
+"GILGFVFTL,YVLDHLIVV","BMLF1, M1","Epstein Barr
+virus (EBV),
+Influenza A",46,46,46
+"YVLDHLIVV","BMLF1","Epstein Barr
+virus (EBV)",20,138,187
+"SLLMWITQC","NY-ESO-1","Homo sapiens
+(human)",7,7,338
+"EENLLDFVRF","EBNA3C","Epstein Barr
+virus (EBV)",1,1,187
+"LLFGKPVYV",NA,NA,1,96,91
+"LLFGYPVYV","HCV-LLF","Human
+T-lymphotropic
+virus type 1
+(HTLV-1)",16,16,16
+"LPEPLPQGQLTAY","BZLF1","Epstein Barr
+virus (EBV)",8,24,187
+"SLLMWITQV","melanoma-specific artificial polyepitopic immunogen ","Vaccinia
+virus
+(vaccinia
+virus VV)",4,4,11
+"ELAGIGILTV","Melan-A/MART-1","Vaccinia
+virus
+(vaccinia
+virus VV)",23,36,11
+"HPVGEADYFEY","EBNA1","Epstein Barr
+virus (EBV)",7,8,187
+"HPVGDADYFEY","EBNA1","Epstein Barr
+virus (EBV)",1,8,187
+"GLCTLVAML","BMLF1","Epstein Barr
+virus (EBV)",118,138,187
+"FLRGRAYGL","EBNA3","Epstein Barr
+virus (EBV)",5,5,187
+"CLGGLLAMV",NA,NA,1,96,91
+"ALWGPDPAAA","INS","Homo sapiens
+(human)",1,2,338
+"KAFSPEVIPMF","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)",2,8,106
+"RYPLTFGWCF","Nef","Human
+immunodeficiency
+virus 1
+(HIV-1)",10,86,106
+"RFPLTFGWCF","Nef","Human
+immunodeficiency
+virus 1
+(HIV-1)",55,86,106
+"ILAKFAHWL",NA,NA,1,96,91
+"TAFTIPSI","Pol","Human
+immunodeficiency
+virus 1
+(HIV-1)",11,11,106
+"AAGIGILTV","Melanoma antigen recognized by T-cells 1","Homo sapiens
+(human)",2,3,338
+"HSKRKCDEL","polyprotein","Hepatitis C
+virus (HCV)",1,1,88
+"ESDPIVAQY","Titin","Homo sapiens
+(human)",1,1,338
+"YLAPGPVTA",NA,NA,1,96,91
+"GILEFVFTL","matrix protein 1","Influenza A
+(H9N2)",2,2,2
+"NLVPMVATV","pp65","Cytomegalovirus
+(CMV)",334,348,376
+"ILAKFLHWL","Telomerase reverse transcriptase","Homo sapiens
+(human)",2,2,338
+"LLWNGPMAV","non-structural protein NS4b","Yellow fever
+virus (YFV)",5,5,5
+"AVFDRKSDAK","EBNA3B","Epstein Barr
+virus (EBV)",1,4,187
+"IVTDFSVIK","EBNA3B","Epstein Barr
+virus (EBV)",3,4,187
+"MLYQHLLPL","alternatively spliced Insulin","Homo sapiens
+(human)",2,2,338
+"TPRVTGGGAM","pp65","Cytomegalovirus
+(CMV)",11,348,376
+"ELRRKMMYM","IE1","Cytomegalovirus
+(CMV)",2,9,376
+"QIKVRVDMV","IE1","Cytomegalovirus
+(CMV)",7,9,376
+"RMFPNAPYL","Wilms tumor protein","Homo sapiens
+(human)",5,5,338
+"TLRGRAYGL",NA,NA,1,96,91
+"EPLPQGQLTAY","BZLF1","Epstein Barr
+virus (EBV)",14,24,187
+"SLFNTIAVL","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)",1,8,106
+"APRGPHGGAASGL","Cancer/testis antigen 1","Homo sapiens
+(human)",5,10,338
+"VLFGLGFAI","IGRP","Homo sapiens
+(human)",42,42,338
+"LYPEFIASI","DPY19L4","Homo sapiens
+(human)",2,2,338
+"CPSQEPMSIYVY","65 kDa lower matrix phosphoprotein","Cytomegalovirus
+(CMV)",1,1,376
+"QLCDVMFYL","BRAP","Homo sapiens
+(human)",1,1,338
+"APRGPAGGAASGL",NA,NA,1,96,91
+"APRGPHGGAASAL",NA,NA,1,96,91
+"CLGGLLTMV","LMP2A","Epstein Barr
+virus (EBV)",3,4,187
+"KLSALGINAV","NS3","Hepatitis C
+virus (HCV)",7,42,88
+"SLYNTVATL","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)",2,8,106
+"KLVALGINAV","Genome polyprotein","Hepatitis C
+virus (HCV)",34,35,88
+"LAMPFATPM","Cancer/testis antigen 1","Homo sapiens
+(human)",4,10,338
+"CVNGSCFTV","Neuraminidase","Influenza A",15,15,586
+"FEDLRVLSF","NP338","Influenza A",2,2,586
+"FEDLRVSSF","Nucleoprotein","Influenza A",2,4,586
+"FEDLRLLSF","Nucleoprotein","Influenza A",2,4,586
+"CTELKLSDY","NP","Influenza A",4,142,586
+"CINGVCWTV","NS3","Hepatitis C
+virus (HCV)",24,42,88
+"IPSINVHHY","HCMVUL83","Cytomegalovirus
+(CMV)",14,15,376
+"YSEHPTFTSQY","pp65","Cytomegalovirus
+(CMV)",2,348,376
+"DATYQRTRALVR","NP","Influenza A",21,142,586
+"RLARLALVL","5T4","Homo sapiens
+(human)",11,11,338
+"VAANIVLTV","SLC30A8","Homo sapiens
+(human)",19,19,338
+"RPPIFIRRL","EBNA3A","Epstein Barr
+virus (EBV)",2,3,187
+"EFTVSGNIL","Cancer/testis antigen 1","Homo sapiens
+(human)",1,10,338
+"EEAAGIGIL","Melanoma antigen recognized by T-cells 1","Homo sapiens
+(human)",1,3,338
+"KASEKIFYV","Protein SSX2","Homo sapiens
+(human)",5,5,338
+"HRRGSRSYV","gp100","Homo sapiens
+(human)",1,7,338
+"RYGSFSVTL","gp100","Homo sapiens
+(human)",1,7,338
+"ESITGSLGPLL","gp100","Homo sapiens
+(human)",1,7,338
+"VYFFLPDHL",NA,NA,1,96,91
+"MEVDPIGHLY","MAGE-A3","Homo sapiens
+(human)",1,1,338
+"RVRFFFPSL","MAGE-A1","Homo sapiens
+(human)",1,1,338
+"FQDYIKSYL","Tyrosinase","Homo sapiens
+(human)",1,2,338
+"NMIHFAPNV","C3 and PZP-like alpha-2-macroglobulin domain-containing protein 8","Homo sapiens
+(human)",1,1,338
+"KTVGIYPNA","Alpha-N-acetylgalactosaminide alpha-2,6-sialyltransferase 3","Homo sapiens
+(human)",1,1,338
+"NMINFAPNI","CD109 antigen","Homo sapiens
+(human)",1,1,338
+"LVLEVDPNI","Keratin, type II cytoskeletal 8","Homo sapiens
+(human)",2,2,338
+"NNILIATCV","Protein NPAT","Homo sapiens
+(human)",1,1,338
+"KVKEVCPNV","Fatty acyl-CoA reductase 2","Homo sapiens
+(human)",2,2,338
+"KLLEIAPNC","large T antigen ","Merkel cell
+polyomavirus
+(MCPyV)",1,7,7
+"CFLLILPNC","PABIR family member 1","Homo sapiens
+(human)",1,1,338
+"SPRWYFYYL","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",46,72,353
+"LPRWYFYYL","Nucleocapsid","Human
+coronavirus
+OC43
+(HCoV-OC43)",3,72,6
+"KVDPIGHVY","MAGEA6","Homo sapiens
+(human)",2,2,338
+"FVVPYMIYLL","PDS5A","Homo sapiens
+(human)",1,1,338
+"VQIISCQY","MED13","Homo sapiens
+(human)",2,2,338
+"YLQPRTFLL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",58,173,353
+"QYIKWPWYI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",51,173,353
+"ALSKGVHFV","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,9,353
+"VYFLQSINF","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",4,9,353
+"LTDEMIAQY","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",12,173,353
+"DTDFVNEFY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,89,353
+"FTSDYYQLY","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",3,9,353
+"TTDPSFLGRY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",33,89,353
+"NQKLIANQF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",8,173,353
+"RVAGDSGFAAY","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",3,7,353
+"RYPLTFGW","Nef","Human
+immunodeficiency
+virus 1
+(HIV-1)",18,86,106
+"RPIPIKYKAM",NA,NA,6,96,91
+"KRPIPIKYKAM",NA,NA,2,96,91
+"QKRPIPIKYKAM",NA,NA,2,96,91
+"RPIPIKYKA",NA,NA,1,96,91
+"KYTSFPWL","P protein","Hepatitis B
+virus (HBV)",3,3,9
+"LWFHISCLTF","Capsid protein","Hepatitis B
+virus (HBV)",4,6,9
+"EYLVSFGVW","Capsid protein","Hepatitis B
+virus (HBV)",2,6,9
+"GRIAFSLKY","Synaptotagmin-like protein 4","Homo sapiens
+(human)",2,2,338
+"GRIAFFLKY",NA,NA,2,96,91
+"KPILWRGLK","Condensin-2 complex subunit G2","Homo sapiens
+(human)",1,1,338
+"ALWMRLLPLLA","insulin ","Homo sapiens
+(human)",1,1,338
+"ALWGPDPAAAF","insulin","Homo sapiens
+(human)",1,1,338
+"MTEYKLVVVGADGVGKSALTIQLI",NA,NA,1,96,91
+"TMMDLVYAL","polyprotein 1ab ","Middle East
+respiratory
+syndrome
+coronavirus
+(MERS-CoV)",1,1,1
+"GRLKALCQR",NA,NA,1,96,91
+"RSRRCLRL","ADAMTSL5 protein, partial","Homo sapiens
+(human)",1,1,338
+"SLLVLVQST","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"VAFNTLLFL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"SMMILSDDA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,89,353
+"YTVSCLPFT","ORF8","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,1,353
+"KTFPPTEPK","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",9,72,353
+"YTNDKACPL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"RLQSLQTYV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,173,353
+"DDKDPQFKD","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,72,353
+"VTEHDTLLY","DNA processivity factor","Cytomegalovirus
+(CMV)",1,1,376
+"AIFYLITPV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"KLLKSIAAT","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"FKDNVILLN","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,72,353
+"LLLEWLAMA","ORF14","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,1,353
+"ILLLDQALV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"CLAVHECFV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,89,353
+"RFLYIIKLI","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,7,353
+"YMPYFFTLL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"LLLDDFVEI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"YTMADLVYA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"ALWEIQQVV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",3,89,353
+"NMLRIMASL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"IPTITQMNL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"FLDGSCGSV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"VMVELVAEL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,89,353
+"IPVAYRKVL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"TALALLLLD","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+1
+(SARS-CoV-1)",1,72,1
+"YADVFHLYL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"MEVTPSGTWL","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",4,72,353
+"YTNSFTRGV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,173,353
+"YLYALVYFL","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,9,353
+"FAFACPDGV","ORF7a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,1,353
+"QVILLNKHI","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,72,353
+"YVDNSSLTI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"KLWAQCVQL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",6,89,353
+"LMIERFVSL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"MPYFFTLLL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"YVWKSYVHV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"FLAHIQWMV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"WLLWPVTLA","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,7,353
+"KLKDCVMYA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"FPDLNGDVV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"AIMEKNIVL","nonstructural protein 1","Influenza A
+(H1N1)",1,1,1
+"VLQAVGACV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"FTVLCLTPV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"NLLKDCPAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"FLLNKEMYL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,89,353
+"RIRGGDGKM","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",3,72,353
+"KLQFTSLEI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,89,353
+"KWPWYIWLG","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,173,353
+"VLNDILSRL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,173,353
+"SLINTLNDL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"RVVVLSFEL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,173,353
+"KLDDKDPNF","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,72,353
+"VMDEFIERY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"FLALCADSI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,89,353
+"FLIGCNYLG","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"TLIVNSVLL","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,1,353
+"ITNFKSVLY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"DQVILLNKH","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,72,353
+"SIIAYTMSL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,173,353
+"LLDDFVEII","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"SPYNSQNAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+Tor2
+(SARS-CoV-1
+Tor2)",1,89,1
+"STQWSLFFF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"KQIYKTPPI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,173,353
+"IVCPICSQK","E7","Human
+papillomavirus
+(HPV)",3,3,4
+"RLPGVLPRA","SF3B1","Homo sapiens
+(human)",15,23,338
+"IPLTEEAEL","Gag-Pol polyprotein","Human
+immunodeficiency
+virus 1
+(HIV-1)",2,2,106
+"KQWLVWLFL",NA,"Homo sapiens
+(human)",2,96,338
+"EAAGIGILTV","Melan-A/MART-1","Homo sapiens
+(human)",13,36,338
+"ITDQVPFSV","Melanocyte protein PMEL","Homo sapiens
+(human)",2,2,338
+"IMDQVPFSV","GP100-IMD","Homo sapiens
+(human)",1,1,338
+"HMTEVVRHC","p53","Homo sapiens
+(human)",5,8,338
+"ALHGGWTTK","PIK3CA","Homo sapiens
+(human)",2,2,338
+"GADGVGKSA",NA,NA,2,96,91
+"VVVGADGVGK","KRAS","Homo sapiens
+(human)",3,14,338
+"TRLALIAPK","U4/U6 small nuclear ribonucleoprotein Prp3","Homo sapiens
+(human)",3,3,338
+"SLSKILDTV","ANKRD30A","Homo sapiens
+(human)",1,1,338
+"LRVMMLAPF","UPF0324 inner membrane protein YeiH","Salmonella
+enterica
+subsp.
+enterica
+serovar
+Typhi",1,1,1
+"RLQSLQIYV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,173,353
+"GLYDGMEHL","MAGEA10-GLY","Homo sapiens
+(human)",2,2,338
+"YMNGTMSQV","Tyrosinase","Homo sapiens
+(human)",1,2,338
+"GVYDGREHTV","MAGE-A4","Homo sapiens
+(human)",1,1,338
+"GADGVGKSAL","KRAS","Homo sapiens
+(human)",5,14,338
+"LLLARAASLSL","Prostatic acid phosphatase","Homo sapiens
+(human)",4,6,338
+"TLMSAMTNL","Prostatic acid phosphatase","Homo sapiens
+(human)",1,6,338
+"ILLWQPIPV","Prostatic acid phosphatase","Homo sapiens
+(human)",1,6,338
+"RINATLETK","Myosin-6","Homo sapiens
+(human)",1,1,338
+"TIHDIILECV","E6","Human
+papillomavirus
+(HPV)",1,1,4
+"DYIIRSHKV",NA,NA,1,96,91
+"EMQLTPFFI",NA,NA,1,96,91
+"ALDYIHHVGYV",NA,NA,1,96,91
+"ARHIHEGASL",NA,NA,1,96,91
+"KYTKAFLV",NA,NA,1,96,91
+"LAVFPNIHM",NA,NA,1,96,91
+"FAFRWVLGIAY",NA,NA,1,96,91
+"FEADTFFHFV",NA,NA,1,96,91
+"SLLKLGKLPL",NA,NA,1,96,91
+"FLVWDHNPIG",NA,NA,1,96,91
+"FPLDVGSIVAY",NA,NA,1,96,91
+"FPNIHMETC",NA,NA,1,96,91
+"FQVIQPERV",NA,NA,1,96,91
+"FRLIARLL",NA,NA,1,96,91
+"FRSTRFLHI",NA,NA,1,96,91
+"FVGPLDEDF",NA,NA,1,96,91
+"FVNLEQHVV",NA,NA,1,96,91
+"ITADVNYNL",NA,NA,1,96,91
+"IWDYVNKELA",NA,NA,1,96,91
+"KALDYIHHV",NA,NA,1,96,91
+"KRKEPLKI",NA,NA,1,96,91
+"LGLARAFGIPV",NA,NA,1,96,91
+"LLDTVLVNV",NA,NA,1,96,91
+"VLLGLWYLQTA",NA,NA,1,96,91
+"VMVNHLHKY",NA,NA,1,96,91
+"LRFLRNGLT",NA,NA,1,96,91
+"LSDAFVSV",NA,NA,1,96,91
+"MRTHPGRPFF",NA,NA,1,96,91
+"RPSTAEKYIF",NA,NA,1,96,91
+"RQFDITSVSV",NA,NA,1,96,91
+"RTHPGRPFF",NA,NA,1,96,91
+"SISAFNLDVV",NA,NA,1,96,91
+"SRVLHKLEV",NA,NA,1,96,91
+"VLKNRYLVL",NA,NA,1,96,91
+"VSFGLQFQF",NA,NA,1,96,91
+"YLHAYAKAL",NA,NA,1,96,91
+"QYSPVQATF",NA,NA,5,96,91
+"IYLDLPWYL",NA,NA,7,96,91
+"SYKSYSSTF","Neuroblastoma breakpoint family member 14","Homo sapiens
+(human)",5,5,338
+"MYIEMLKSI",NA,NA,4,96,91
+"NYGLGLLQF",NA,NA,4,96,91
+"NQKLIANAF","Spike","Human
+coronavirus
+OC43
+(HCoV-OC43)",3,173,6
+"QYNKYVEVF",NA,NA,4,96,91
+"AMDLGIHKV",NA,NA,1,96,91
+"SYLDLPWYL","Toll-like receptor 1","Homo sapiens
+(human)",2,2,338
+"QSSPVQATF","Bifunctional coenzyme A synthase","Homo sapiens
+(human)",1,1,338
+"LYKKHTETF",NA,NA,1,96,91
+"FYAFSCYYDL",NA,NA,4,96,91
+"FYAFSYYYDL","Ectonucleoside triphosphate diphosphohydrolase 6","Homo sapiens
+(human)",2,2,338
+"RYPLTFGWCF","Nef","Human
+immunodeficiency
+virus (HIV)",10,86,1
+"VELGGGPGA","Insulin","Diabetes
+Type 1",3,7,7
+"QVELGGGPGAG","Insulin","Diabetes
+Type 1",1,7,7
+"QVELGGGPG","Insulin","Diabetes
+Type 1",1,7,7
+"AGSLQPLAL","Insulin","Diabetes
+Type 1",1,7,7
+"SLQPLALEGSL","Insulin","Diabetes
+Type 1",1,7,7
+"IMNDMPIYM","EphA2","Tumor
+associated
+antigen
+(TAA)",4,4,7
+"FLCMKALLL",NA,"Tumor
+associated
+antigen
+(TAA)",3,96,7
+"WMRLLPLL","INS","Homo sapiens
+(human)",1,2,338
+"FGDHPGHSY","PTPRN","Homo sapiens
+(human)",1,1,338
+"KSKRTPMGF","NS5B","Hepatitis C
+virus (HCV)",1,1,88
+"GPRLGVRAT","CORE","Hepatitis C
+virus (HCV)",8,8,88
+"RAQAPPPSW","NS3","Hepatitis C
+virus (HCV)",2,42,88
+"RLGPVQNEV","NS3","Hepatitis C
+virus (HCV)",2,42,88
+"HYPYRLWHY","E2","Hepatitis C
+virus (HCV)",1,1,88
+"HPVTKYIM","NS3","Hepatitis C
+virus (HCV)",1,42,88
+"ATDALMTGF","NS3","Hepatitis C
+virus (HCV)",1,42,88
+"KLVAMGINAV","NS3","Hepatitis C
+virus (HCV)",4,42,88
+"RAKFKQLL","BZLF1","Epstein Barr
+virus (EBV)",2,24,187
+"YLSNIIPAL","RFC5","Homo sapiens
+(human)",1,1,338
+"YLYDRLLRV","GINS1","Homo sapiens
+(human)",1,1,338
+"MLIGIPVYV","RNF19B","Homo sapiens
+(human)",1,1,338
+"KLYGLDWAEL","ASTN1","Homo sapiens
+(human)",3,3,338
+"ALDPHSGHFV","CDK4","Homo sapiens
+(human)",4,4,338
+"ALSPVIPHI","MLL2","Homo sapiens
+(human)",2,2,338
+"KLFEFLVYGV","SMARCD3","Homo sapiens
+(human)",3,3,338
+"ELAGIGILTV","Melan-A/MART-1","Homo sapiens
+(human)",23,36,338
+"VLNGTVHPV","ABCB5","Homo sapiens
+(human)",1,1,338
+"YLEPGPVTA","gp100","Homo sapiens
+(human)",4,7,338
+"NYNYLYRLF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",7,173,353
+"YPLHEQHGM","EBNA3A","Epstein Barr
+virus (EBV)",1,3,187
+"FLYALALLL","LMP2A","Epstein Barr
+virus (EBV)",1,4,187
+"EFFWDANDIY","pp65","Cytomegalovirus
+(CMV)",1,348,376
+"RPRGEVRFL","HSV-2 VP22","Herpes
+simplex
+virus 2
+(HSV-2)",14,14,14
+"AAFKRSCLK","large T antigen ","Merkel cell
+polyomavirus
+(MCPyV)",5,7,7
+"RSGGFSFGK","large T antigen ","Merkel cell
+polyomavirus
+(MCPyV)",1,7,7
+"ALYGFVPVL","GANAB","Homo sapiens
+(human)",5,5,338
+"AVGSYVYSV","PGM5","Homo sapiens
+(human)",2,2,338
+"NLNCCSVPV","GNL3L","Homo sapiens
+(human)",4,4,338
+"VVMSWAPPV","FNDC3B","Homo sapiens
+(human)",8,8,338
+"HPNGYKSLSTL","NS1","Influenza B",33,33,146
+"RPIIRPATL","NP","Influenza B",73,142,146
+"QMMVKAGL","NP","Influenza B",40,142,146
+"KIFGSLAFL","ERBB2","Homo sapiens
+(human)",1,1,338
+"TLWCSPIKV","SRPX","Homo sapiens
+(human)",10,10,338
+"FMPDFDLHL","AHNAK","Homo sapiens
+(human)",2,2,338
+"EVLPFFLFF","AFMID","Homo sapiens
+(human)",1,1,338
+"QTNPVTLQY","HELZ2","Homo sapiens
+(human)",1,1,338
+"TLYSLTLLY","CENPL","Homo sapiens
+(human)",1,1,338
+"TEDEHFEFY","TPX2","Homo sapiens
+(human)",2,2,338
+"FLIYLDVSV","WDR46","Homo sapiens
+(human)",3,3,338
+"CISSCNPNL","HIVEP2","Homo sapiens
+(human)",1,1,338
+"KLTESLHKV","AMPH","Homo sapiens
+(human)",1,1,338
+"YERMCNIL","NP","Influenza A",4,142,586
+"EEIEITTHF","PB","Influenza A",1,1,586
+"QEIRTFSF","NS2","Influenza A",1,1,586
+"TEVETYVL","M1","Influenza A",2,534,586
+"RLITGRLQSL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",10,173,353
+"LLFNKVTLA","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,173,353
+"TLATHGLAAV","NSP3","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,6,353
+"FPQSAPHGVVF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,173,353
+"MQLFFSYFA","NSP3","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,6,353
+"YPDKVFRSSV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,173,353
+"ALQIPFAMQM","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,173,353
+"KIYSKHTPI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,173,353
+"LPPAYTNSF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",2,173,353
+"FAMQMAYRF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",3,173,353
+"RARSVASQSI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,173,353
+"MLAKALRKV","NSP3","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",3,6,353
+"PTDNYITTY","NSP3","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,6,353
+"GLMWLSYFV","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,7,353
+"NYMPYFFTL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"VYAWNRKRI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,173,353
+"VYIGDPAQL","NSP12","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,1,353
+"YYTSNPTTF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,89,353
+"KPRQKRTAT","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)",1,72,353
+"SVCAGILSYGV","FGFR3","Homo sapiens
+(human)",3,3,338
+"VVVGAVGVGK","KRAS","Homo sapiens
+(human)",2,14,338
+"GARGVGKSAL","KRAS","Homo sapiens
+(human)",1,14,338
+"AVGVGKSAL","KRAS","Homo sapiens
+(human)",2,14,338
+"VVGAVGVGK","KRAS","Homo sapiens
+(human)",1,14,338
+"GVYALIAGA","PPM1F","Homo sapiens
+(human)",4,4,338
+"LLIRWQHFL","SF3B1","Homo sapiens
+(human)",1,23,338
+"AALPILFQV","SF3B1","Homo sapiens
+(human)",1,23,338
+"ALLLQLFTL","SF3B1","Homo sapiens
+(human)",1,23,338
+"ALLPGLPAA","SF3B1","Homo sapiens
+(human)",4,23,338
+"RLGEVRHPV","SF3B1","Homo sapiens
+(human)",1,23,338
+"GTSGSPIVNR","nonstructural protein 3","Dengue virus
+(DENV)",2,2,2
+"VMAPRTLIL","UL40","Cytomegalovirus
+(CMV)",2,2,376
+"ALGIGILTV","MLANA","Homo sapiens
+(human)",1,2,338
+"KRWIILGLNK","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)",1,8,106
+"ELAAIGILTV","MLANA","Homo sapiens
+(human)",1,2,338
+"HSKKKCDEL","Genome polyprotein","Hepatitis C
+virus (HCV)",1,35,88
+"KLVALVINAV","NS3","Hepatitis C
+virus (HCV)",1,42,88
+"SLLMWITQV","melanoma-specific artificial polyepitopic immunogen ","Homo sapiens
+(human)",4,4,338
+"RLPAKAPLL","ENR","Mycobacterium
+tuberculosis",1,1,1
+"TPQDLNTML","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)",1,8,106
+"RMYSPVSIL","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)",1,8,106
+"FLKEKGGL","Nef","Human
+immunodeficiency
+virus 1
+(HIV-1)",3,86,106
+"RPHERNGFTVL","HCMVUL83","Cytomegalovirus
+(CMV)",1,15,376
+"SMGVTYEM","synthetic","synthetic",1,4,4
+"LMDMHNGQL","synthetic","synthetic",1,4,4
+"TMDFYQGQL","synthetic","synthetic",1,4,4
+"RMEQVDWTV","synthetic","synthetic",1,4,4
+"MVNTVAGAMK","ARHGAP35","Homo sapiens
+(human)",1,1,338
+"SSCMGGMNWR","p53","Homo sapiens
+(human)",3,8,338
+"VLLGVKLFGV","COL18A1","Homo sapiens
+(human)",1,1,338
+"APARLERRHSA","KIF16B","Homo sapiens
+(human)",3,3,338
+"YHSIEWA","KIAA1279","Homo sapiens
+(human)",3,3,338
+"WLIRETQPITK","XPNPEP1","Homo sapiens
+(human)",2,2,338
+"GLLDEDFYA","UGGT2","Homo sapiens
+(human)",1,1,338
+"HQNPVTGLLL","PHKA1","Homo sapiens
+(human)",1,1,338
+"RVSTLRVSL","GNB5","Homo sapiens
+(human)",1,1,338
+"SYMIMEIE","FBXO21","Homo sapiens
+(human)",1,1,338
+"GEEDGAGGHSL","RECQL5","Homo sapiens
+(human)",1,1,338
+"MPYGYVLNEF","KIAA0368","Homo sapiens
+(human)",1,1,338
+"FGDVGSTLF","NUP98","Homo sapiens
+(human)",1,1,338
+"ELLVRINRL","CASP8","Homo sapiens
+(human)",1,1,338
+"MLFSHGLVK","SKIV2L","Homo sapiens
+(human)",1,2,338
+"EMLFSHGLVK","SKIV2L","Homo sapiens
+(human)",1,2,338
+"TLREIRRYQK","H3F3B","Homo sapiens
+(human)",1,1,338
+"WSYDSTLLAY","NBAS","Homo sapiens
+(human)",1,1,338

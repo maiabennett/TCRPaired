@@ -1,91 +1,81 @@
 "Epitope","Epitope.gene","Epitope.species","MHC.allele","n"
-"GILGFVFTL","M1","Influenza A","HLA-A*02",488
+"GILGFVFTL","M1","Influenza A","HLA-A*02",325
 "NLVPMVATV","pp65","Cytomegalovirus
-(CMV)","HLA-A*02",334
+(CMV)","HLA-A*02",293
 "GLCTLVAML","BMLF1","Epstein Barr
-virus (EBV)","HLA-A*02",118
+virus (EBV)","HLA-A*02",70
 "YLQPRTFLL","Spike","Severe acute
 respiratory
 syndrome
 coronavirus
 2
-(SARS-CoV-2)","HLA-A*02",58
-"RFPLTFGWCF","Nef","Human
-immunodeficiency
-virus 1
-(HIV-1)","HLA-A*24",55
+(SARS-CoV-2)","HLA-A*02",56
 "QYIKWPWYI","Spike","Severe acute
 respiratory
 syndrome
 coronavirus
 2
-(SARS-CoV-2)","HLA-A*24",51
-"GILGFVFTL,YVLDHLIVV","BMLF1, M1","Epstein Barr
-virus (EBV),
-Influenza A","HLA-A*2",46
+(SARS-CoV-2)","HLA-A*24",49
+"RFPLTFGWCF","Nef","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-A*24",47
 "SPRWYFYYL","Nucleocapsid","Severe acute
 respiratory
 syndrome
 coronavirus
 2
 (SARS-CoV-2)","HLA-B*07",46
-"GILGFVFTL","M1","Influenza A","HLA-A*2",44
-"VLFGLGFAI","IGRP","Homo sapiens
-(human)","HLA-A*02",42
 "QMMVKAGL","NP","Influenza B","HLA-B*08",40
-"RPIIRPATL","NP","Influenza B","HLA-B*08",38
-"RPIIRPATL","NP","Influenza B","HLA-B*07",35
+"GILGFVFTL,YVLDHLIVV","BMLF1, M1","Epstein Barr
+virus (EBV),
+Influenza A","HLA-A*2",36
+"RPIIRPATL","NP","Influenza B","HLA-B*08",35
 "KLVALGINAV","Genome polyprotein","Hepatitis C
 virus (HCV)","HLA-A*02",34
+"GILGFVFTL","M1","Influenza A","HLA-A*2",33
 "HPNGYKSLSTL","NS1","Influenza B","HLA-B*07",33
+"RPIIRPATL","NP","Influenza B","HLA-B*07",33
 "TTDPSFLGRY","ORF1ab","Severe acute
 respiratory
 syndrome
 coronavirus
 2
 (SARS-CoV-2)","HLA-A*01",33
+"VLFGLGFAI","IGRP","Homo sapiens
+(human)","HLA-A*02",31
 "CINGVCWTV","NS3","Hepatitis C
 virus (HCV)","HLA-A*02",24
 "DATYQRTRALVR","NP","Influenza A","HLA-A*68",21
-"VAANIVLTV","SLC30A8","Homo sapiens
-(human)","HLA-A*02",19
 "YVLDHLIVV","BMLF1","Epstein Barr
 virus (EBV)","HLA-A*2",19
+"VAANIVLTV","SLC30A8","Homo sapiens
+(human)","HLA-A*02",18
 "RYPLTFGW","Nef","Human
 immunodeficiency
 virus 1
-(HIV-1)","HLA-A*24",18
-"LLFGYPVYV","HCV-LLF","Human
-T-lymphotropic
-virus type 1
-(HTLV-1)","HLA-A*02",16
-"CVNGSCFTV","Neuraminidase","Influenza A","HLA-A*02",15
+(HIV-1)","HLA-A*24",17
 "ELAGIGILTV","Melan-A/MART-1","Homo sapiens
 (human)","HLA-A*02",15
 "RLPGVLPRA","SF3B1","Homo sapiens
 (human)","HLA-A*02",15
-"EPLPQGQLTAY","BZLF1","Epstein Barr
-virus (EBV)","HLA-B*35",14
-"IPSINVHHY","HCMVUL83","Cytomegalovirus
-(CMV)","HLA-B*35",14
+"CVNGSCFTV","Neuraminidase","Influenza A","HLA-A*02",14
+"EAAGIGILTV","Melan-A/MART-1","Homo sapiens
+(human)","HLA-A*02",13
 "RPRGEVRFL","HSV-2 VP22","Herpes
 simplex
 virus 2
-(HSV-2)","HLA-B*07",14
-"EAAGIGILTV","Melan-A/MART-1","Homo sapiens
-(human)","HLA-A*02",13
+(HSV-2)","HLA-B*07",13
+"EPLPQGQLTAY","BZLF1","Epstein Barr
+virus (EBV)","HLA-B*35",12
+"IPSINVHHY","HCMVUL83","Cytomegalovirus
+(CMV)","HLA-B*35",11
 "LTDEMIAQY","Spike","Severe acute
 respiratory
 syndrome
 coronavirus
 2
-(SARS-CoV-2)","HLA-A*01",12
-"RLARLALVL","5T4","Homo sapiens
-(human)","HLA-A*02",11
-"TAFTIPSI","Pol","Human
-immunodeficiency
-virus 1
-(HIV-1)","HLA-B*51",11
+(SARS-CoV-2)","HLA-A*01",11
 "RLITGRLQSL","Spike","Severe acute
 respiratory
 syndrome
@@ -94,30 +84,26 @@ coronavirus
 (SARS-CoV-2)","HLA-A*02",10
 "TLWCSPIKV","SRPX","Homo sapiens
 (human)","HLA-A*02",10
-"RYPLTFGWCF","Nef","Human
-immunodeficiency
-virus 1
-(HIV-1)","HLA-A*24",9
 "TPRVTGGGAM","pp65","Cytomegalovirus
 (CMV)","HLA-B*07",9
-"ELAGIGILTV","Melan-A/MART-1","Vaccinia
-virus
-(vaccinia
-virus VV)","HLA-A*02",8
 "GPRLGVRAT","CORE","Hepatitis C
 virus (HCV)","HLA-B*07",8
-"LPEPLPQGQLTAY","BZLF1","Epstein Barr
-virus (EBV)","HLA-B*35",8
 "NQKLIANQF","Spike","Severe acute
 respiratory
 syndrome
 coronavirus
 2
 (SARS-CoV-2)","HLA-B*15",8
+"RYPLTFGWCF","Nef","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-A*24",8
+"TAFTIPSI","Pol","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-B*51",8
 "VVMSWAPPV","FNDC3B","Homo sapiens
 (human)","HLA-A*02",8
-"HPVGEADYFEY","EBNA1","Epstein Barr
-virus (EBV)","HLA-B*35",7
 "IYLDLPWYL",NA,NA,"HLA-A*24",7
 "KLSALGINAV","NS3","Hepatitis C
 virus (HCV)","HLA-A*02",7
@@ -127,6 +113,8 @@ syndrome
 coronavirus
 2
 (SARS-CoV-2)","HLA-A*03",7
+"LPEPLPQGQLTAY","BZLF1","Epstein Barr
+virus (EBV)","HLA-B*35",7
 "NYNYLYRLF","Spike","Severe acute
 respiratory
 syndrome
@@ -135,8 +123,10 @@ coronavirus
 (SARS-CoV-2)","HLA-A*24",7
 "QIKVRVDMV","IE1","Cytomegalovirus
 (CMV)","HLA-B*8",7
-"SLLMWITQC","NY-ESO-1","Homo sapiens
+"RLARLALVL","5T4","Homo sapiens
 (human)","HLA-A*02",7
+"HPVGEADYFEY","EBNA1","Epstein Barr
+virus (EBV)","HLA-B*35",6
 "KLWAQCVQL","ORF1ab","Severe acute
 respiratory
 syndrome
@@ -149,21 +139,15 @@ polyomavirus
 (MCPyV)","HLA-A*03",5
 "ALYGFVPVL","GANAB","Homo sapiens
 (human)","HLA-A*02",5
-"APRGPHGGAASGL","Cancer/testis antigen 1","Homo sapiens
-(human)","HLA-B*07",5
-"FLRGRAYGL","EBNA3","Epstein Barr
-virus (EBV)","HLA-B*08",5
-"GADGVGKSAL","KRAS","Homo sapiens
-(human)","HLA-C*08",5
-"HMTEVVRHC","p53","Homo sapiens
-(human)","HLA-A*02",5
+"ELAGIGILTV","Melan-A/MART-1","Vaccinia
+virus
+(vaccinia
+virus VV)","HLA-A*02",5
 "KASEKIFYV","Protein SSX2","Homo sapiens
 (human)","HLA-A*02",5
 "LLWNGPMAV","non-structural protein NS4b","Yellow fever
 virus (YFV)","HLA-A*02",5
 "QYSPVQATF",NA,NA,"HLA-A*24",5
-"RMFPNAPYL","Wilms tumor protein","Homo sapiens
-(human)","HLA-A*02",5
 "SYKSYSSTF","Neuroblastoma breakpoint family member 14","Homo sapiens
 (human)","HLA-A*24",5
 "ALDPHSGHFV","CDK4","Homo sapiens
@@ -172,7 +156,11 @@ virus (YFV)","HLA-A*02",5
 (human)","HLA-A*02",4
 "CTELKLSDY","NP","Influenza A","HLA-A*01",4
 "FYAFSCYYDL",NA,NA,"HLA-A*24",4
+"GADGVGKSAL","KRAS","Homo sapiens
+(human)","HLA-C*08",4
 "GVYALIAGA","PPM1F","Homo sapiens
+(human)","HLA-A*02",4
+"HMTEVVRHC","p53","Homo sapiens
 (human)","HLA-A*02",4
 "IMNDMPIYM","EphA2","Tumor
 associated
@@ -180,8 +168,6 @@ antigen
 (TAA)","HLA-A*2",4
 "KLVAMGINAV","NS3","Hepatitis C
 virus (HCV)","HLA-A*02",4
-"LLLARAASLSL","Prostatic acid phosphatase","Homo sapiens
-(human)","HLA-A*02",4
 "LWFHISCLTF","Capsid protein","Hepatitis B
 virus (HBV)","HLA-A*24",4
 "MEVTPSGTWL","Nucleocapsid","Severe acute
@@ -195,9 +181,9 @@ coronavirus
 (human)","HLA-A*02",4
 "NYGLGLLQF",NA,NA,"HLA-A*24",4
 "QYNKYVEVF",NA,NA,"HLA-A*24",4
-"YERMCNIL","NP","Influenza A","HLA-B*18",4
-"YLEPGPVTA","gp100","Homo sapiens
+"SLLMWITQC","NY-ESO-1","Homo sapiens
 (human)","HLA-A*02",4
+"YERMCNIL","NP","Influenza A","HLA-B*18",4
 "ALWEIQQVV","ORF1ab","Severe acute
 respiratory
 syndrome
@@ -205,6 +191,8 @@ coronavirus
 2
 (SARS-CoV-2)","HLA-A*02",3
 "APARLERRHSA","KIF16B","Homo sapiens
+(human)","HLA-B*07",3
+"APRGPHGGAASGL","Cancer/testis antigen 1","Homo sapiens
 (human)","HLA-B*07",3
 "CLGGLLTMV","LMP2A","Epstein Barr
 virus (EBV)","HLA-A*02",3
@@ -243,6 +231,10 @@ virus (EBV)","HLA-A*11",3
 virus (HBV)","HLA-A*24",3
 "LAMPFATPM","Cancer/testis antigen 1","Homo sapiens
 (human)","HLA-Cw*3",3
+"LLFGYPVYV","HCV-LLF","Human
+T-lymphotropic
+virus type 1
+(HTLV-1)","HLA-A*02",3
 "LPRWYFYYL","Nucleocapsid","Human
 coronavirus
 OC43
@@ -263,6 +255,8 @@ syndrome
 coronavirus
 2
 (SARS-CoV-2)","HLA-B*07",3
+"RMFPNAPYL","Wilms tumor protein","Homo sapiens
+(human)","HLA-A*02",3
 "RVAGDSGFAAY","Membrane protein","Severe acute
 respiratory
 syndrome
@@ -289,10 +283,8 @@ syndrome
 coronavirus
 2
 (SARS-CoV-2)","HLA-A*24",3
-"YHSIEWA","KIAA1279","Homo sapiens
-(human)","HLA-B*38",3
-"AAGIGILTV","Melanoma antigen recognized by T-cells 1","Homo sapiens
-(human)","HLA-A*02",2
+"YLEPGPVTA","gp100","Homo sapiens
+(human)","HLA-A*02",3
 "ALHGGWTTK","PIK3CA","Homo sapiens
 (human)","HLA-A*03",2
 "ALSPVIPHI","MLL2","Homo sapiens
@@ -332,13 +324,12 @@ syndrome
 coronavirus
 2
 (SARS-CoV-2)","HLA-A*02",2
+"FLRGRAYGL","EBNA3","Epstein Barr
+virus (EBV)","HLA-B*08",2
 "FMPDFDLHL","AHNAK","Homo sapiens
 (human)","HLA-A*02",2
 "FYAFSYYYDL","Ectonucleoside triphosphate diphosphohydrolase 6","Homo sapiens
 (human)","HLA-A*24",2
-"GADGVGKSA",NA,NA,"HLA-C*08",2
-"GILEFVFTL","matrix protein 1","Influenza A
-(H9N2)","HLA-A*02",2
 "GLYDGMEHL","MAGEA10-GLY","Homo sapiens
 (human)","HLA-A*02",2
 "GRIAFFLKY",NA,NA,"HLA-B*27",2
@@ -346,18 +337,10 @@ coronavirus
 (human)","",2
 "GTSGSPIVNR","nonstructural protein 3","Dengue virus
 (DENV)","HLA-A*11",2
-"ILAKFLHWL","Telomerase reverse transcriptase","Homo sapiens
-(human)","HLA-A*02",2
 "IPLTEEAEL","Gag-Pol polyprotein","Human
 immunodeficiency
 virus 1
 (HIV-1)","HLA-B*35",2
-"ITDQVPFSV","Melanocyte protein PMEL","Homo sapiens
-(human)","HLA-A*02",2
-"KAFSPEVIPMF","Gag","Human
-immunodeficiency
-virus 1
-(HIV-1)","HLA-B*57",2
 "KLQFTSLEI","ORF1ab","Severe acute
 respiratory
 syndrome
@@ -370,8 +353,6 @@ syndrome
 coronavirus
 2
 (SARS-CoV-2)","HLA-A*02",2
-"KQWLVWLFL",NA,"Homo sapiens
-(human)","HLA-A*02",2
 "KRPIPIKYKAM",NA,NA,"HLA-B*07",2
 "KTFPPTEPK","Nucleocapsid","Severe acute
 respiratory
@@ -383,6 +364,8 @@ coronavirus
 (human)","HLA-A*30",2
 "KVKEVCPNV","Fatty acyl-CoA reductase 2","Homo sapiens
 (human)","HLA-A*02",2
+"LLLARAASLSL","Prostatic acid phosphatase","Homo sapiens
+(human)","HLA-A*02",2
 "LPPAYTNSF","Spike","Severe acute
 respiratory
 syndrome
@@ -391,8 +374,6 @@ coronavirus
 (SARS-CoV-2)","HLA-B*07",2
 "LVLEVDPNI","Keratin, type II cytoskeletal 8","Homo sapiens
 (human)","HLA-A*02",2
-"LYPEFIASI","DPY19L4","Homo sapiens
-(human)","HLA-A*24",2
 "MLYQHLLPL","alternatively spliced Insulin","Homo sapiens
 (human)","HLA-A*02",2
 "QKRPIPIKYKAM",NA,NA,"HLA-B*07",2
@@ -416,10 +397,6 @@ coronavirus
 (SARS-CoV-2)","HLA-A*02",2
 "RPPIFIRRL","EBNA3A","Epstein Barr
 virus (EBV)","HLA-B*07",2
-"SLYNTVATL","Gag","Human
-immunodeficiency
-virus 1
-(HIV-1)","HLA-A*02",2
 "SMMILSDDA","ORF1ab","Severe acute
 respiratory
 syndrome
@@ -443,6 +420,8 @@ coronavirus
 (SARS-CoV-2)","HLA-A*02",2
 "WLIRETQPITK","XPNPEP1","Homo sapiens
 (human)","HLA-A*03",2
+"YHSIEWA","KIAA1279","Homo sapiens
+(human)","HLA-B*38",2
 "YPDKVFRSSV","Spike","Severe acute
 respiratory
 syndrome
@@ -457,6 +436,8 @@ syndrome
 coronavirus
 2
 (SARS-CoV-2)","HLA-A*02",2
+"AAGIGILTV","Melanoma antigen recognized by T-cells 1","Homo sapiens
+(human)","HLA-A*02",1
 "AALPILFQV","SF3B1","Homo sapiens
 (human)","HLA-A*02",1
 "AGSLQPLAL","Insulin","Diabetes
@@ -529,8 +510,6 @@ virus (EBV)","HLA-B*44",1
 (CMV)","HLA-B*12",1
 "EFTVSGNIL","Cancer/testis antigen 1","Homo sapiens
 (human)","HLA-B*40",1
-"ELAAIGILTV","MLANA","Homo sapiens
-(human)","HLA-A*02",1
 "ELLVRINRL","CASP8","Homo sapiens
 (human)","HLA-B*08",1
 "EMLFSHGLVK","SKIV2L","Homo sapiens
@@ -610,6 +589,7 @@ coronavirus
 "FVNLEQHVV",NA,NA,"HLA-A*02",1
 "FVVPYMIYLL","PDS5A","Homo sapiens
 (human)","HLA-C*03",1
+"GADGVGKSA",NA,NA,"HLA-C*08",1
 "GARGVGKSAL","KRAS","Homo sapiens
 (human)","HLA-B*07",1
 "GEEDGAGGHSL","RECQL5","Homo sapiens
@@ -625,21 +605,19 @@ coronavirus
 "GRLKALCQR",NA,NA,"HLA-B*27",1
 "GVYDGREHTV","MAGE-A4","Homo sapiens
 (human)","HLA-A*02",1
-"HPVGDADYFEY","EBNA1","Epstein Barr
-virus (EBV)","",1
 "HPVTKYIM","NS3","Hepatitis C
 virus (HCV)","HLA-A*08",1
 "HQNPVTGLLL","PHKA1","Homo sapiens
 (human)","HLA-B*38",1
 "HRRGSRSYV","gp100","Homo sapiens
 (human)","HLA-C*06",1
-"HSKKKCDEL","Genome polyprotein","Hepatitis C
-virus (HCV)","HLA-B*08",1
 "HSKRKCDEL","polyprotein","Hepatitis C
 virus (HCV)","HLA-B*08",1
 "HYPYRLWHY","E2","Hepatitis C
 virus (HCV)","HLA-A*03",1
 "ILAKFAHWL",NA,NA,"HLA-A*02",1
+"ILAKFLHWL","Telomerase reverse transcriptase","Homo sapiens
+(human)","HLA-A*02",1
 "ILLLDQALV","ORF1ab","Severe acute
 respiratory
 syndrome
@@ -663,6 +641,8 @@ coronavirus
 2
 (SARS-CoV-2)","HLA-B*07",1
 "ITADVNYNL",NA,NA,"HLA-A*02",1
+"ITDQVPFSV","Melanocyte protein PMEL","Homo sapiens
+(human)","HLA-A*02",1
 "ITNFKSVLY","ORF1ab","Severe acute
 respiratory
 syndrome
@@ -670,6 +650,10 @@ coronavirus
 2
 (SARS-CoV-2)","HLA-A*01",1
 "IWDYVNKELA",NA,NA,"HLA-C*04",1
+"KAFSPEVIPMF","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-B*57",1
 "KALDYIHHV",NA,NA,"HLA-C*07",1
 "KIFGSLAFL","ERBB2","Homo sapiens
 (human)","HLA-A*02",1
@@ -702,8 +686,6 @@ coronavirus
 (SARS-CoV-2)","HLA-A*02",1
 "KLTESLHKV","AMPH","Homo sapiens
 (human)","HLA-A*02",1
-"KLVALVINAV","NS3","Hepatitis C
-virus (HCV)","HLA-A*02",1
 "KPILWRGLK","Condensin-2 complex subunit G2","Homo sapiens
 (human)","",1
 "KPRQKRTAT","Nucleocapsid","Severe acute
@@ -712,6 +694,8 @@ syndrome
 coronavirus
 2
 (SARS-CoV-2)","HLA-B*07",1
+"KQWLVWLFL",NA,"Homo sapiens
+(human)","HLA-A*02",1
 "KRKEPLKI",NA,NA,"HLA-C*07",1
 "KRWIILGLNK","Gag","Human
 immunodeficiency
@@ -776,6 +760,8 @@ serovar
 Typhi","HLA-B*27",1
 "LSDAFVSV",NA,NA,"HLA-C*05",1
 "LYKKHTETF",NA,NA,"HLA-A*24",1
+"LYPEFIASI","DPY19L4","Homo sapiens
+(human)","HLA-A*24",1
 "MEVDPIGHLY","MAGE-A3","Homo sapiens
 (human)","HLA-B*18",1
 "MLFSHGLVK","SKIV2L","Homo sapiens
@@ -926,6 +912,10 @@ coronavirus
 Type 1","HLA-DQ*8-trans",1
 "SLSKILDTV","ANKRD30A","Homo sapiens
 (human)","HLA-A*02",1
+"SLYNTVATL","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-A*02",1
 "SMGVTYEM","synthetic","synthetic","HLA-A*02",1
 "SPYNSQNAV","ORF1ab","Severe acute
 respiratory
@@ -1080,8 +1070,6 @@ syndrome
 coronavirus
 2
 (SARS-CoV-2)","HLA-A*24",1
-"YPLHEQHGM","EBNA3A","Epstein Barr
-virus (EBV)","HLA-B*35",1
 "YTMADLVYA","ORF1ab","Severe acute
 respiratory
 syndrome

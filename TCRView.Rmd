@@ -28,9 +28,9 @@ knitr::opts_chunk$set(
 
 ```{r data-import}
 
-tcr.view.file <- "./paired-data/all-distinct-cdr-paired-sequences.csv"
-# tcr.view.file <- "./paired-data/cdr3-similarity-90-paired-sequences.csv"
-# tcr.view.file <- "./paired-data/high-confidence-paired-sequences.csv"
+# tcr.view.file <- "./paired-data/all-distinct-cdr-paired-sequences.csv"
+tcr.view.file <- "./paired-data/high-confidence-paired-sequences.csv"
+# tcr.view.file <- "./paired-data/high-confidence-cdr3-similarity-90-paired-sequences.csv"
 tcr.view.set <- read.csv(tcr.view.file)
 
 # To make plots more legible, string wrap Epitope species values to 12 characters
@@ -82,7 +82,9 @@ begin = 0
 end = 1
 
 # Where do you want to save any plot and clustering data?
-out.path = "./view-data/high-confidence-data/"
+# out.path = "./view-data/high-confidence-data/"
+# out.path = "./view-data/all-data/"
+out.path = "./view-data/high-confidence-similarity-90-data/"
 
 dir.create(out.path, showWarnings = FALSE, recursive = TRUE)
 
@@ -110,12 +112,14 @@ epitope.table <- filter.set %>%
     add_count(Epitope.gene, name = "Epitope Gene Count") %>%
     add_count(Epitope.species, name = "Epitope Species Count") %>%
     distinct(.keep_all = TRUE) %>%
-    mutate(`Epitope Species` = paste0(Epitope.species, ": ", `Epitope Species Count`, " receptors")) %>%
-    arrange(`Epitope Species`)
+    arrange(desc("Epitope Count"))
 
 write.csv(epitope.table, file = paste0(out.path, "epitope-table.csv"), row.names = FALSE)
 
-datatable(epitope.table, extensions=c('Scroller', 'RowGroup'),
+datatable((epitope.table %>%
+        mutate(`Epitope Species` = paste0(Epitope.species, ": ", `Epitope Species Count`, " receptors")) %>%
+        arrange(`Epitope Species`)), 
+    extensions=c('Scroller', 'RowGroup'),
     options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
     rowGroup = list(dataSrc = 7), columnDefs = list(list(visible=FALSE, targets=c(7)))),
     caption="Epitope distribution in the TCR dataset")
@@ -162,7 +166,6 @@ datatable((mhc.table %>% arrange(Epitope.species)), extensions=c('Scroller', 'Ro
     rowGroup = list(dataSrc = 3)),
     caption="Epitope + MHC distribution in the TCR dataset")
 
-rm(filter.set)
 
 
 ```
@@ -188,6 +191,8 @@ datatable(mhc.table, extensions=c('Scroller', 'RowGroup'),
     options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
     rowGroup = list(dataSrc = 1)),
     caption="MHC distribution in the TCR dataset")
+
+rm(filter.set)
 
 
 ```
@@ -289,6 +294,8 @@ vj.table <- vj.set %>%
     mutate(`Gene Segment` = paste0(`Gene Segment`, ": ", `Gene Segment Count`, " alleles")) %>%
     select(-`Gene Segment Count`) %>%
     arrange(`Gene Segment`)
+
+write.csv(vj.table %>% select(-"Gene Segment"), file = paste0(out.path, "vj-gene-table.csv"), row.names = FALSE)
 
 datatable(vj.table, extensions=c('Scroller', 'RowGroup'), 
     options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
