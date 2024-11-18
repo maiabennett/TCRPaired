@@ -16,6 +16,7 @@ This document facilitates the visualization of paired-chain T cell receptor (TCR
 source("./util/library.R")
 source("./util/plotting.R")
 source("./util/clustering.R")
+source("./util/filtering.R")
 library(rstudioapi)
 library(plotly)
 
@@ -27,9 +28,9 @@ knitr::opts_chunk$set(
 
 ```{r data-import}
 
-# tcr.view.file <- "./paired-data/all-distinct-cdr-paired-sequences.csv"
+tcr.view.file <- "./paired-data/all-distinct-cdr-paired-sequences.csv"
+# tcr.view.file <- "./paired-data/cdr3-similarity-90-paired-sequences.csv"
 # tcr.view.file <- "./paired-data/high-confidence-paired-sequences.csv"
-tcr.view.file <- "./view-data/high-confidence-data/TCRView-data.csv"
 tcr.view.set <- read.csv(tcr.view.file)
 
 # To make plots more legible, string wrap Epitope species values to 12 characters
@@ -97,13 +98,13 @@ Epitopes are the antigenic peptides that are presented by MHC molecules and reco
 ```{r epitope-table, echo = FALSE}
 
 if (!is.null(filter.by)) {
-    epitope.set <- tcr.view.set %>% filter(!!rlang::parse_expr(filter.by))
+    filter.set <- tcr.view.set %>% filter(!!rlang::parse_expr(filter.by))
 } else {
-    epitope.set <- tcr.view.set
+    filter.set <- tcr.view.set
 }
 
 # Epitope counts table (highest to lowest abundance)
-epitope.table <- epitope.set %>%
+epitope.table <- filter.set %>%
     select(Epitope, Epitope.gene, Epitope.species) %>%
     add_count(Epitope, name = "Epitope Count") %>%
     add_count(Epitope.gene, name = "Epitope Gene Count") %>%
@@ -112,12 +113,13 @@ epitope.table <- epitope.set %>%
     mutate(`Epitope Species` = paste0(Epitope.species, ": ", `Epitope Species Count`, " receptors")) %>%
     arrange(`Epitope Species`)
 
+write.csv(epitope.table, file = paste0(out.path, "epitope-table.csv"), row.names = FALSE)
+
 datatable(epitope.table, extensions=c('Scroller', 'RowGroup'),
     options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
     rowGroup = list(dataSrc = 7), columnDefs = list(list(visible=FALSE, targets=c(7)))),
     caption="Epitope distribution in the TCR dataset")
 
-rm(epitope.set)
 
 ```
 
@@ -144,16 +146,32 @@ plotEpitopeSpeciesComposition(tcr.view.set, plotly = plotly, filter.by = filter.
 
 MHC molecules are responsible for presenting epitopes to TCRs. Although not directly present involved in the TCR:epitope binding interface, MHC identity plays an important role in epitope processing and assist in determining protein complex binding conformations. The following tables and plots provide an overview of the MHCs in the dataset.
 
+
+```{r epitope-mhc-table}
+
+# MHC + epitope counts table
+mhc.table <- filter.set %>%
+    select(Epitope, Epitope.gene, Epitope.species, MHC.allele) %>%
+    count(Epitope, Epitope.gene, Epitope.species, MHC.allele) %>% 
+    arrange(desc(n))
+
+write.csv(mhc.table, file = paste0(out.path, "epitope-mhc-table.csv"), row.names = FALSE)
+
+datatable((mhc.table %>% arrange(Epitope.species)), extensions=c('Scroller', 'RowGroup'),
+    options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
+    rowGroup = list(dataSrc = 3)),
+    caption="Epitope + MHC distribution in the TCR dataset")
+
+rm(filter.set)
+
+
+```
+
+
 ```{r mhc-table, echo = FALSE}
 
-if (!is.null(filter.by)) {
-    mhc.set <- tcr.view.set %>% filter(!!rlang::parse_expr(filter.by))
-} else {
-    mhc.set <- tcr.view.set
-}
-
 # MHC counts table
-mhc.table <- mhc.set %>%
+mhc.table <- filter.set %>%
     select(MHC.locus, MHC.allele, MHC) %>%
     add_count(MHC.locus, name = "MHC Locus Count") %>%
     add_count(MHC.allele, name = "MHC Allele Count") %>%
@@ -164,14 +182,16 @@ mhc.table <- mhc.set %>%
     mutate(`MHC Locus` = paste0(MHC.locus, ": ", `MHC Locus Count`, " receptors")) %>%
     arrange(MHC.allele)
 
+write.csv(mhc.table, file = paste0(out.path, "mhc-table.csv"), row.names = FALSE)
+
 datatable(mhc.table, extensions=c('Scroller', 'RowGroup'),
     options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
     rowGroup = list(dataSrc = 1)),
     caption="MHC distribution in the TCR dataset")
 
-rm(mhc.set)
 
 ```
+
 
 
 
@@ -403,6 +423,59 @@ plotCDR3SeqLength(tcr.view.set, color.by = "Epitope.species", plotly = plotly, f
 # By MHC locus
 plotCDR3SeqLength(tcr.view.set, color.by = "MHC.locus", plotly = plotly, filter.by = filter.by, option = "plasma", begin = 0.9, end = 0.1)
 
+
+```
+
+
+```{r cdr3-seq-sim}
+
+# CDR3a sequence similarity
+tcr.view.set <- computeSimilarity(tcr.view.set, tcr.view.set$CDR3a, tcr.view.set$CDR3a) %>%
+    dplyr::rename(CDR3a.similarity = similarity.level, CDR3a.max.similarity = max.similarity.level)
+
+# CDR3b sequence similarity
+tcr.view.set <- computeSimilarity(tcr.view.set, tcr.view.set$CDR3b, tcr.view.set$CDR3b) %>%
+    dplyr::rename(CDR3b.similarity = similarity.level, CDR3b.max.similarity = max.similarity.level)
+
+# Heatmap of CDR3a and CDR3b
+# Heatmap of CDR3a similarity
+similarity_matrix_a <- tcr.view.set %>%
+    select(CDR3a.similarity) %>%
+    pivot_wider(names_from = CDR3a.similarity, values_from = CDR3a.similarity)
+
+# Melt the similarity matrix for ggplot2
+melted_similarity_a <- melt(similarity_matrix_a)
+
+# Plot the heatmap for CDR3a
+ggplot(data = melted_similarity_a, aes(x = Var1, y = Var2, fill = value)) +
+    geom_tile() +
+    scale_fill_gradient(low = "blue", mid = "white", high = "red") +
+    theme_minimal() +
+    labs(title = "CDR3a Similarity Heatmap", x = "CDR3a", y = "CDR3a", fill = "Similarity")
+
+# Heatmap of CDR3b similarity
+similarity_matrix_b <- tcr.view.set %>%
+    select(CDR3b.similarity) %>%
+    pivot_wider(names_from = CDR3b.similarity, values_from = CDR3b.similarity)
+
+# Melt the similarity matrix for ggplot2
+melted_similarity_b <- melt(similarity_matrix_b)
+
+# Plot the heatmap for CDR3b
+ggplot(data = melted_similarity_b, aes(x = Var1, y = Var2, fill = value)) +
+    geom_tile() +
+    scale_fill_gradient(low = "blue", mid = "white", high = "red") +
+    theme_minimal() +
+    labs(title = "CDR3b Similarity Heatmap", x = "CDR3b", y = "CDR3b", fill = "Similarity")
+
+# Density plot of max similarity in CDR3a and CDR3b
+tcr.view.set %>%
+    ggplot(aes(x = CDR3a.max.similarity, fill = "CDR3a")) +
+    geom_density(alpha = 0.5) +
+    geom_density(aes(x = CDR3b.max.similarity, fill = "CDR3b"), alpha = 0.5) +
+    scale_fill_viridis_d(option = "plasma") +
+    theme_minimal() +
+    labs(title = "Max CDR3 Similarity Density", x = "Max Similarity", y = "Density")
 
 ```
 

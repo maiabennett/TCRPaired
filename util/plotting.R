@@ -974,8 +974,9 @@ plotClusterResults <- function(data, column, chain, filter.by = NULL, color = NU
     cluster.name <- paste0(column, "_cluster_0.5")
     if (is.null(color)) {
         color <- cluster.name
-        data <- data %>% mutate(!!sym(color) := factor(!!sym(color)))
     }
+    data <- data %>% mutate(!!sym(color) := factor(!!sym(color)))
+
 
     if (!umap1.name %in% colnames(data)) {
         data <- data %>%
@@ -987,7 +988,7 @@ plotClusterResults <- function(data, column, chain, filter.by = NULL, color = NU
     }
 
     plot <- ggplot(data, aes_string(x = umap1.name, y = umap2.name, color = color)) +
-        geom_point() +
+        geom_point(alpha = 0.7) +
         theme_minimal() +
         theme(legend.position = "bottom") +
         labs(title = paste0(column, " Clustering"),

@@ -1,0 +1,3953 @@
+"Epitope","Epitope.gene","Epitope.species","MHC.allele","n"
+"KLGGALQAK","IE1","Cytomegalovirus
+(CMV)","HLA-A*03",13000
+"GILGFVFTL","M1","Influenza A","HLA-A*02",3208
+"RAKFKQLL","BZLF1","Epstein Barr
+virus (EBV)","HLA-B*08",1100
+"AVFDRKSDAK","EBNA3B","Epstein Barr
+virus (EBV)","HLA-A*11",1092
+"IVTDFSVIK","EBNA3B","Epstein Barr
+virus (EBV)","HLA-A*11",559
+"YLQPRTFLL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",429
+"NLVPMVATV","pp65","Cytomegalovirus
+(CMV)","HLA-A*02",407
+"ELAGIGILTV","Melan-A/MART-1","Homo sapiens
+(human)","HLA-A*02",371
+"TTDPSFLGRY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",370
+"SPRWYFYYL","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",358
+"GLCTLVAML","BMLF1","Epstein Barr
+virus (EBV)","HLA-A*02",348
+"RLRAEAQVK","EBNA3A","Epstein Barr
+virus (EBV)","HLA-A*03",249
+"VMATRRNVL","Rv1518","Mycobacterium
+tuberculosis","HLA-E*01",248
+"CINGVCWTV","NS3","Hepatitis C
+virus (HCV)","HLA-A*02",224
+"LLWNGPMAV","non-structural protein NS4b","Yellow fever
+virus (YFV)","HLA-A*02",223
+"LTDEMIAQY","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",128
+"ATDALMTGF","NS3","Hepatitis C
+virus (HCV)","HLA-A*01",126
+"QYIKWPWYI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",123
+"VMTTVLATL","Rv1734c","Mycobacterium
+tuberculosis","HLA-E*01",114
+"KTFPPTEPK","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*03",112
+"KSKRTPMGF","NS5B","Hepatitis C
+virus (HCV)","HLA-B*57",93
+"DATYQRTRALVR","NP","Influenza A","HLA-A*68",91
+"NQKLIANQF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*15",74
+"HPVTKYIM","NS3","Hepatitis C
+virus (HCV)","HLA-A*08",59
+"TPRVTGGGAM","pp65","Cytomegalovirus
+(CMV)","HLA-B*07",58
+"NYNYLYRLF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",56
+"RFPLTFGWCF","Nef","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-A*24",55
+"GPRLGVRAT","CORE","Hepatitis C
+virus (HCV)","HLA-B*07",51
+"GILGFVFTL,YVLDHLIVV","BMLF1, M1","Epstein Barr
+virus (EBV),
+Influenza A","HLA-A*2",46
+"LLFGYPVYV","HCV-LLF","Human
+T-lymphotropic
+virus type 1
+(HTLV-1)","HLA-A*02",46
+"MEVTPSGTWL","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*40",46
+"GILGFVFTL","M1","Influenza A","HLA-A*2",44
+"VLFGLGFAI","IGRP","Homo sapiens
+(human)","HLA-A*02",42
+"QMMVKAGL","NP","Influenza B","HLA-B*08",40
+"FTSDYYQLY","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",39
+"RLPGVLPRA","SF3B1","Homo sapiens
+(human)","HLA-A*02",39
+"RPIIRPATL","NP","Influenza B","HLA-B*08",38
+"FLYALALLL","LMP2A","Epstein Barr
+virus (EBV)","HLA-A*02",37
+"RPIIRPATL","NP","Influenza B","HLA-B*07",35
+"RPPIFIRRL","EBNA3A","Epstein Barr
+virus (EBV)","HLA-B*07",35
+"KLVALGINAV","Genome polyprotein","Hepatitis C
+virus (HCV)","HLA-A*02",34
+"HPNGYKSLSTL","NS1","Influenza B","HLA-B*07",33
+"LLYDANYFL","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",31
+"AYAQKIFKI","IE1","Cytomegalovirus
+(CMV)","HLA-A*24",30
+"RTLNAWVKV","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-A*02",28
+"VYFLQSINF","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",28
+"ALWEIQQVV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",26
+"RPHERNGFTVL","HCMVUL83","Cytomegalovirus
+(CMV)","HLA-B*07",26
+"FLRGRAYGL","EBNA3","Epstein Barr
+virus (EBV)","HLA-B*08",24
+"KLSALGINAV","NS3","Hepatitis C
+virus (HCV)","HLA-A*02",24
+"SLFNTVATLY","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-A*02",24
+"LLDFVRFMGV","EBNA3B","Epstein Barr
+virus (EBV)","HLA-A*02",22
+"RVAGDSGFAAY","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*15",22
+"YSEHPTFTSQY","pp65","Cytomegalovirus
+(CMV)","HLA-A*01",22
+"KLWAQCVQL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",21
+"CTELKLSDY","NP","Influenza A","HLA-A*01",20
+"IPSINVHHY","HCMVUL83","Cytomegalovirus
+(CMV)","HLA-B*35",20
+"PTDNYITTY","NSP3","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",19
+"VAANIVLTV","SLC30A8","Homo sapiens
+(human)","HLA-A*02",19
+"YVLDHLIVV","BMLF1","Epstein Barr
+virus (EBV)","HLA-A*2",19
+"ALSKGVHFV","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",18
+"RYPLTFGW","Nef","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-A*24",18
+"RPRGEVRFL","HSV-2 VP22","Herpes
+simplex
+virus 2
+(HSV-2)","HLA-B*07",17
+"FLASKIGRLV","PLA2G6","Homo sapiens
+(human)","HLA-A*02",16
+"KSVNITFEL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",16
+"RAQAPPPSW","NS3","Hepatitis C
+virus (HCV)","HLA-B*57",16
+"CVNGSCFTV","Neuraminidase","Influenza A","HLA-A*02",15
+"KLVAMGINAV","NS3","Hepatitis C
+virus (HCV)","HLA-A*02",15
+"KTWGQYWQV","Melanocyte protein PMEL","Homo sapiens
+(human)","HLA-A*02",15
+"RMFPNAPYL","Wilms tumor protein","Homo sapiens
+(human)","HLA-A*02",15
+"EPLPQGQLTAY","BZLF1","Epstein Barr
+virus (EBV)","HLA-B*35",14
+"LPRWYFYYL","Nucleocapsid","Human
+coronavirus
+HKU1
+(HCoV-HKU1)","HLA-B*07",14
+"SIIAYTMSL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",14
+"WPVTLACFV","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",14
+"CYTWNQMNL","WT1","Homo sapiens
+(human)","HLA-A*24",13
+"EAAGIGILTV","Melan-A/MART-1","Homo sapiens
+(human)","HLA-A*02",13
+"MTLHGHMMY","PLCD3","Homo sapiens
+(human)","HLA-A*30",13
+"VMVELVAEL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",13
+"MLDLQPETT","E7","Human
+papillomavirus
+(HPV)","HLA-A*02",12
+"TAFTIPSI","Pol","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-B*51",12
+"YVLDHLIVV","BMLF1","Epstein Barr
+virus (EBV)","HLA-A*02",12
+"IMDQVPFSV","GP100-IMD","Homo sapiens
+(human)","HLA-A*02",11
+"RLARLALVL","5T4","Homo sapiens
+(human)","HLA-A*02",11
+"RLGPVQNEV","NS3","Hepatitis C
+virus (HCV)","HLA-A*02",11
+"YLLEMLWRL","LMP1","Epstein Barr
+virus (EBV)","HLA-A*02",11
+"KLQFTSLEI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",10
+"QELIRQGTDY","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*44",10
+"RLITGRLQSL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",10
+"TLWCSPIKV","SRPX","Homo sapiens
+(human)","HLA-A*02",10
+"TSQWLTNIF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",10
+"CLAVHECFV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",9
+"FLLNKEMYL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",9
+"RQLLFVVEV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",9
+"RYPLTFGWCF","Nef","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-A*24",9
+"VYIGDPAQL","NSP12","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",9
+"WLLWPVTLA","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",9
+"ELAGIGILTV","Melan-A/MART-1","Vaccinia
+virus
+(vaccinia
+virus VV)","HLA-A*02",8
+"KVYPIILRL","ORF9b","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",8
+"LLLEWLAMA","ORF14","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",8
+"LPEPLPQGQLTAY","BZLF1","Epstein Barr
+virus (EBV)","HLA-B*35",8
+"NYMPYFFTL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",8
+"TLMNVLTLV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",8
+"VVMSWAPPV","FNDC3B","Homo sapiens
+(human)","HLA-A*02",8
+"AIFYLITPV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",7
+"FLALCADSI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",7
+"FTVLCLTPV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",7
+"HPVGEADYFEY","EBNA1","Epstein Barr
+virus (EBV)","HLA-B*35",7
+"IYLDLPWYL",NA,NA,"HLA-A*24",7
+"KLKDCVMYA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",7
+"KVLEYVIKV","MAGEA1","Homo sapiens
+(human)","HLA-A*02",7
+"MPYFFTLLL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",7
+"NTNSSPDDQIGYY","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",7
+"NVFAFPFTI","ORF10","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",7
+"QIKVRVDMV","IE1","Cytomegalovirus
+(CMV)","HLA-B*8",7
+"QYDPVAALF","HCMVUL83","Cytomegalovirus
+(CMV)","HLA-A*24",7
+"RIRGGDGKM","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",7
+"RYSIFFDYM","EBNA3A","Epstein Barr
+virus (EBV)","HLA-A*24",7
+"SLLMWITQC","NY-ESO-1","Homo sapiens
+(human)","HLA-A*02",7
+"VFLVLLPLV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",7
+"YLYALVYFL","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",7
+"YMPYFFTLL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",7
+"AEVQIDRLI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*44",6
+"DTDFVNEFY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",6
+"FLAHIQWMV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",6
+"FLPRVFSAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",6
+"IMLCCMTSC","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",6
+"KQIYKTPPI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",6
+"LLDDFVEII","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",6
+"LWLLWPVTL","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",6
+"NSSTCMMCY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",6
+"RPIPIKYKAM",NA,NA,"HLA-B*07",6
+"SLLMWITQV","melanoma-specific artificial polyepitopic immunogen ","Homo sapiens
+(human)","HLA-A*02",6
+"SMMILSDDA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",6
+"SVLYYQNNV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",6
+"WPWYIWLGF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",6
+"YLNDHLEPWI","BCL2L1","Homo sapiens
+(human)","HLA-A*02",6
+"YVDNSSLTI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",6
+"AAFKRSCLK","large T antigen ","Merkel cell
+polyomavirus
+(MCPyV)","HLA-A*03",5
+"ALYGFVPVL","GANAB","Homo sapiens
+(human)","HLA-A*02",5
+"APRGPHGGAASGL","Cancer/testis antigen 1","Homo sapiens
+(human)","HLA-B*07",5
+"FLHVTYVPA","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",5
+"FLNRFTTTL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",5
+"FLPGVYSVI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",5
+"GADGVGKSAL","KRAS","Homo sapiens
+(human)","HLA-C*08",5
+"HMTEVVRHC","p53","Homo sapiens
+(human)","HLA-A*02",5
+"HYPYRLWHY","E2","Hepatitis C
+virus (HCV)","HLA-A*03",5
+"ILGFVFTLT","M1","Influenza A","HLA-A*02",5
+"KASEKIFYV","Protein SSX2","Homo sapiens
+(human)","HLA-A*02",5
+"KLNEEIAII","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",5
+"LLFLVLIML","ORF7b","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",5
+"MLDMYSVML","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",5
+"MPASWVMRI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",5
+"QYSPVQATF",NA,NA,"HLA-A*24",5
+"SMWALVISV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",5
+"SYKSYSSTF","Neuroblastoma breakpoint family member 14","Homo sapiens
+(human)","HLA-A*24",5
+"TLKNTVCTV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",5
+"TLMNVITLV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",5
+"TTIQTIVEV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",5
+"YADVFHLYL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",5
+"YLGGMSYYC","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",5
+"YVWKSYVHV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",5
+"ALDPHSGHFV","CDK4","Homo sapiens
+(human)","HLA-A*02",4
+"ALLPGLPAA","SF3B1","Homo sapiens
+(human)","HLA-A*02",4
+"FAFACPDGV","ORF7a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"FLCWHTNCY","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",4
+"FLNGSCGSV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"FYAFSCYYDL",NA,NA,"HLA-A*24",4
+"GVYALIAGA","PPM1F","Homo sapiens
+(human)","HLA-A*02",4
+"HLMSFPQSA","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"ILDTAGKEEY","NRAS","Homo sapiens
+(human)","HLA-A*01",4
+"IMNDMPIYM","EphA2","Tumor
+associated
+antigen
+(TAA)","HLA-A*2",4
+"IPVAYRKVL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",4
+"KLFIRQEEV","ORF7a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"LIDFYLCFL","ORF7b","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"LLLARAASLSL","Prostatic acid phosphatase","Homo sapiens
+(human)","HLA-A*02",4
+"LLLDRLNQL","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"LLNKHIDAY","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"LMCQPILLL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"LMIERFVSL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"LMNVLTLVY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",4
+"LPSYAALAT","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",4
+"LWFHISCLTF","Capsid protein","Hepatitis B
+virus (HBV)","HLA-A*24",4
+"MLAKALRKV","NSP3","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"MQVESDDYI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"MYIEMLKSI",NA,NA,"HLA-A*24",4
+"NLIDSYFVV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"NLNCCSVPV","GNL3L","Homo sapiens
+(human)","HLA-A*02",4
+"NYGLGLLQF",NA,NA,"HLA-A*24",4
+"QPRAPIRPI","EBNA6","Epstein Barr
+virus (EBV)","HLA-B*07",4
+"QYNKYVEVF",NA,NA,"HLA-A*24",4
+"RIMTWLDMV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"RLANECAQV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"SMQNCVLKL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"TSAMQTMLF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",4
+"TVAYFNMVY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",4
+"VMHANYIFW","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",4
+"VPYFNMVYM","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",4
+"YERMCNIL","NP","Influenza A","HLA-B*18",4
+"YLEPGPVTA","gp100","Homo sapiens
+(human)","HLA-A*02",4
+"YLFDESGEF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"YQDVNCTEV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",4
+"AMQTMLFTM","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"APARLERRHSA","KIF16B","Homo sapiens
+(human)","HLA-B*07",3
+"CLGGLLTMV","LMP2A","Epstein Barr
+virus (EBV)","HLA-A*02",3
+"CLLWSFQTSA","TYR","Homo sapiens
+(human)","HLA-A*02",3
+"CLTPVYSFL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"CPACYNSEV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"DQVILLNKH","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"ELYSPIFLI","ORF7a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"FAMQMAYRF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",3
+"FIAGLIAIV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"FITESKPSV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"FLCMKALLL",NA,"Tumor
+associated
+antigen
+(TAA)","HLA-A*2",3
+"FLIYLDVSV","WDR46","Homo sapiens
+(human)","HLA-A*02",3
+"FLKEKGGL","Nef","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-B*08",3
+"FLTENLLLY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",3
+"FLVLLPLVS","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"FVCDNIKFA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"GIIAMSAFA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"GLALYYPSA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"GLFKDCSKV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"GLPWNVVRI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"GTDLEGNFY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",3
+"GVYDYLVST","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"ILFTRFFYV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"IPIQASLPF","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"IPRRNVATL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"IPVAYRNVL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"ISDYDYYRY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",3
+"IVCPICSQK","E7","Human
+papillomavirus
+(HPV)","HLA-A*11",3
+"KDNVILLNK","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"KITEHSWNA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"KLDGFMGRI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"KLFEFLVYGV","SMARCD3","Homo sapiens
+(human)","HLA-A*02",3
+"KLNIKLLGV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"KLPDDFTGCV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"KLSYGIATV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"KLYGLDWAEL","ASTN1","Homo sapiens
+(human)","HLA-A*02",3
+"KQLSSNFGA","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"KYTSFPWL","P protein","Hepatitis B
+virus (HBV)","HLA-A*24",3
+"LACFVLAAV","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"LAMPFATPM","Cancer/testis antigen 1","Homo sapiens
+(human)","HLA-Cw*3",3
+"LIIMRTFKV","ORF6","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"LITGRLQSL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"LLFNKVTLA","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"LPDDFTGCV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"LPKEITVAT","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"LPKGIMMNV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"LPRWYFYYL","Nucleocapsid","Human
+coronavirus
+OC43
+(HCoV-OC43)","HLA-B*07",3
+"LSFKELLVY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",3
+"LTNDNTSRY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",3
+"LVLSVNPYV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"MLNPNYEDL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"MMILSDDAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"MPLSAPTLL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"MVTNNTFTL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"NPTIQKNVL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"NQKLIANAF","Spike","Human
+coronavirus
+OC43
+(HCoV-OC43)","HLA-B*15",3
+"NTFSSTFNV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"QPGQTFSVL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"RAMPNMLRI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"RLQSLQTYV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"RTIKVFTTV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"SLFNTVATL","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-A*02",3
+"SLINTLNDL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"SLLMPILTL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"SLLMWITQV","melanoma-specific artificial polyepitopic immunogen ","Vaccinia
+virus
+(vaccinia
+virus VV)","HLA-A*02",3
+"SLLSVLLSM","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"SPIFRIVAA","ORF7a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"SPYNSQNAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"SSCMGGMNWR","p53","Homo sapiens
+(human)","HLA-A*68",3
+"SVCAGILSYGV","FGFR3","Homo sapiens
+(human)","HLA-A*02",3
+"SVFNICQAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"TILTSLLVL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"TLIVNSVLL","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"TPAFDKSAF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"TPINLVRDL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",3
+"TRLALIAPK","U4/U6 small nuclear ribonucleoprotein Prp3","Homo sapiens
+(human)","HLA-B*27",3
+"TYHWLLLTI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",3
+"VELGGGPGA","Insulin","Diabetes
+Type 1","HLA-DQ*8",3
+"VLAWLYAAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"VLSTFISAA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"VMYASAVVL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"VVVGADGVGK","KRAS","Homo sapiens
+(human)","HLA-A*11",3
+"WLPTGTLLV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"WMVMFTPLV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"YADVFHLYL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"YHSIEWA","KIAA1279","Homo sapiens
+(human)","HLA-B*38",3
+"YLDAYNMMI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"YTMADLVYA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"YVVDDPCPI","ORF8","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",3
+"AAGIGILTV","Melanoma antigen recognized by T-cells 1","Homo sapiens
+(human)","HLA-A*02",2
+"AIMTRCLAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"ALALLLLDR","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"ALHGGWTTK","PIK3CA","Homo sapiens
+(human)","HLA-A*03",2
+"ALNLGETFV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"ALNNIINNA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"ALSPVIPHI","MLL2","Homo sapiens
+(human)","HLA-A*02",2
+"AMDEFIERY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",2
+"APLLSAGVF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",2
+"AVGSYVYSV","PGM5","Homo sapiens
+(human)","HLA-A*02",2
+"AVGVGKSAL","KRAS","Homo sapiens
+(human)","HLA-C*01",2
+"CLAYYFMRF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",2
+"CLEASFNYL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"DDKDPQFKD","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"ELRRKMMYM","IE1","Cytomegalovirus
+(CMV)","HLA-B*08",2
+"ELRRKMMYM","IE1","Cytomegalovirus
+(CMV)","HLA-B*8",2
+"ELTSMKYFV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"ELYHYQECV","ORF7a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"EYLVSFGVW","Capsid protein","Hepatitis B
+virus (HBV)","HLA-A*24",2
+"FAFPFTIYS","ORF10","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FEDLRLLSF","Nucleoprotein","Influenza A","HLA-B*37",2
+"FEDLRVLSF","NP338","Influenza A","HLA-B*37",2
+"FEDLRVSSF","Nucleoprotein","Influenza A","HLA-B*37",2
+"FISTCACEI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FKDNVILLN","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FLCLFLLPS","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FLDGSCGSV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FLGIITTVA","ORF8","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FLIGCNYLG","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FLLPSLATV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FLNKVVSTT","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FLPFFSDVT","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FLWLLWPVT","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FMCVEYCPI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FMIDVQQWG","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FMPDFDLHL","AHNAK","Homo sapiens
+(human)","HLA-A*02",2
+"FPLCANGQV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",2
+"FTPLVPFWI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FVAAIFYLI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FVLAAVYRI","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FVMMSAPPA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FVNEFYAYL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FVSEETGTL","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FVTVYSHLL","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FVVFLLVTL","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"FYAFSYYYDL","Ectonucleoside triphosphate diphosphohydrolase 6","Homo sapiens
+(human)","HLA-A*24",2
+"FYWFFSNYL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",2
+"GADGVGKSA",NA,NA,"HLA-C*08",2
+"GGETALALL","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"GILEFVFTL","matrix protein 1","Influenza A
+(H9N2)","HLA-A*02",2
+"GLIAIVMVT","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"GLMWLSYFI","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"GLMWLSYFV","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"GLTVLPPLL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"GLYDGMEHL","MAGEA10-GLY","Homo sapiens
+(human)","HLA-A*02",2
+"GRIAFFLKY",NA,NA,"HLA-B*27",2
+"GRIAFSLKY","Synaptotagmin-like protein 4","Homo sapiens
+(human)","",2
+"GTSGSPIVNR","nonstructural protein 3","Dengue virus
+(DENV)","HLA-A*11",2
+"HSDKFTDGV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",2
+"IKLDDKDPN","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"IKLDDKDPQ","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"ILAKFLHWL","Telomerase reverse transcriptase","Homo sapiens
+(human)","HLA-A*02",2
+"ILAYCNKTV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"IPLTEEAEL","Gag-Pol polyprotein","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-B*35",2
+"IPTITQMNL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",2
+"ITDQVPFSV","Melanocyte protein PMEL","Homo sapiens
+(human)","HLA-A*02",2
+"ITFDNLKTL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"KAFSPEVIPMF","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-B*57",2
+"KIILFLALI","ORF7a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"KLPDDFMGC","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"KLPDDFTGC","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"KPRQKRTAT","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",2
+"KPYIKWDLL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",2
+"KQLIKVTLV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"KQLPFFYYS","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"KQWLVWLFL",NA,"Homo sapiens
+(human)","HLA-A*02",2
+"KRPIPIKYKAM",NA,NA,"HLA-B*07",2
+"KSVDITFEL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"KTFPPTEPK","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*11",2
+"KVDPIGHVY","MAGEA6","Homo sapiens
+(human)","HLA-A*30",2
+"KVKEVCPNV","Fatty acyl-CoA reductase 2","Homo sapiens
+(human)","HLA-A*02",2
+"KWPWYIWLG","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",2
+"LLEWLAMAV","ORF14","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"LLMPILTLT","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"LLSVCLGSL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"LMGHFAWWT","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"LMWLSYFIA","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"LPDDFMGCV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"LPGCDGGSL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",2
+"LPNNTASWF","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",2
+"LPPAYTNSF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",2
+"LTNDDTSRY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",2
+"LVLEVDPNI","Keratin, type II cytoskeletal 8","Homo sapiens
+(human)","HLA-A*02",2
+"LVQSTQWSL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"LYPEFIASI","DPY19L4","Homo sapiens
+(human)","HLA-A*24",2
+"MFLARGIVF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",2
+"MLFTMLRKL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"MLYQHLLPL","alternatively spliced Insulin","Homo sapiens
+(human)","HLA-A*02",2
+"MSAFAMMFV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"NLLKDCPAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"NLSDRVVFV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"NSTRFASVY","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",2
+"NVILLNKHI","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"QINDMILSL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"QKRPIPIKYKAM",NA,NA,"HLA-B*07",2
+"QVILLNKHI","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"QWNLVIGFL","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",2
+"RFLYIIKLI","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",2
+"RIMASLVLA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"RLNQLESKM","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"RLNQLESKV","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"RVVVLSFEL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"RYRIGNYKL","membrane glycoprotein ","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",2
+"SGGGETALA","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"SLPGVFCGV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"SLYNTVATL","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-A*02",2
+"STDVTIATY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",2
+"STQWSLFFF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",2
+"STSAFVETV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"SVTTEILPV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"SWMESEFRV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"SYLDLPWYL","Toll-like receptor 1","Homo sapiens
+(human)","HLA-A*24",2
+"TEDEHFEFY","TPX2","Homo sapiens
+(human)","HLA-B*44",2
+"TEVETYVL","M1","Influenza A","HLA-B*18",2
+"TIVEVQPQL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"TLACFVLAA","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"TLNDFNLVA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"TMADLVYAL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"TPRVTGGGAM","pp65","Cytomegalovirus
+(CMV)","HLA-B*7",2
+"TVYEKLKPV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"VAFNTLLFL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"VFLVLWPLV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",2
+"VLLFLAFVV","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"VLNDILSRL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"VLQAVGACV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"VLSFCAFAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"VLWAHGFEL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"VMAPRTLIL","UL40","Cytomegalovirus
+(CMV)","HLA-E*01",2
+"VPHHVVATV","ORF14","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",2
+"VPMEKFKTL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",2
+"VTDNTFTLK","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",2
+"VYAWNRKRI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",2
+"WLIRETQPITK","XPNPEP1","Homo sapiens
+(human)","HLA-A*03",2
+"YANRNRFLY","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",2
+"YGFQPTNGV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"YHGAIKLDD","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"YIDIGDYTV","ORF8","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"YLEGSVRVV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"YLNTLTLAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"YPDKVFRSSV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",2
+"YTACSHAAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"YTNSFTRGV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"YTVSCLPFT","ORF8","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"YVDDSSLTI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"YVYSRVKNL","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",2
+"AALPILFQV","SF3B1","Homo sapiens
+(human)","HLA-A*02",1
+"AFLLFLVLI","ORF7b","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"AGSLQPLAL","Insulin","Diabetes
+Type 1","HLA-DQ*8",1
+"AHIQWMVMF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"AIILASFSA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"AIKLDDKDP","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"AIMEKNIVL","nonstructural protein 1","Influenza A
+(H1N1)","HLA-A*02",1
+"ALASCMGLI","M1","Influenza A","HLA-A*02",1
+"ALDYIHHVGYV",NA,NA,"HLA-A*01",1
+"ALGIGILTV","MLANA","Homo sapiens
+(human)","HLA-A*02",1
+"ALLADKFPV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"ALLLQLFTL","SF3B1","Homo sapiens
+(human)","HLA-A*02",1
+"ALLSDLQDL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"ALNTPKDHI","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"ALPETTADI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"ALQIPFAMQM","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"ALSGVFCGV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"ALWGPDPAAA","INS","Homo sapiens
+(human)","HLA-A*02",1
+"ALWGPDPAAAF","insulin","Homo sapiens
+(human)","HLA-A*02",1
+"ALWMRLLPLLA","insulin ","Homo sapiens
+(human)","HLA-A*02",1
+"ALYYPSARI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"AMDEFIEQY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"AMDLGIHKV",NA,NA,"HLA-A*02",1
+"AMMFTSDLA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"APATVCGPK","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"APHGVVFLH","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"APISAMVRM","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"APRGPAGGAASGL",NA,NA,"",1
+"APRGPHGGAASAL",NA,NA,"HLA-B*07",1
+"APRITFGGL","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"APTKVTFGV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"ARHIHEGASL",NA,NA,"HLA-C*07",1
+"ATRGATVVI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"ATSRMLSYY","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"ATSRTLSYY","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"AVLDMCASL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"CFAYYFMRF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"CFLLILPNC","PABIR family member 1","Homo sapiens
+(human)","HLA-A*02",1
+"CISSCNPNL","HIVEP2","Homo sapiens
+(human)","HLA-A*02",1
+"CLGGLLAMV",NA,NA,"HLA-A*02",1
+"CLGSLIYST","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"CLLGTYTQDV","KanJ","Streptomyces
+kanamyceticus","HLA-A*02",1
+"CPSQEPMSIYVY","65 kDa lower matrix phosphoprotein","Cytomegalovirus
+(CMV)","HLA-B*35",1
+"CTDDNALAY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"CVMYASAVV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"DKDPQFKDN","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"DLFMRIFTI","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"DNVILLNKH","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"DRLNQLESK","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"DYIIRSHKV",NA,NA,"HLA-A*24",1
+"DYKHYTPSF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"DYTEISFML","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"EEAAGIGIL","Melanoma antigen recognized by T-cells 1","Homo sapiens
+(human)","HLA-B*18",1
+"EEIEITTHF","PB","Influenza A","HLA-B*18",1
+"EENLLDFVRF","EBNA3C","Epstein Barr
+virus (EBV)","HLA-B*44",1
+"EFFWDANDIY","pp65","Cytomegalovirus
+(CMV)","HLA-B*12",1
+"EFTVSGNIL","Cancer/testis antigen 1","Homo sapiens
+(human)","HLA-B*40",1
+"EIDPKLDNY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"ELAAIGILTV","MLANA","Homo sapiens
+(human)","HLA-A*02",1
+"ELLVRINRL","CASP8","Homo sapiens
+(human)","HLA-B*08",1
+"EMLFSHGLVK","SKIV2L","Homo sapiens
+(human)","HLA-A*03",1
+"EMQLTPFFI",NA,NA,"HLA-A*24",1
+"ESDPIVAQY","Titin","Homo sapiens
+(human)","HLA-A*01",1
+"ESITGSLGPLL","gp100","Homo sapiens
+(human)","HLA-B*40",1
+"ETALALLLL","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"EVLPFFLFF","AFMID","Homo sapiens
+(human)","HLA-A*29",1
+"FAFRWVLGIAY",NA,NA,"HLA-B*35",1
+"FEADTFFHFV",NA,NA,"HLA-B*40",1
+"FGDHPGHSY","PTPRN","Homo sapiens
+(human)","HLA-A*01",1
+"FGDVGSTLF","NUP98","Homo sapiens
+(human)","HLA-C*08",1
+"FIDIKRGVY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"FIDTKRGVY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"FLAFVVFLL","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"FLAFVVFLL","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FLCWHTSCY","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"FLEGETLPT","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FLEYHDVRV","ORF8","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FLGRYMSAL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FLKKDAPYI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FLPFAMGII","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FLRDGWEIV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FLVWDHNPIG",NA,NA,"HLA-A*02",1
+"FLYENAFLP","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FMSEAKCWT","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FPDLNGDVV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"FPFTSFGPL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"FPLDVGSIVAY",NA,NA,"HLA-B*35",1
+"FPLKLRGTA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"FPNIHMETC",NA,NA,"HLA-B*35",1
+"FPNITNLCP","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"FPQSAPHGVVF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"FQDYIKSYL","Tyrosinase","Homo sapiens
+(human)","HLA-C*05",1
+"FQVIQPERV",NA,NA,"HLA-A*02",1
+"FRLIARLL",NA,NA,"HLA-C*07",1
+"FRSTRFLHI",NA,NA,"HLA-C*07",1
+"FSASTSAFV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FSAVGDICY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"FSDVTWFHA","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"FSNVTWFHA","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"FSVVGNICY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"FTISVTTEI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FVDGVPFVV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FVFPLNSII","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"FVGPLDEDF",NA,NA,"HLA-C*12",1
+"FVNLEQHVV",NA,NA,"HLA-A*02",1
+"FVVPYMIYLL","PDS5A","Homo sapiens
+(human)","HLA-C*03",1
+"FWITIAYII","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"GAIKLDDKD","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"GARGVGKSAL","KRAS","Homo sapiens
+(human)","HLA-B*07",1
+"GDAALALLL","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"GEEDGAGGHSL","RECQL5","Homo sapiens
+(human)","HLA-B*44",1
+"GLLDEDFYA","UGGT2","Homo sapiens
+(human)","HLA-A*02",1
+"GLNDNLLEI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"GRLKALCQR",NA,NA,"HLA-B*27",1
+"GVYDGREHTV","MAGE-A4","Homo sapiens
+(human)","HLA-A*02",1
+"HFISNSWLM","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"HGAIKLDDK","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"HLLLVAAGL","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"HLRMAGHSL","Membrane glycoprotein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"HPVGDADYFEY","EBNA1","Epstein Barr
+virus (EBV)","",1
+"HQNPVTGLLL","PHKA1","Homo sapiens
+(human)","HLA-B*38",1
+"HRRGSRSYV","gp100","Homo sapiens
+(human)","HLA-C*06",1
+"HSKKKCDEL","Genome polyprotein","Hepatitis C
+virus (HCV)","HLA-B*08",1
+"HSKRKCDEL","polyprotein","Hepatitis C
+virus (HCV)","HLA-B*08",1
+"HSYFTSDYY","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"HTDLMAAYV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"IFFITGNTL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"IFLWLLWPV","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"IITTDNTFV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"ILAKFAHWL",NA,NA,"HLA-A*02",1
+"ILGLPTQTV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"ILLLDQALV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"ILLWQPIPV","Prostatic acid phosphatase","Homo sapiens
+(human)","HLA-A*02",1
+"ILPDPSKPS","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"ILRKGGRTI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"IPLTTAAKL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"IPLTTSSKL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"IQPGQTFSV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"ISQWLTNIF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"ITADVNYNL",NA,NA,"HLA-A*02",1
+"ITNFKSVLY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"ITSGWTFGA","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"IVDTVSALV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"IVNSVLLFL","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"IWDYVNKELA",NA,NA,"HLA-C*04",1
+"KALDYIHHV",NA,NA,"HLA-C*07",1
+"KAYDVTQAF","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KDPQFKDNV","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KIFGSLAFL","ERBB2","Homo sapiens
+(human)","HLA-A*02",1
+"KISEMHPAL","ORF9b","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KIYSKHTPI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KLDDKDPNF","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KLDDKDPQF","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KLIEYTDFA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KLLEIAPNC","large T antigen ","Merkel cell
+polyomavirus
+(MCPyV)","HLA-A*02",1
+"KLLKSIAAT","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KLMPVCVET","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KLNVGDYFV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KLQCVDLHV","KLK3","Homo sapiens
+(human)","HLA-A*02",1
+"KLTESLHKV","AMPH","Homo sapiens
+(human)","HLA-A*02",1
+"KLVALVINAV","NS3","Hepatitis C
+virus (HCV)","HLA-A*02",1
+"KLVNKFLAL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KLVSSFLEM","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KMFDAYVNT","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KMVSLLSVL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KPADNSLKI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"KPAPRELKV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"KPASRELKV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"KPILWRGLK","Condensin-2 complex subunit G2","Homo sapiens
+(human)","",1
+"KPLPEVKIL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"KPVPEVKIL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"KRKEPLKI",NA,NA,"HLA-C*07",1
+"KRWIILGLNK","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-B*27",1
+"KTVGIYPNA","Alpha-N-acetylgalactosaminide alpha-2,6-sialyltransferase 3","Homo sapiens
+(human)","HLA-A*02",1
+"KVAELVHFL","MAGEA3","Homo sapiens
+(human)","HLA-A*02",1
+"KVDGVDVEL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"KVSIWNLDY","ORF6","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"KYTKAFLV",NA,NA,"HLA-A*24",1
+"LAMPFATPM","Cancer/testis antigen 1","Homo sapiens
+(human)","HLA-C*03",1
+"LAVFPNIHM",NA,NA,"HLA-C*03",1
+"LDDKDPNFK","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LDDKDPQFK","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LDRLNQLES","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LFTRFFYVL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"LGLARAFGIPV",NA,NA,"HLA-A*02",1
+"LLDRLNQLE","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LLDTVLVNV",NA,NA,"HLA-A*02",1
+"LLFGKPVYV",NA,NA,"HLA-A*02",1
+"LLFLMSFTV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LLIRWQHFL","SF3B1","Homo sapiens
+(human)","HLA-A*02",1
+"LLLDDFVEI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LLLTILTSL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LLTNMFTPL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LMDMHNGQL","synthetic","synthetic","HLA-A*02",1
+"LMNVLTLFY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"LMWLIINLV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LNKHIDAYK","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LPPSYTNSF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"LPSYAAFAT","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"LQLGFSTGV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LQNNELSPV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LRFLRNGLT",NA,NA,"HLA-C*06",1
+"LRVMMLAPF","UPF0324 inner membrane protein YeiH","Salmonella
+enterica
+subsp.
+enterica
+serovar
+Typhi","HLA-B*27",1
+"LSDAFVSV",NA,NA,"HLA-C*05",1
+"LSDLQDLKW","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"LSDRVVFVL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"LTALRLCAY","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"LTGHMLDMY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"LTSHTVMPL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LTYHGAIKL","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"LVGLMWLSY","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"LYALVYFLH","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"LYALVYFLQ","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"LYKKHTETF",NA,NA,"HLA-A*24",1
+"MASGGGETA","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"MCDIRQLLF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"MCDVRQLLF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"MEVDPIGHLY","MAGE-A3","Homo sapiens
+(human)","HLA-B*18",1
+"MFDAYVNTF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"MIAQYTSAL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"MLFSHGLVK","SKIV2L","Homo sapiens
+(human)","HLA-A*03",1
+"MLIGIPVYV","RNF19B","Homo sapiens
+(human)","HLA-A*24",1
+"MLWCKDGHV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"MMISAGFSL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"MMISAGFSL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"MPNMLRIMA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"MPYGYVLNEF","KIAA0368","Homo sapiens
+(human)","HLA-B*35",1
+"MQLFFSYFA","NSP3","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"MRTHPGRPFF",NA,NA,"HLA-B*39",1
+"MSAFAMMFV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"MSDVKCTSV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"MTEYKLVVVGADGVGKSALTIQLI",NA,NA,"HLA-C*08",1
+"MVNTVAGAMK","ARHGAP35","Homo sapiens
+(human)","HLA-A*68",1
+"NLDAVPTGY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"NLDYIINLI","ORF6","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"NLHPDSATL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"NLQSNHDLY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"NMIHFAPNV","C3 and PZP-like alpha-2-macroglobulin domain-containing protein 8","Homo sapiens
+(human)","HLA-A*02",1
+"NMINFAPNI","CD109 antigen","Homo sapiens
+(human)","HLA-A*02",1
+"NMLRIMASL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"NMMVTNNTF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"NNILIATCV","Protein NPAT","Homo sapiens
+(human)","HLA-A*02",1
+"NPANNASIV","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"NPANNVAIV","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"NSAIGKIQY","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"NTLQCIMLV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"NTLTLAVPY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"PMDSTVKNY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"PTDQSYYIV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"PTDSYITTY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"PVTLACFVL","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"QADVEWKFY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"QEIRTFSF","NS2","Influenza A","HLA-B*18",1
+"QLCDVMFYL","BRAP","Homo sapiens
+(human)","HLA-A*02",1
+"QLCTQHQPY","ORF8","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"QLLFVVEVV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"QMAPISAMV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"QSSPVQATF","Bifunctional coenzyme A synthase","Homo sapiens
+(human)","HLA-A*24",1
+"QTNPVTLQY","HELZ2","Homo sapiens
+(human)","HLA-A*29",1
+"QVELGGGPG","Insulin","Diabetes
+Type 1","HLA-DQ*8",1
+"QVELGGGPGAG","Insulin","Diabetes
+Type 1","HLA-DQ*8",1
+"QVVSDIDYV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"RARLVSPKL","Accessory protein 7a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"RARSVASQSI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"RIAAWMATY","BCL2L1","Homo sapiens
+(human)","HLA-A*03",1
+"RINATLETK","Myosin-6","Homo sapiens
+(human)","HLA-A*03",1
+"RLCAYCCNI","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"RLDKVEAEV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"RLFARTRSM","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"RLGEVRHPV","SF3B1","Homo sapiens
+(human)","HLA-A*02",1
+"RLNEVAKNL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"RLPAKAPLL","ENR","Mycobacterium
+tuberculosis","HLA-E*01",1
+"RLQSLQIYV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"RLSFKELLV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"RLVDPQIQL","ORF9b","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"RLYLDAYNM","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"RMEQVDWTV","synthetic","synthetic","HLA-A*02",1
+"RMYSPVSIL","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-E*01",1
+"RPDTRYVLM","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"RPIPIKYKA",NA,NA,"HLA-B*07",1
+"RPSTAEKYIF",NA,NA,"HLA-B*35",1
+"RQFDITSVSV",NA,NA,"HLA-A*02",1
+"RSDTRYVLM","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"RSGGFSFGK","large T antigen ","Merkel cell
+polyomavirus
+(MCPyV)","HLA-A*03",1
+"RSRRCLRL","ADAMTSL5 protein, partial","Homo sapiens
+(human)","HLA-C*06",1
+"RTAPHGHEL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"RTAPHGHVV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"RTHPGRPFF",NA,NA,"HLA-C*12",1
+"RTIKGTYHW","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"RVRFFFPSL","MAGE-A1","Homo sapiens
+(human)","HLA-B*07",1
+"RVSTLRVSL","GNB5","Homo sapiens
+(human)","HLA-B*07",1
+"RYGSFSVTL","gp100","Homo sapiens
+(human)","HLA-C*07",1
+"RYPLTFGWCF","Nef","Human
+immunodeficiency
+virus (HIV)","HLA-A*24",1
+"SACVLAAEC","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"SANNCTFEY","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"SIIAYTMSL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"SISAFNLDVV",NA,NA,"HLA-A*02",1
+"SLENVAFNV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"SLFNTIAVL","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-A*02",1
+"SLIYSTAAL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"SLLKLGKLPL",NA,NA,"HLA-A*02",1
+"SLLVLVQST","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"SLQPLALEGSL","Insulin","Diabetes
+Type 1","HLA-DQ*8-trans",1
+"SLSKILDTV","ANKRD30A","Homo sapiens
+(human)","HLA-A*02",1
+"SLSSTASAL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"SLTYSTAAL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"SLYNTVATLY","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-A*02",1
+"SMGVTYEM","synthetic","synthetic","HLA-A*02",1
+"SMWALIISV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"SMWSFNPET","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"SPNLAWPLI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"SPRRARSVA","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"SPYNSQNAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+Tor2
+(SARS-CoV-1
+Tor2)","HLA-B*07",1
+"SQLGGLHLL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"SRVLHKLEV",NA,NA,"HLA-C*07",1
+"SSDNIALLV","Membrane protein","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"SSSTCMMCY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"SVLLFLAFV","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"SYMIMEIE","FBXO21","Homo sapiens
+(human)","HLA-C*14",1
+"TALALLLLD","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+1
+(SARS-CoV-1)","HLA-A*02",1
+"TALALLLLD","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TCDGTTFTY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"TDDNALSYY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"TFTYASALW","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"TIHDIILECV","E6","Human
+papillomavirus
+(HPV)","HLA-A*02",1
+"TLATHGLAAV","NSP3","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TLDSKTQSL","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TLGVLVPHV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TLIGDCATV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TLLFLMSFT","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TLMSAMTNL","Prostatic acid phosphatase","Homo sapiens
+(human)","HLA-A*02",1
+"TLREIRRYQK","H3F3B","Homo sapiens
+(human)","HLA-A*03",1
+"TLRGRAYGL",NA,NA,"HLA-B*08",1
+"TLSEQLDFI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TLSGTWLTY","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"TLYSLTLLY","CENPL","Homo sapiens
+(human)","HLA-A*29",1
+"TMCDIRQLL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TMDFYQGQL","synthetic","synthetic","HLA-A*02",1
+"TMMDLVYAL","polyprotein 1ab ","Middle East
+respiratory
+syndrome
+coronavirus
+(MERS-CoV)","HLA-A*02",1
+"TPHTVLQAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"TPQDLNTML","Gag","Human
+immunodeficiency
+virus 1
+(HIV-1)","HLA-B*81",1
+"TQMNLKYAI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TQWSLFFFL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TSAMHTMLF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"TSAMQTMLF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"TSDPTTFHL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"TSNEVAVLY","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"TTEELPDEF","ORF9b","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"TTLNDFNLV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TVSCLPFTI","ORF8","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TVYSHLLLV","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TWLTYTGAI","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"TYASALWEI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"VENPHLMGWD","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*44",1
+"VINGDRWFL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"VIYMGTLSY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"VLGSLAATV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"VLKNRYLVL",NA,NA,"HLA-B*08",1
+"VLLAPLLSA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"VLLGLWYLQTA",NA,NA,"HLA-A*02",1
+"VLLGVKLFGV","COL18A1","Homo sapiens
+(human)","HLA-A*02",1
+"VLLSVLQQL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"VLNGTVHPV","ABCB5","Homo sapiens
+(human)","HLA-A*02",1
+"VLQVRDVLV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"VLSFELLHA","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"VLYENQKLI","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"VMCGGSLYV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"VMDEFIERY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"VMVNHLHKY",NA,NA,"HLA-A*11",1
+"VPGLPGTIL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"VQIISCQY","MED13","Homo sapiens
+(human)","HLA-A*30",1
+"VQIISCQY","MED13","Homo sapiens
+(human)","HLA-B*15",1
+"VSFGLQFQF",NA,NA,"HLA-B*57",1
+"VTDVTQLYL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"VTEHDTLLY","DNA processivity factor","Cytomegalovirus
+(CMV)","HLA-A*01",1
+"VTLAILTAL","Envelope","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"VTWFHAIHV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"VVDKYFDCY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"VVGAVGVGK","KRAS","Homo sapiens
+(human)","HLA-A*11",1
+"VVVGAVGVGK","KRAS","Homo sapiens
+(human)","HLA-A*03",1
+"VVVGAVGVGK","KRAS","Homo sapiens
+(human)","HLA-A*11",1
+"VYFFLPDHL",NA,NA,"HLA-A*24",1
+"VYFLQSINF","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"VYSTGSNVF","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"WLDMVDTSL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"WLIVGVALL","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"WLTNIFGTV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"WLTYHGAIK","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"WLTYTGAIK","Nucleocapsid","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"WMESEFRVY","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"WMRLLPLL","INS","Homo sapiens
+(human)","HLA-B*08",1
+"WPLVSSQCV","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"WSMATYYLF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"WSYDSTLLAY","NBAS","Homo sapiens
+(human)","HLA-A*25",1
+"WTAGAAAYY","Spike","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"WTDNNCYLA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"YIDIGNYTV","ORF8","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"YINVFAFPF","ORF10","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"YLAPGPVTA",NA,NA,"",1
+"YLAVFDKNL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"YLHAYAKAL",NA,NA,"HLA-C*03",1
+"YLNSTNVTI","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"YLNTLTLAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"YLSNIIPAL","RFC5","Homo sapiens
+(human)","HLA-A*02",1
+"YLYDRLLRV","GINS1","Homo sapiens
+(human)","HLA-A*02",1
+"YMHHMELPT","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"YMNGTMSQV","Tyrosinase","Homo sapiens
+(human)","HLA-A*02",1
+"YMPYFFTLL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"YMPYIFTLL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"YMRSLKVPA","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"YPLECIKDL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-B*07",1
+"YPLHEQHGM","EBNA3A","Epstein Barr
+virus (EBV)","HLA-B*35",1
+"YQVNGYPNM","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"YTACSHAAV","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"YTDFATSAC","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"YTDFSSEII","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"YTDINGNLH","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"YTERSEKSY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"YTNDKACPL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"YTPSKLIEY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"YVFCTVNAL","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*02",1
+"YVFHLYLQY","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*01",1
+"YYKKDNSYF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"YYQLYSTQL","ORF3a","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"YYRYNLPTM","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1
+"YYTSNPTTF","ORF1ab","Severe acute
+respiratory
+syndrome
+coronavirus
+2
+(SARS-CoV-2)","HLA-A*24",1

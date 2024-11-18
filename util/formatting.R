@@ -214,7 +214,7 @@ formatVJCDR3 <- function(data) {
 }
 
 # Convert to V/J gene + CDR3 + Epitope format (ERGOII)
-    formatERGOII <- function(data, epitope) {
+formatERGOII <- function(data, epitope) {
     data <- filterVJCDR3(data)
     data <- data %>%
         select(clone.id, AV, CDR3a, AJ, BV, CDR3b, BJ) %>% 

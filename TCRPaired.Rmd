@@ -162,10 +162,21 @@ cat("### Paired-chain receptor data: distinct, non-empty CDR sequence + epitope 
 all.reference.distinct.cdrs <- all.reference.distinct %>%
     filterCDRSeq()
 glimpse(all.reference.distinct.cdrs)
-data.frame(Distinct_values = sapply(all.reference.distinct.cdrs, function(x) length(unique(x))))
+(distinct.values <- data.frame(Distinct_values = sapply(all.reference.distinct.cdrs, function(x) length(unique(x)))))
+
+# Method contributions
+(size.table <- data.frame(Source = c("All", "IEDB", "McPAS", "VDJdb", "Private sources\n(Chan Medical College)"), 
+    Count = c(nrow(all.reference.distinct.cdrs), 
+        nrow(all.reference.distinct.cdrs %>% filter(str_detect(clone.id, "iedb_"))),
+        nrow(all.reference.distinct.cdrs %>% filter(str_detect(clone.id, "mcpas_"))),
+        nrow(all.reference.distinct.cdrs %>% filter(str_detect(clone.id, "vdj_"))),
+        nrow(all.reference.distinct.cdrs %>% filter(str_detect(clone.id, "chan_"))))))
+        
 
 write.csv(all.reference.distinct, "./paired-data/all-distinct-paired-sequences.csv", row.names = FALSE)
 write.csv(all.reference.distinct.cdrs, "./paired-data/all-distinct-cdr-paired-sequences.csv", row.names = FALSE)
+write.csv(distinct.values, "./paired-data/all-distinct-cdr-distinct-values.csv")
+write.csv(size.table, "./paired-data/all-distinct-cdr-method-contributions.csv", row.names = FALSE)
 
 
 ```
@@ -181,9 +192,18 @@ High-confidence data is defined as data with a VDJdb score at or greater than a 
 high.confidence <- all.reference.distinct.cdrs %>%
     filterConfidence(score = 1, "chan", "iedb", "mcpas")
 glimpse(high.confidence)
-data.frame(Distinct_values = sapply(high.confidence, function(x) length(unique(x))))
+(distinct.values <- data.frame(Distinct_values = sapply(high.confidence, function(x) length(unique(x)))))
+
+(size.table <- data.frame(Source = c("All", "IEDB", "McPAS", "VDJdb", "Private sources\n(Chan Medical College)"), 
+    Count = c(nrow(high.confidence), 
+        nrow(high.confidence %>% filter(str_detect(clone.id, "iedb_"))),
+        nrow(high.confidence %>% filter(str_detect(clone.id, "mcpas_"))),
+        nrow(high.confidence %>% filter(str_detect(clone.id, "vdj_"))),
+        nrow(high.confidence %>% filter(str_detect(clone.id, "chan_"))))))
 
 write.csv(high.confidence, "./paired-data/high-confidence-paired-sequences.csv", row.names = FALSE)
+write.csv(distinct.values, "./paired-data/high-confidence-distinct-values.csv")
+write.csv(size.table, "./paired-data/high-confidence-method-contributions.csv", row.names = FALSE)
 
 ```
 
@@ -198,16 +218,35 @@ compare.cdrs <- all.reference.distinct.cdrs %>%
 
 cat("#### 90% CDR3 sequence similarity")
 similarity.90 <- filterSequenceSimilarity(compare.cdrs, "Compare", 0.9)
-data.frame(Distinct_values = sapply(similarity.90, function(x) length(unique(x))))
+(distinct.values <- data.frame(Distinct_values = sapply(similarity.90, function(x) length(unique(x)))))
+write.csv(distinct.values, "./paired-data/cdr3-similarity-distinct-values.csv")
+
+size.table <- data.frame(Source = c("All", "IEDB", "McPAS", "VDJdb", "Private sources\n(Chan Medical College)"), 
+    Count = c(nrow(similarity.90), 
+        nrow(similarity.90 %>% filter(str_detect(clone.id, "iedb_"))),
+        nrow(similarity.90 %>% filter(str_detect(clone.id, "mcpas_"))),
+        nrow(similarity.90 %>% filter(str_detect(clone.id, "vdj_"))),
+        nrow(similarity.90 %>% filter(str_detect(clone.id, "chan_"))))
+)
+write.csv(size.table, "./paired-data/cdr3-similarity-method-contributions.csv", row.names = FALSE)
 
 cat("#### 75% CDR3 sequence similarity")
 similarity.75 <- filterSequenceSimilarity(compare.cdrs, "Compare", 0.75)
-data.frame(Distinct_values = sapply(similarity.75, function(x) length(unique(x))))
+(distinct.values <- data.frame(Distinct_values = sapply(similarity.75, function(x) length(unique(x)))))
+write.csv(distinct.values, "./paired-data/cdr3-similarity-75-distinct-values.csv")
+
+size.table <- data.frame(Source = c("All", "IEDB", "McPAS", "VDJdb", "Private sources\n(Chan Medical College)"), 
+    Count = c(nrow(similarity.75), 
+        nrow(similarity.75 %>% filter(str_detect(clone.id, "iedb_"))),
+        nrow(similarity.75 %>% filter(str_detect(clone.id, "mcpas_"))),
+        nrow(similarity.75 %>% filter(str_detect(clone.id, "vdj_"))),
+        nrow(similarity.75 %>% filter(str_detect(clone.id, "chan_"))))
+)
+write.csv(size.table, "./paired-data/cdr3-similarity-75-method-contributions.csv", row.names = FALSE)
 
 
 write.csv(similarity.90 %>% select(-Compare), "./paired-data/cdr3-similarity-90-paired-sequences.csv", row.names = FALSE)
 write.csv(similarity.75 %>% select(-Compare), "./paired-data/cdr3-similarity-75-paired-sequences.csv", row.names = FALSE)
-
 
 ```
 
