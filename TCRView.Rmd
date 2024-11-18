@@ -299,12 +299,13 @@ vj.table <- vj.set %>%
     ungroup() %>%
     mutate(`Gene Segment` = paste0(`Gene Segment`, ": ", `Gene Segment Count`, " alleles")) %>%
     select(-`Gene Segment Count`) %>%
-    arrange(`Gene Segment`)
+    arrange(`Gene Segment`) %>%
+    distinct(Allele, Gene, `Gene Family`, .keep_all = TRUE) 
 
-write.csv(vj.table %>% filter(str_detect(Allele, "AV")) %>% select(-"Gene Segment") %>% arrange(desc("Allele Count")), file = paste0(out.path, "av-gene-table.csv"), row.names = FALSE)
-write.csv(vj.table %>% filter(str_detect(Allele, "AJ")) %>% select(-"Gene Segment") %>% arrange(desc("Allele Count")), file = paste0(out.path, "aj-gene-table.csv"), row.names = FALSE)
-write.csv(vj.table %>% filter(str_detect(Allele, "BV")) %>% select(-"Gene Segment") %>% arrange(desc("Allele Count")), file = paste0(out.path, "bv-gene-table.csv"), row.names = FALSE)
-write.csv(vj.table %>% filter(str_detect(Allele, "BJ")) %>% select(-"Gene Segment") %>% arrange(desc("Allele Count")), file = paste0(out.path, "bj-gene-table.csv"), row.names = FALSE)
+write.csv(vj.table %>% filter(str_detect(Allele, "AV")) %>% select(-"Gene Segment") %>% ungroup() %>% arrange(desc(`Allele Count`)), file = paste0(out.path, "av-gene-table.csv"), row.names = FALSE)
+write.csv(vj.table %>% filter(str_detect(Allele, "AJ")) %>% select(-"Gene Segment") %>% arrange(desc(`Allele Count`)), file = paste0(out.path, "aj-gene-table.csv"), row.names = FALSE)
+write.csv(vj.table %>% filter(str_detect(Allele, "BV")) %>% select(-"Gene Segment") %>% arrange(desc(`Allele Count`)), file = paste0(out.path, "bv-gene-table.csv"), row.names = FALSE)
+write.csv(vj.table %>% filter(str_detect(Allele, "BJ")) %>% select(-"Gene Segment") %>% arrange(desc(`Allele Count`)), file = paste0(out.path, "bj-gene-table.csv"), row.names = FALSE)
 
 datatable(vj.table, extensions=c('Scroller', 'RowGroup'), 
     options = list(dom='t', scrollX=TRUE, deferRender=TRUE, scrollY=200, scroller=TRUE, 
