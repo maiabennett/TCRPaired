@@ -196,7 +196,8 @@ plotVJFamily <- function(data, plotly = TRUE, filter.by = NULL, option = "viridi
     data <- data %>% 
         pivotVJData()  %>% 
         add_count(`Gene Family`, name = "Count") %>%
-        ungroup()
+        ungroup() %>% 
+        mutate(`Gene Family` = as.character(`Gene Family`))
 
     plot <- ggplot(data, 
         aes(x = `Gene Family`, fill = `Gene Family`)) +
@@ -660,6 +661,66 @@ plotCDR3SeqLength <- function(data, color.by = "Epitope", plotly = TRUE, filter.
     }
 }
 
+# Density plot of max similarity in CDR3a and CDR3b
+plotCDR3SimilarityDistribution <- function(data, plotly = TRUE, filter.by = NULL, top = NULL, option = "mako", begin = 0.2, end = 0.8) {
+
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+
+    plot <- ggplot(data, aes(x = CDR3a.max.similarity, fill = "CDR3a")) +
+        geom_density(alpha = 0.5) +
+        geom_density(aes(x = CDR3b.max.similarity, fill = "CDR3b"), alpha = 0.5) +
+        scale_fill_viridis_d(option = option, begin = begin, end = end) +
+        theme_minimal() +
+        labs(title = "Max CDR3 Similarity Density",
+                x = "Max Similarity",
+                y = "Density")
+
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
+}
+
+# Box plot of max similarity in CDR3a and CDR3b
+plotCDR3SimilarityByFactor <- function(data, plotly = TRUE, filter.by = NULL, top = NULL, group.by = NULL, option = "mako", begin = 0.2, end = 0.8) {
+
+    if (!is.null(filter.by)) {
+        filter.expression <- rlang::parse_expr(filter.by)
+        data <- data %>% filter(!!filter.expression)
+    }
+
+    group.by.sym <- sym(group.by)
+
+    data <- data %>% mutate(!!group.by.sym := ifelse(!!group.by.sym %in% (data %>% count(!!group.by.sym) %>% 
+        slice_max(order_by = n, n = 10) %>% pull(!!group.by.sym )), !!group.by.sym, "Other"))
+
+    data <- data %>%
+        pivot_longer(cols = c(CDR3a.max.similarity, CDR3b.max.similarity), names_to = "CDR3.chain", values_to = "CDR3.similarity")
+
+    plot <- ggplot(data, aes_string(x = group.by, y = "CDR3.similarity", fill = "CDR3.chain")) +
+        geom_boxplot() +
+        scale_fill_viridis_d(option = option, begin=begin, end=end, alpha=0.5) +
+        theme_minimal() +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1),
+              axis.title.x = element_blank(),
+              legend.position = "none") +
+        labs(title = "CDR3a Similarity",
+                x = group.by,
+                y = "Max. similarity")
+
+    if (plotly) {
+        plot <- ggplotly(plot)
+        return(plot)
+    } else {
+        return(plot)
+    }
+}
+
 
 ## Plotting functions for full sequence clustering
 plotFullSeqClusterResults <- function(data, plotly = TRUE, filter.by = NULL, color = NULL, top = NULL, top.col = NULL, threshold = NULL, threshold.col = NULL, highlight = NULL, option = "viridis", begin = 0, end = 1) {
@@ -839,7 +900,7 @@ plotCountDistribution <- function(data, column, option = "viridis") {
         add_count(!!sym(column), name = "Count") %>%
         distinct(!!sym(column), .keep_all = TRUE)
     plot <- ggplot(data, aes(x = Count)) +
-        geom_density(color = viridis(1, option = option, begin = begin, end = end)) + 
+        geom_density(color = viridis(1, option = option, begin = begin, end = end), fill = viridis(1, option = option, begin = begin, end = end), alpha = 0.7) + 
         theme_minimal() +
         scale_x_log10() +
         labs(title = paste0(column, " Count Distribution"),
@@ -859,7 +920,7 @@ plotCountDistributionByFactor <- function(data, column, group.by, option = "viri
             add_count(!!group.by.sym, name = paste0(group.by, " count")) %>%
             distinct(!!column.sym, !!group.by.sym, .keep_all = TRUE) %>%
             na.omit()
-    plot <- ggplot(data, aes(x = !!column.n.sym, color = !!group.by.sym)) +
+    plot <- ggplot(data, aes(x = !!column.n.sym, color = !!group.by.sym, fill = !!group.by.sym)) +
         geom_density() + 
         theme_minimal() +
         scale_x_log10() +

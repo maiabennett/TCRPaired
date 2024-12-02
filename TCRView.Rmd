@@ -130,7 +130,8 @@ datatable((epitope.table %>%
 ```{r epitope-count-dist}
 
 # Epitope count distribution
-plotEpitopeCountDistribution(tcr.view.set, plotly = plotly, filter.by = filter.by, option = option)
+plotEpitopeCountDistribution(tcr.view.set, plotly = plotly, filter.by = filter.by, option = option) 
+ggsave(paste0(out.path, "epitope-count-distribution.png"), width=10, height=5)
 
 # Epitope count distribution per epitope species (top species, all other as "Other")
 plotEpitopeCountDistribution(tcr.view.set, group.by = group.by, top = top, plotly = plotly, filter.by = filter.by, option = option, begin = begin, end = end)
@@ -142,7 +143,22 @@ plotEpitopeComposition(tcr.view.set, plotly = plotly, filter.by = filter.by, opt
 plotEpitopeComposition(tcr.view.set, group.by = group.by, top = top, plotly = plotly, filter.by = filter.by, option = option, begin = begin, end = end)
 
 # All epitope species
-plotEpitopeSpeciesComposition(tcr.view.set, plotly = plotly, filter.by = filter.by, option = option, begin = begin, end = end)
+plotEpitopeSpeciesComposition(tcr.view.set %>% 
+    mutate(Epitope.species = ifelse(str_detect(Epitope.species, "SARS-CoV-2"), 
+        "Severe acute\nrespiratory syndrome\ncoronavirus 2 (SARS-CoV-2)", 
+        Epitope.species), 
+    Epitope.species = ifelse(str_detect(Epitope.species, "SARS-CoV-1"), 
+        "Severe acute\nrespiratory syndrome\ncoronavirus 1 (SARS-CoV-1)", 
+        Epitope.species),
+    Epitope.species = ifelse(str_detect(Epitope.species, "Salmonella"), 
+        "Salmonella enterica", 
+        Epitope.species),
+    Epitope.species = ifelse(str_detect(Epitope.species, "\\("), 
+        str_extract(Epitope.species, "(?<=\\().+?(?=\\))"), 
+        Epitope.species)), 
+    plotly = plotly, filter.by = filter.by, option = option, begin = begin, end = end) + 
+    theme(title = element_text(size = 14), axis.text.x = element_text(size=12))
+ggsave(paste0(out.path, "epitope-species-composition.png"), width=12, height=6)
 
 ```
 
@@ -245,10 +261,14 @@ plotMHCAlleleCountDistribution(tcr.view.set, group.by = group.by, plotly = plotl
 
 # MHC composition
 # MHC locus
-plotMHCLocusComposition(tcr.view.set, plotly = plotly, filter.by = filter.by, option = option, begin = begin, end = end)
+plotMHCLocusComposition(tcr.view.set, plotly = plotly, filter.by = filter.by, option = option, begin = begin, end = end) + 
+    theme(title = element_text(size = 14), axis.text.x = element_text(size=14))
+ggsave(paste0(out.path, "mhc-locus-composition.png"), width=12, height=6)
 
 # MHC allele
-plotMHCAlleleComposition(tcr.view.set, plotly = plotly, filter.by = filter.by, option = option, begin = begin, end = end)
+plotMHCAlleleComposition(tcr.view.set, plotly = plotly, filter.by = filter.by, option = option, begin = begin, end = end) + 
+    theme(title = element_text(size = 14), axis.text.x = element_text(size=14))
+ggsave(paste0(out.path, "mhc-allele-composition.png"), width=12, height=6)
 
 # MHC, by loci
 plotMHCComposition(tcr.view.set, plotly = plotly, filter.by = filter.by, group.by = group.by, option = option, begin = begin, end = end)
@@ -358,16 +378,12 @@ plotVJAllele(tcr.view.set, plotly = plotly, filter.by = filter.by, option = opti
 plotVJGene(tcr.view.set, plotly = plotly, filter.by = filter.by, option = option, begin = begin, end = end)
 
 # VJ gene families
-plotVJFamily(tcr.view.set, plotly = plotly, filter.by = filter.by, option = option, begin = begin, end = end)
+plotVJFamily(tcr.view.set, plotly = plotly, filter.by = filter.by, option = option, begin = begin, end = end) + 
+    theme(title = element_text(size = 14), axis.text.x = element_text(size=12), strip.text = element_text(size = 14))
+ggsave(paste0(out.path, "vj-family-composition.png"), width=20, height=8)
 
 ```
 
-```{r vj-sankey}
-
-# V J gene profile sankey diagrams
-
-
-```
 
 #### Sequence
 
@@ -456,51 +472,23 @@ plotCDR3SeqLength(tcr.view.set, color.by = "MHC.locus", plotly = plotly, filter.
 
 # CDR3a sequence similarity
 tcr.view.set <- computeSimilarity(tcr.view.set, tcr.view.set$CDR3a, tcr.view.set$CDR3a) %>%
-    dplyr::rename(CDR3a.similarity = similarity.level, CDR3a.max.similarity = max.similarity.level)
+    select(-dist.matrix, -similarity.level) %>%
+    dplyr::rename(CDR3a.max.similarity = max.similarity.level)
 
 # CDR3b sequence similarity
 tcr.view.set <- computeSimilarity(tcr.view.set, tcr.view.set$CDR3b, tcr.view.set$CDR3b) %>%
-    dplyr::rename(CDR3b.similarity = similarity.level, CDR3b.max.similarity = max.similarity.level)
-
-# Heatmap of CDR3a and CDR3b
-# Heatmap of CDR3a similarity
-similarity_matrix_a <- tcr.view.set %>%
-    select(CDR3a.similarity) %>%
-    pivot_wider(names_from = CDR3a.similarity, values_from = CDR3a.similarity)
-
-# Melt the similarity matrix for ggplot2
-melted_similarity_a <- melt(similarity_matrix_a)
-
-# Plot the heatmap for CDR3a
-ggplot(data = melted_similarity_a, aes(x = Var1, y = Var2, fill = value)) +
-    geom_tile() +
-    scale_fill_gradient(low = "blue", mid = "white", high = "red") +
-    theme_minimal() +
-    labs(title = "CDR3a Similarity Heatmap", x = "CDR3a", y = "CDR3a", fill = "Similarity")
-
-# Heatmap of CDR3b similarity
-similarity_matrix_b <- tcr.view.set %>%
-    select(CDR3b.similarity) %>%
-    pivot_wider(names_from = CDR3b.similarity, values_from = CDR3b.similarity)
-
-# Melt the similarity matrix for ggplot2
-melted_similarity_b <- melt(similarity_matrix_b)
-
-# Plot the heatmap for CDR3b
-ggplot(data = melted_similarity_b, aes(x = Var1, y = Var2, fill = value)) +
-    geom_tile() +
-    scale_fill_gradient(low = "blue", mid = "white", high = "red") +
-    theme_minimal() +
-    labs(title = "CDR3b Similarity Heatmap", x = "CDR3b", y = "CDR3b", fill = "Similarity")
+    select(-dist.matrix, -similarity.level) %>%
+    dplyr::rename(CDR3b.max.similarity = max.similarity.level)
 
 # Density plot of max similarity in CDR3a and CDR3b
-tcr.view.set %>%
-    ggplot(aes(x = CDR3a.max.similarity, fill = "CDR3a")) +
-    geom_density(alpha = 0.5) +
-    geom_density(aes(x = CDR3b.max.similarity, fill = "CDR3b"), alpha = 0.5) +
-    scale_fill_viridis_d(option = "plasma") +
-    theme_minimal() +
-    labs(title = "Max CDR3 Similarity Density", x = "Max Similarity", y = "Density")
+plotCDR3SimilarityDistribution(tcr.view.set, plotly = plotly, filter.by = filter.by, option = "mako", begin=0.2, end=0.8) +
+    theme(title = element_text(size = 14), axis.text.x = element_text(size=12))
+ggsave(paste0(out.path, "max-similarity-density.png"), width=12, height=6)
+
+# Box plot per top epitopes
+plotCDR3SimilarityByFactor(tcr.view.set, group.by = "Epitope", top = top, plotly = plotly, filter.by = filter.by, option = "mako", begin=0.2, end=0.8) +
+    theme(title = element_text(size = 14), axis.text.x = element_text(size=14))
+ggsave(paste0(out.path, "max-similarity-boxplot.png"), width=12, height=6)
 
 ```
 
@@ -633,6 +621,7 @@ plotFullSeqClusterResults(tcr.view.set, plotly = plotly, highlight = "Epitope.sp
 if (save) {
     write.csv(tcr.view.set, file = paste0(out.path, "TCRView-data.csv"), row.names = FALSE)
 }
+
 
 ```
 

@@ -4,3 +4,6 @@ plotting-old.R
 
 # Ignore .conda
 .conda
+view-data/high-confidence-data/TCRView-data-new
+view-data/high-confidence-similarity-90-data/TCRView-data
+view-data/high-confidence-data/TCRView-data-new.csv
